@@ -6,18 +6,9 @@ class Transform;
 
 class Model
 {
-public:
-	enum class Anime
-	{
-		Idle,
-		Run,
-
-		Length,
-	};
-
 private:
 	std::vector<ModelAnimation*> m_animeList;	//アニメーション配列
-	ModelAnimation* m_prevAnime;					//以前のアニメ
+	ModelAnimation* m_prevAnime;				//以前のアニメ
 	ModelAnimation* m_nowAnime;					//現在のアニメ
 	float m_elapsedTime;					//経過時間(秒)
 	int m_modelHandle;						//モデルのID
@@ -47,4 +38,10 @@ public:
 
 	//アニメーションの切り替え
 	void PlayAnime(int animeIndex);
+
+	//モデルの識別番号を取得
+	int GetModelHandle()
+	{
+		return m_modelHandle;
+	}
 };

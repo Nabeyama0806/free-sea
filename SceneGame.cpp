@@ -22,7 +22,11 @@ void SceneGame::Initialize()
 	m_rootNode->AddChild(m_mainCamera);
 
 	//背景
-	m_rootNode->AddChild(new ModelActor("Ground", "Environment/Environment.mv1"));
+	m_map = new ModelActor("Ground", "Environment/Ground.mv1");
+	m_mesh = new ModelActor("Mesh", "Environment/Ground_Mesh.mv1");
+	MV1SetupCollInfo(m_mesh->GetModelHandle(), -1);
+	m_rootNode->AddChild(m_map);
+	m_rootNode->AddChild(m_mesh);
 
 	//アクターレイヤー
 	Node* actorLayer = new Node();
@@ -33,7 +37,7 @@ void SceneGame::Initialize()
 	m_rootNode->AddChild(uiLayer);
 
 	//プレイヤー
-	m_player = new Player(m_mainCamera);
+	m_player = new Player(m_mainCamera, m_map->GetModelHandle());
 	m_rootNode->AddChild(m_player);
 	m_mainCamera->SetLookAt(m_player);
 
@@ -58,6 +62,8 @@ SceneBase* SceneGame::Update()
 {
 	//ノードの更新
 	m_rootNode->TreeUpdate();
+	MV1RefreshCollInfo(m_map->GetModelHandle(), -1);
+
 	return this;
 }
 

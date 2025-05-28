@@ -1,6 +1,7 @@
 #pragma once
 #include "ActorBase.h"
 #include "Transform.h"
+#include "Model.h"
 #include <string>
 
 class Model;
@@ -31,4 +32,9 @@ public:
 
 	//Õ“ËƒCƒxƒ“ƒg
 	virtual void OnCollision(const ModelActor* other) {}
+
+	int GetModelHandle()
+	{
+		return m_model->GetModelHandle();
+	}
 };

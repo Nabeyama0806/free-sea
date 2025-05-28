@@ -7,6 +7,7 @@
 class Node;
 class Player;
 class Camera;
+class ModelActor;
 
 //	ゲームシーン
 class SceneGame : public SceneBase
@@ -22,14 +23,20 @@ private:
 	Player* m_player;	//プレイヤー
 	Camera* m_mainCamera;	//プレイヤー
 
+	ModelActor* m_map;
+	ModelActor* m_mesh;	
+
 	Vector3 cameraPos = Vector3(0, 0, -700);
 
 	float m_resultTransitionTime;
 	int m_bgm;
+
 public:
 	//コンストラクタ
 	SceneGame() :
 		m_rootNode(nullptr), 
+		m_map(nullptr),
+		m_mesh(nullptr),
 		m_player(nullptr),
 		m_mainCamera(nullptr),
 		m_resultTransitionTime(ResultTransitionTime),

@@ -1,12 +1,15 @@
 #include "GameMain.h"
 #include "DxLib.h"
 
-int WINAPI WinMain(_In_ HINSTANCE hInstace, _In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
+    _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-	//ゲームの起動                
-	GameMain gameMain;	
-	gameMain.Run();
+    // ここでprintfが使える
+    printf("Hello, Console!\n");
 
-	return 0;
+    // ゲームの起動
+    GameMain gameMain;
+    gameMain.Run();
+
+    return 0;
 }

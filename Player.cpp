@@ -5,10 +5,13 @@
 #include "ModelLoader.h"
 #include "ModelAnimation.h"
 
+bool hit = false;
+
 //コンストラクタ
-Player::Player(Camera* camera) :
+Player::Player(Camera* camera, int mapModelHundle) :
 	ModelActor("Player"),
-	m_camera(camera)
+	m_camera(camera),
+	m_map(mapModelHundle)
 {
 	//アニメーションの登録
 	m_model = new Model("Man/Man.mv1");
@@ -26,6 +29,8 @@ Player::Player(Camera* camera) :
 //更新
 void Player::Update()
 {
+	 
+
 	//本来の更新
 	ModelActor::Update();
 
@@ -44,7 +49,7 @@ void Player::Update()
 	//カメラの向きを考慮した移動量
 	move = cameraForward * move.z + m_camera->GetRight() * move.x;
 
-	int animeIndex = static_cast<int>(Model::Anime::Idle);
+	int animeIndex = static_cast<int>(Anime::Idle);
 	if (!move.IsZero())
 	{
 		move.Normalize();
@@ -55,13 +60,27 @@ void Player::Update()
 			Quaternion::LookRotation(move),
 			0.2f);
 
-		animeIndex = static_cast<int>(Model::Anime::Run);
+		animeIndex = static_cast<int>(Anime::Run);
 	}
 	
 	m_model->PlayAnime(animeIndex);
+
+	MV1RefreshCollInfo(m_model->GetModelHandle(), -1);
+
+	//当たっていないとき
+	if (MV1CollCheck_Line(m_map, -1, m_transform.position + Vector3(0, 50, 0), m_transform.position - Vector3(0, 50, 0)).HitFlag == 1)
+	{
+		hit = true;
+	}
+	else
+	{
+		hit = false;
+	}
 }
 
 void Player::Draw()
 {
 	ModelActor::Draw();
+	if (!hit) DrawLine3D(m_transform.position + Vector3(0, 50, 0), m_transform.position - Vector3(0, 50, 0), GetColor(255, 255, 0));
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "HIT:%d", hit);
 }

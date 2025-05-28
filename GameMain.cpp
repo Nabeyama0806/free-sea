@@ -1,3 +1,6 @@
+#include <windows.h>
+#include <stdio.h>
+
 #include "GameMain.h"
 #include "GameConfig.h"
 #include "Screen.h"

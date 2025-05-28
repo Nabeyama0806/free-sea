@@ -25,7 +25,7 @@ Model::Model(const char* modelFileName) :
 void Model::Load()
 {
 	m_modelHandle = ModelLoader::GetInstance()->Load(m_modelFileName);
-	MV1SetupCollInfo(m_modelHandle, 0, 8, 8, 8);
+	MV1SetupCollInfo(m_modelHandle, -1, 8, 8, 8);
 	for (auto anime : m_animeList)
 	{
 		anime->Load(m_modelHandle);
