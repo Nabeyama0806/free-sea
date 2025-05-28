@@ -30,9 +30,7 @@ int LoaderBase::Load(const char* path)
 	}
 	else
 	{
-		//V‹K‚Éƒ[ƒh‚µ‚Ä“o˜^‚·‚é
-
-		//ƒ[ƒh
+		//V‹Kƒ[ƒh
 		int id = LoadResource(path);
 
 		//“o˜^

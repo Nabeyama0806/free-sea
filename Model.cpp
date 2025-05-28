@@ -25,7 +25,6 @@ Model::Model(const char* modelFileName) :
 void Model::Load()
 {
 	m_modelHandle = ModelLoader::GetInstance()->Load(m_modelFileName);
-	MV1SetupCollInfo(m_modelHandle, -1, 8, 8, 8);
 	for (auto anime : m_animeList)
 	{
 		anime->Load(m_modelHandle);
@@ -74,14 +73,12 @@ void Model::Draw(const Transform& transform)
 //アニメーション登録
 void Model::Register(const char* animeFileName)
 {
+	//アニメーションの作成
 	ModelAnimation* anime = new ModelAnimation(animeFileName, m_animeList.empty());
 
 	//リストに登録
 	m_animeList.push_back(anime);
-	if (!m_nowAnime)
-	{
-		m_nowAnime = anime;
-	}
+	if (!m_nowAnime) m_nowAnime = anime;
 }
 
 //アニメーションの切り替え

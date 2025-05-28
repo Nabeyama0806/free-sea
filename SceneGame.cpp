@@ -1,14 +1,10 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
-#include "Screen.h"
 #include "Input.h"
 #include "Node.h"
 #include "Time.h"
-#include "Fade.h"
 #include "Camera.h"
 #include "Player.h"
-#include "ImageLoader.h"
-#include "ModelLoader.h"
 #include "DxLib.h"
 
 //初期化
@@ -23,10 +19,8 @@ void SceneGame::Initialize()
 
 	//背景
 	m_map = new ModelActor("Ground", "Environment/Ground.mv1");
-	m_mesh = new ModelActor("Mesh", "Environment/Ground_Mesh.mv1");
-	MV1SetupCollInfo(m_mesh->GetModelHandle(), -1);
+	MV1SetupCollInfo(m_map->GetModelHandle(), -1);
 	m_rootNode->AddChild(m_map);
-	m_rootNode->AddChild(m_mesh);
 
 	//アクターレイヤー
 	Node* actorLayer = new Node();
@@ -62,7 +56,6 @@ SceneBase* SceneGame::Update()
 {
 	//ノードの更新
 	m_rootNode->TreeUpdate();
-	MV1RefreshCollInfo(m_map->GetModelHandle(), -1);
 
 	return this;
 }

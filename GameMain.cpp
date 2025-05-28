@@ -1,6 +1,3 @@
-#include <windows.h>
-#include <stdio.h>
-
 #include "GameMain.h"
 #include "GameConfig.h"
 #include "Screen.h"
@@ -9,7 +6,6 @@
 #include "Input.h"
 #include "Time.h"
 #include "Fade.h"
-#include "ImageLoader.h"
 #include "DxLib.h"
 
 //デストラクタ
@@ -74,12 +70,6 @@ void GameMain::Run()
 		//シーンの描画
 		m_sceneManager->Draw();
 
-#ifdef _DEBUG
-		//衝突形状の描画
-
-		//画像ローダー
-		//ImageLoader::GetInstance()->Draw();
-#endif
 		//フェード
 		Fade::GetInstance()->Update(m_screen);
 

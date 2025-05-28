@@ -18,7 +18,8 @@ private:
 		Length,
 	};
 
-	static constexpr Vector3 SpawnOffset = Vector3(0, 0, 400);	//開始時の座標
+	static constexpr Vector3 RayPos = Vector3(0, 20, 0);		//接地判定用の線のオフセット
+	static constexpr Vector3 SpawnPos = Vector3(0, 0, 0);		//開始時の座標
 	static constexpr Vector3 Scale = Vector3(1.0f, 1.0f, 1.0f);	//自身のサイズ
 	static constexpr float Speed = 7.5f * Scale.y;	//自身のサイズに合せた移動速度
 	static constexpr float DashSpeed = 1.4f;		//ダッシュ時の速度倍率
@@ -31,7 +32,8 @@ private:
 	};
 
 	Camera* m_camera;
-	int m_map;
+	int m_mapModelHandle;	//マップの識別番号
+	bool m_isGrounded;		//床との接触判定
 
 protected:
 	virtual void Update() override;	//更新
@@ -39,5 +41,5 @@ protected:
 
 public:
 	//コンストラクタ
-	Player(Camera* camera, int mapModelHundle);
+	Player(Camera* camera, int mapModelHandle);
 };

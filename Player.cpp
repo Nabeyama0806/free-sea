@@ -5,13 +5,12 @@
 #include "ModelLoader.h"
 #include "ModelAnimation.h"
 
-bool hit = false;
-
 //コンストラクタ
-Player::Player(Camera* camera, int mapModelHundle) :
+Player::Player(Camera* camera, int mapModelHandle) :
 	ModelActor("Player"),
 	m_camera(camera),
-	m_map(mapModelHundle)
+	m_isGrounded(false),
+	m_mapModelHandle(mapModelHandle)
 {
 	//アニメーションの登録
 	m_model = new Model("Man/Man.mv1");
@@ -22,15 +21,13 @@ Player::Player(Camera* camera, int mapModelHundle) :
 	}
 
 	//姿勢情報の調整
-	m_transform.position = SpawnOffset;
+	m_transform.position = SpawnPos;
 	m_transform.scale = Scale;
 }
 
 //更新
 void Player::Update()
 {
-	 
-
 	//本来の更新
 	ModelActor::Update();
 
@@ -65,22 +62,15 @@ void Player::Update()
 	
 	m_model->PlayAnime(animeIndex);
 
-	MV1RefreshCollInfo(m_model->GetModelHandle(), -1);
+	//接地判定
+	m_isGrounded = MV1CollCheck_Line(m_mapModelHandle, -1, m_transform.position + RayPos, m_transform.position - RayPos).HitFlag == 1 ? true : false;
 
-	//当たっていないとき
-	if (MV1CollCheck_Line(m_map, -1, m_transform.position + Vector3(0, 50, 0), m_transform.position - Vector3(0, 50, 0)).HitFlag == 1)
-	{
-		hit = true;
-	}
-	else
-	{
-		hit = false;
-	}
+	if (!m_isGrounded) m_transform.position = SpawnPos;
 }
 
 void Player::Draw()
 {
 	ModelActor::Draw();
-	if (!hit) DrawLine3D(m_transform.position + Vector3(0, 50, 0), m_transform.position - Vector3(0, 50, 0), GetColor(255, 255, 0));
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "HIT:%d", hit);
+	if (!m_isGrounded) DrawLine3D(m_transform.position + RayPos, m_transform.position - RayPos, GetColor(255, 255, 0));
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "HIT:%d", m_isGrounded);
 }

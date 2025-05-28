@@ -33,6 +33,7 @@ public:
 	//衝突イベント
 	virtual void OnCollision(const ModelActor* other) {}
 
+	//モデルの識別番号を取得
 	int GetModelHandle()
 	{
 		return m_model->GetModelHandle();

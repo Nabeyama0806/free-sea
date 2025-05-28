@@ -27,7 +27,6 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="GameConfig.h" />
     <ClInclude Include="GameMain.h" />
-    <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Lerp.h" />
     <ClInclude Include="LoadData.h" />
@@ -64,7 +63,6 @@
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameMain.cpp" />
-    <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Lerp.cpp" />
     <ClCompile Include="LoaderBase.cpp" />
