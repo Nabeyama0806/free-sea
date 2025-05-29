@@ -6,6 +6,7 @@
 #include "Input.h"
 #include "Time.h"
 #include "Fade.h"
+#include "Debug.h"
 #include "DxLib.h"
 
 //デストラクタ
@@ -17,6 +18,9 @@ GameMain::~GameMain()
 	//シーンの破棄
 	delete m_sceneManager;
 	m_sceneManager = nullptr;
+
+	//デバッグコンソールの終了
+	Debug::Finalize(); 
 
 	// DxLib 終了
 	DxLib_End();
@@ -57,6 +61,9 @@ void GameMain::Run()
 		{
 			break;
 		}
+
+		//デバッグコンソールの初期化
+		Debug::Initialize(); 
 
 		//シーンの更新
 		m_sceneManager->Updeta();

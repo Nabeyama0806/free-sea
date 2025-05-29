@@ -204,4 +204,24 @@ public:
 	{
 		return Normalize(*this);
 	}
+
+	// 壁ずりベクトル
+	static Vector3* WallSlipVector(Vector3* out, const Vector3& front, const Vector3& normal)
+	{
+		Vector3 normal_n = normal;
+		normal_n.Normalize(); // 正規化
+		*out = front - front.Dot(normal_n) * normal_n;
+		out->Normalize();     // スライドベクトルも正規化
+		return out;
+	}
+
+	// 反射ベクトル
+	static Vector3* ReflectVector(Vector3* out, const Vector3& front, const Vector3& normal)
+	{
+		Vector3 normal_n = normal;
+		normal_n.Normalize(); // 正規化
+		*out = front - 2.0f * front.Dot(normal_n) * normal_n;
+		out->Normalize();     // 反射ベクトルも正規化
+		return out;
+	}
 };

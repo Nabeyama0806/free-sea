@@ -144,6 +144,9 @@
     <ClInclude Include="Vector2.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
@@ -227,10 +230,13 @@
     <ClCompile Include="Time.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Vector3.cpp">
+    <ClCompile Include="Debug.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
   </ItemGroup>

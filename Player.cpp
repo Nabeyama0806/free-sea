@@ -4,6 +4,10 @@
 #include "Quaternion.h"
 #include "ModelLoader.h"
 #include "ModelAnimation.h"
+#include "Lerp.h"
+#include "Vector2.h"
+
+#include "Debug.h"
 
 //コンストラクタ
 Player::Player(Camera* camera, int mapModelHandle) :
@@ -31,10 +35,11 @@ void Player::Update()
 	//本来の更新
 	ModelActor::Update();
 
+	//移動前の座標
+	Vector3 prevPos = m_transform.position;
+
 	//入力方向の取得
 	Vector3 move = Vector3(0, 0, 0);
-	float speedRate = 1.0f;
-	if (Input::GetInstance()->IsKeyPress(KEY_INPUT_LSHIFT))	speedRate = DashSpeed;
 	if (Input::GetInstance()->IsKeyPress(KEY_INPUT_W)) move.z =  1;
 	if (Input::GetInstance()->IsKeyPress(KEY_INPUT_S)) move.z = -1;
 	if (Input::GetInstance()->IsKeyPress(KEY_INPUT_D)) move.x =  1;
@@ -50,7 +55,7 @@ void Player::Update()
 	if (!move.IsZero())
 	{
 		move.Normalize();
-		m_transform.position += move * Speed * speedRate;
+		m_transform.position += move * Speed;
 
 		m_transform.rotation = Quaternion::Slerp(
 			m_transform.rotation,
@@ -62,15 +67,42 @@ void Player::Update()
 	
 	m_model->PlayAnime(animeIndex);
 
-	//接地判定
-	m_isGrounded = MV1CollCheck_Line(m_mapModelHandle, -1, m_transform.position + RayPos, m_transform.position - RayPos).HitFlag == 1 ? true : false;
+	// 接地判定
+	MV1_COLL_RESULT_POLY_DIM coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, 50);
+	m_isGrounded = coll.HitNum >= 1 ? true : false;
 
-	if (!m_isGrounded) m_transform.position = SpawnPos;
+	// 接地していない時、かつ移動入力がある時
+	if (m_isGrounded && !move.IsZero()) 
+	{
+		//格納用
+		Vector3 slide;
+
+		//壁の法線ベクトルを取得
+		VECTOR normal = coll.Dim[0].Normal;
+		Vector3 wallNormal(normal.x, normal.y, normal.z);
+
+		// 壁に沿って移動
+		Vector3 tmp = move.Normalize() * 0.01f;
+		Vector3::WallSlipVector(&slide, move, wallNormal);
+		m_transform.position -= move * Speed + tmp;
+		m_transform.position += slide * Speed;
+	}
+
+	//調整後の座標でも範囲外にいれば移動をなかったことにする
+	coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, 50);
+	m_isGrounded = coll.HitNum >= 1 ? true : false;
+	if (!m_isGrounded)
+	{
+		m_transform.position = prevPos;
+	}
 }
 
 void Player::Draw()
 {
 	ModelActor::Draw();
-	if (!m_isGrounded) DrawLine3D(m_transform.position + RayPos, m_transform.position - RayPos, GetColor(255, 255, 0));
+#ifdef _DEBUG
+	DrawSphere3D(m_transform.position, 50, 8, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "HIT:%d", m_isGrounded);
+#endif
+
 }
