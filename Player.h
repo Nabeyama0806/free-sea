@@ -19,9 +19,9 @@ private:
 	};
 
 	static constexpr Vector3 SpawnPos = Vector3(0, 0, 0);		//開始時の座標
-	static constexpr Vector3 Scale = Vector3(1.0f, 1.0f, 1.0f);	//自身のサイズ
-	static constexpr float Speed = 7.5f * Scale.y;	//自身のサイズに合せた移動速度
-	static constexpr float Radius = 40.0f;			//衝突判定の半径
+	static constexpr Vector3 Scale = Vector3(3.0f, 3.0f, 3.0f);	//自身のサイズ
+	static constexpr float Speed = 1.3f * Scale.y;	//自身のサイズに合せた移動速度
+	static constexpr float Radius = 20.0f;			//衝突判定の半径
 	static constexpr int AnimeAmount = 2;			//アニメーションの総数
 
 	const char* AnimeFileName[static_cast<int>(Anime::Length)] =

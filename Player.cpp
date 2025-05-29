@@ -68,7 +68,7 @@ void Player::Update()
 	m_model->PlayAnime(animeIndex);
 
 	// 接地判定
-	MV1_COLL_RESULT_POLY_DIM coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, 50);
+	MV1_COLL_RESULT_POLY_DIM coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, Radius);
 	m_isGrounded = coll.HitNum >= 1 ? true : false;
 
 	// 接地していない時、かつ移動入力がある時
@@ -89,7 +89,7 @@ void Player::Update()
 	}
 
 	//調整後の座標でも範囲外にいれば移動をなかったことにする
-	coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, 50);
+	coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, Radius);
 	m_isGrounded = coll.HitNum >= 1 ? true : false;
 	if (!m_isGrounded)
 	{
@@ -101,7 +101,7 @@ void Player::Draw()
 {
 	ModelActor::Draw();
 #ifdef _DEBUG
-	DrawSphere3D(m_transform.position, 50, 8, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
+	DrawSphere3D(m_transform.position, Radius, 8, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "HIT:%d", m_isGrounded);
 #endif
 
