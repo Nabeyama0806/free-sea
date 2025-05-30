@@ -19,7 +19,7 @@ public:
 	// デストラクタ
 	~Effect();						
 
-	void Update(Vector3& position);		// 更新
-	void Play(bool loop = true);		// 再生
-	void Stop();						// 再生中のエフェクトを停止する
+	void Update(const Vector3& position = Vector3());		// 更新
+	void Play(bool loop = true);							// 再生
+	void Stop();											// 再生中のエフェクトを停止する
 };

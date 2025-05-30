@@ -1,10 +1,11 @@
 #include "GameMain.h"
 #include "GameConfig.h"
 #include "Screen.h"
-#include "SceneManager.h"
-#include "SceneGame.h"
 #include "Input.h"
 #include "Time.h"
+#include "EffectManager.h"
+#include "SceneManager.h"
+#include "SceneGame.h"
 #include "Fade.h"
 #include "Debug.h"
 #include "DxLib.h"
@@ -21,6 +22,9 @@ GameMain::~GameMain()
 
 	//デバッグコンソールの終了
 	Debug::Finalize(); 
+
+	// Effekseer 終了
+	Effkseer_End();
 
 	// DxLib 終了
 	DxLib_End();
@@ -40,6 +44,9 @@ void GameMain::Run()
 	{
 		throw - 1;
 	}
+
+	//エフェクト
+	EffectManager::GetInstance()->Initialize();
 
 	//シーン起動
 	m_sceneManager = new SceneManager(new SceneGame());
@@ -76,6 +83,12 @@ void GameMain::Run()
 
 		//シーンの描画
 		m_sceneManager->Draw();
+
+		//エフェクトの更新
+		EffectManager::GetInstance()->Update();
+
+		//エフェクトの描画
+		EffectManager::GetInstance()->Draw();
 
 		//フェード
 		Fade::GetInstance()->Update(m_screen);

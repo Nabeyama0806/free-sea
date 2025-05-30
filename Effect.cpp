@@ -21,7 +21,7 @@ Effect::~Effect()
 }
 
 //更新
-void Effect::Update(Vector3& position)
+void Effect::Update(const Vector3& position)
 {
     //再生中のエフェクトを移動する。
     SetPosPlayingEffekseer3DEffect(m_playingEffectHandle, position.x, position.y, position.z);

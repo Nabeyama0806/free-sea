@@ -20,20 +20,33 @@ private:
 
 	static constexpr Vector3 SpawnPos = Vector3(0, 0, 0);		//開始時の座標
 	static constexpr Vector3 Scale = Vector3(3.0f, 3.0f, 3.0f);	//自身のサイズ
-	static constexpr float Speed = 1.3f * Scale.y;	//自身のサイズに合せた移動速度
+	static constexpr Vector3 BulletPosOffset = Vector3(0, 50, 0);
+	static constexpr float Speed = 1.2f * Scale.y;	//自身のサイズに合せた移動速度
 	static constexpr float Radius = 20.0f;			//衝突判定の半径
-	static constexpr int AnimeAmount = 2;			//アニメーションの総数
+
+	//弾
+	static constexpr int BulletAmount = 3;				//一回で発射される弾の数
+	static constexpr float ShotCoolTime = 1.6f;			//発射間隔
+	static constexpr float BulletFiringRate = 0.25f;	//弾間の発射間隔
 
 	const char* AnimeFileName[static_cast<int>(Anime::Length)] =
 	{
 		"Man/Idle.mv1",		//待機
-		"Man/Sprint.mv1"	//ダッシュ
+		"Man/Sprint.mv1"	//移動
 	};
 
 	Camera* m_camera;
 	Vector3 m_prevPos;
-	int m_mapModelHandle;	//マップの識別番号
-	bool m_isGrounded;		//床との接触判定
+	int m_mapModelHandle;		//マップの識別番号
+	int m_bulletInstanceAmount;	//生成された弾の数
+	float m_shotElapsedTime;	//発射間隔の経過時間
+	float m_bulletElapsedTime;	//弾間の経過時間
+	bool m_isGrounded;			//床との接触判定
+	bool m_isShot;				//発射中
+
+	void Move(Anime& anime);		//移動
+	void BulletShot();				//発射
+	bool BulletInstance();			//弾の生成
 
 protected:
 	virtual void Update() override;	//更新

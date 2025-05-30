@@ -5,6 +5,7 @@
 #include <string>
 
 class Model;
+class Effect;
 
 class ModelActor : public ActorBase
 {
@@ -12,7 +13,10 @@ protected:
 	static constexpr Vector3 ColliderSize = Vector3(100, 100, 100);			// コライダーのサイズ
 	static constexpr Vector3 Scale = Vector3(25, 25, 25);
 	
-	Model* m_model;	//3Dモデル	
+	Model* m_model;	
+	Effect* m_effect;
+
+	Vector3 m_effectOffset;
 
 	virtual void Load() override;		//リソースの読み込み
 	virtual void Release() override;	//リソースの解放

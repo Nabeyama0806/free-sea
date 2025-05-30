@@ -8,7 +8,7 @@
 void Camera::Update()
 {
 	// カメラの視点移動
-	MouseCamera();
+	if(!Input::GetInstance()->IsKeyPress(KEY_INPUT_0))MouseCamera();
 
 	// マウスホイール回転量を距離に加える
 	m_cameraDistance -= Input::GetInstance()->GetMouseHweelRot() * CameraScaling;
@@ -57,6 +57,7 @@ void Camera::MouseCamera()
 	int padPointX = 0;
 	int padPointY = 0;
 	DxLib::GetJoypadAnalogInputRight(&padPointX, &padPointY, DX_INPUT_PAD1);
+
 	// 感度調整
 	Vector2 movePadPoint = Vector2(padPointX, padPointY);
 	Input::GetInstance()->SetPadStick(movePadPoint);

@@ -17,7 +17,7 @@ private:
 	static constexpr float CameraFar = 1000000.0f;
 	static constexpr float MaxCameraDistance = 800;
 	static constexpr float MinCameraDistance = 200;
-	static constexpr float LookAtHeight = 200;			//注視点からの高さのオフセット
+	static constexpr float LookAtHeight = 50;			//注視点からの高さのオフセット
 	static constexpr float CameraMaxVAngle = 80.0f;		//カメラの縦回転の最大値
 	static constexpr float CameraMinVAngle = -80.0f;	//カメラの縦回転の最小値
 

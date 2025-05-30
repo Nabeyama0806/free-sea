@@ -1,11 +1,13 @@
 #include "ModelActor.h"
 #include "ModelAnimation.h"
 #include "Model.h"
+#include "Effect.h"
 
 //コンストラクタ
 ModelActor::ModelActor(const char* name, const char* modelFileName, const Vector3& position) :
 	ActorBase(name, modelFileName, position), 
-	m_model(nullptr)
+	m_model(nullptr),
+	m_effect(nullptr)
 {
 	//ファイルパスが指定されていればロードする
 	if (modelFileName)
@@ -78,5 +80,11 @@ void ModelActor::TreeUpdate()
 	if (m_model)
 	{
 		m_model->Update();
+	}
+
+	//エフェクト
+	if (m_effect)
+	{
+		m_effect->Update(m_transform.position + m_effectOffset);
 	}
 }
