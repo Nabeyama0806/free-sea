@@ -1,5 +1,7 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
+#include "SoundLoader.h"
+#include "SoundManager.h"
 #include "Input.h"
 #include "Node.h"
 #include "Time.h"
@@ -10,6 +12,9 @@
 //初期化
 void SceneGame::Initialize()
 {
+	//グローバルライト
+	SetGlobalAmbientLight(GetColorF(1, 1, 1, 0));
+
 	//ルート
 	m_rootNode = new Node();
 
@@ -17,14 +22,19 @@ void SceneGame::Initialize()
 	m_mainCamera = new Camera();
 	m_rootNode->AddChild(m_mainCamera);
 
-	//背景
-	m_map = new ModelActor("Ground", "Environment/Ground.mv1");
-	MV1SetupCollInfo(m_map->GetModelHandle(), -1);
-	m_rootNode->AddChild(m_map);
-
 	//アクターレイヤー
 	Node* actorLayer = new Node();
 	m_rootNode->AddChild(actorLayer);
+
+	//スカイボックス
+	ModelActor* skybox = new ModelActor("Skybox", "Resource/Model/Skybox.mv1");
+	skybox->ChangeScale(10000);
+	actorLayer->AddChild(skybox);
+
+	//ステージ
+	m_map = new ModelActor("Ground", "Environment/Ground.mv1");
+	MV1SetupCollInfo(m_map->GetModelHandle(), -1);
+	m_rootNode->AddChild(m_map);
 
 	//UIレイヤー
 	Node* uiLayer = new Node();
@@ -36,7 +46,8 @@ void SceneGame::Initialize()
 	m_mainCamera->SetLookAt(m_player);
 
 	//BGM
-
+	m_bgm = SoundLoader::GetInstance()->Load("Resource/Sound/bgm_game.mp3");
+	SoundManager::Play(m_bgm, DX_PLAYTYPE_LOOP);
 }
 
 //終了
@@ -48,7 +59,7 @@ void SceneGame::Finalize()
 	m_rootNode = nullptr;
 
 	//BGM
-	DeleteSoundMem(m_bgm);
+	SoundLoader::GetInstance()->Delete("Resource/Sound/bgm_game.mp3");
 }
 
 //更新

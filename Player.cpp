@@ -5,9 +5,9 @@
 #include "Quaternion.h"
 #include "ModelLoader.h"
 #include "ModelAnimation.h"
+#include "SoundManager.h"
 #include "Lerp.h"
 #include "Vector2.h"
-
 #include "Debug.h"
 
 //コンストラクタ
@@ -172,6 +172,10 @@ bool Player::BulletInstance()
 		//正面から弾を発射する
 		Vector3 forward = m_transform.rotation * Vector3(0, 0, -1).Normalized();
 		AddChild(new Bullet(m_transform.position + BulletPosOffset, forward, this));
+
+		//効果音の再生
+		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");
+
 		return true;
 	}
 	return false;

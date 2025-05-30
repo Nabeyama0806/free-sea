@@ -14,11 +14,11 @@ m_elapsedTime(0)
 	m_model = new Model("Resource/Model/Bubble2.mv1");
 
 	//エフェクト
-	m_effect = new Effect("Resource/Effect/key.efk", 8, 700);
+	m_effect = new Effect("Resource/Effect/bullet.efk", 10, 700);
 
 	//姿勢情報
 	m_transform.scale = Scale;
-	m_effectOffset = Vector3(0, -25, -8);
+	m_effectOffset = Vector3(0, -25, -10);
 
 	//エフェクトの再生
 	m_effect->Play(false);

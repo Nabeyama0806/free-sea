@@ -1,0 +1,9 @@
+diff a/Bullet.cpp b/Bullet.cpp	(rejected hunks)
+@@ -18,7 +18,6 @@
+ 
+ 	//�p�����
+ 	m_transform.scale = Scale;
+-	m_effectOffset = Vector3(0, -25, -8);
+ 	m_effectOffset = Vector3(0, 0, -8);
+ 
+ 	//�G�t�F�N�g�̍Đ�

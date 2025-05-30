@@ -5,7 +5,7 @@
 struct SoundManager
 {
 private:
-	static constexpr int Volume = 50;
+	static constexpr int Volume = 120;
 
 public:
 	//Œø‰Ê‰¹‚ÌÄ¶

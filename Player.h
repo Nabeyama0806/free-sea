@@ -26,8 +26,8 @@ private:
 
 	//’e
 	static constexpr int BulletAmount = 3;				//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
-	static constexpr float ShotCoolTime = 1.6f;			//”­ËŠÔŠu
-	static constexpr float BulletFiringRate = 0.25f;	//’eŠÔ‚Ì”­ËŠÔŠu
+	static constexpr float ShotCoolTime = 1.4f;			//”­ËŠÔŠu
+	static constexpr float BulletFiringRate = 0.27f;	//’eŠÔ‚Ì”­ËŠÔŠu
 
 	const char* AnimeFileName[static_cast<int>(Anime::Length)] =
 	{

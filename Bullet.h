@@ -6,7 +6,7 @@ class Player;
 class Bullet : public ModelActor
 {
 public:
-	static constexpr Vector3 Scale = Vector3(15, 15, 15);		//‘å‚«‚³‚Ì’²®
+	static constexpr Vector3 Scale = Vector3(20, 20, 20);		//‘å‚«‚³‚Ì’²®
 
 private:
 	static constexpr float AddForce = 700;		//“Š‚°‚é—Í
