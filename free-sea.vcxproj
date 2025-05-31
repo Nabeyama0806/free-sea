@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActorBase.h" />
+    <ClInclude Include="ColliderResult.h" />
+    <ClInclude Include="HitBox.h" />
     <ClInclude Include="ModelActorCollision.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Bullet.h" />

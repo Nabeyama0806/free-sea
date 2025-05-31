@@ -15,7 +15,7 @@ m_elapsedTime(0)
 	m_model = new Model("Resource/Model/Bubble2.mv1");
 
 	//当たり判定
-	m_collider = new CircleCollider(Scale + 5, Vector3(1, 8, -7));
+	m_collider = new CircleCollider(Scale + 5.0f, Vector3(1, 8, -7));
 
 	//エフェクト
 	m_effect = new Effect("Resource/Effect/bullet.efk", 10, 700);
@@ -48,4 +48,13 @@ Vector3 Bullet::Shot(Vector3& position) const
 {
 	//正面に飛ばす
 	return position.Normalized() * AddForce * Time::GetInstance()->GetDeltaTime();
+}
+
+void Bullet::OnCollision(const ModelActor* other)
+{
+	//当たり判定用のオブジェクトに衝突したら自身を削除
+	if (other->GetName() == "HitBox")
+	{
+		Destroy();
+	}
 }

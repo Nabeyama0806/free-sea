@@ -1,6 +1,7 @@
 #pragma once
 #include "ActorBase.h"
 #include "Transform.h"
+#include "ColliderResult.h"
 #include "Collider.h"
 #include "Model.h"
 #include <string>
@@ -37,6 +38,7 @@ public:
 
 	//衝突イベント
 	virtual void OnCollision(const ModelActor* other) {}
+	virtual void OnHitPolygon(const ColliderResult* result) {}
 
 	//衝突判定の形状を取得
 	const Collider* GetCollider() const

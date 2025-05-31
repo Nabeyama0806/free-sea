@@ -1,5 +1,6 @@
 #include "ModelActorCollision.h"
 #include "ModelActor.h"
+#include "ColliderResult.h"
 #include "Collider.h"
 
 //更新
@@ -22,6 +23,13 @@ void ModelActorCollision::Update()
 
 			//自分自身はスキップ
 			if (actor1 == actor2) continue;
+
+			//ステージとの当たり判定
+			/*ColliderResult* result;
+			result = actor1->GetCollider()->CheckHitPolygon(actor1->GetTransform());
+			if (result->m_hitFlag) actor1->OnHitPolygon(result);
+			result = actor2->GetCollider()->CheckHitPolygon(actor2->GetTransform());
+			if (result->m_hitFlag) actor1->OnHitPolygon(result);*/
 
 			//衝突判定
 			if (actor1->GetCollider()->CheckCollision(

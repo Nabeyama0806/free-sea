@@ -1,6 +1,7 @@
 #pragma once
 #include "Collider.h"
 #include "Collision.h"
+#include "ColliderResult.h"
 #include "Dxlib.h"
 
 class CircleCollider : public Collider
@@ -9,9 +10,11 @@ public:
 	float m_radius;	//半径
 
 	//コンストラクタ
-	CircleCollider(int radius, const Vector3& offset = Vector3()) :
+	CircleCollider(float radius, const Vector3& offset = Vector3()) :
 		Collider(offset),
-		m_radius(radius) {}
+		m_radius(radius) 
+	{
+	}
 
 	//衝突判定
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const Collider* collider2) const override
@@ -28,6 +31,12 @@ public:
 	{
 		//円形と円形の当たり判定
 		return Collision::Check(transform1, this, transform2, collider2);
+	}
+
+	//ステージ(ポリゴン)との当たり判定
+	virtual ColliderResult* CheckHitPolygon(const Transform& transform) const override
+	{
+		return m_colliderResult->GetColliderResult(MV1CollCheck_Sphere(m_mapModelHandle, m_frameIndex, transform.position + m_offset, m_radius));
 	}
 
 #ifdef _DEBUG

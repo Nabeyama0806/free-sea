@@ -113,19 +113,19 @@ void Player::Move(Anime& anime)
 		Vector3 wallNormal(normal.x, normal.y, normal.z);
 
 		// 壁に沿って移動
-		Vector3 tmp = move.Normalize() * 0.01f;
+		Vector3 tmp = -move.Normalize() * 0.01f;
 		Vector3::WallSlipVector(&slide, move, wallNormal);
 		m_transform.position -= move * Speed + tmp;
 		m_transform.position += slide * Speed;
 	}
 
-	//調整後の座標でも範囲外にいれば移動をなかったことにする
-	coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, Radius);
-	m_isGrounded = coll.HitNum >= 1 ? true : false;
-	if (!m_isGrounded)
-	{
-		m_transform.position = prevPos;
-	}
+	////調整後の座標でも範囲外にいれば移動をなかったことにする
+	//coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, Radius);
+	//m_isGrounded = coll.HitNum >= 1 ? true : false;
+	//if (!m_isGrounded)
+	//{
+	//	m_transform.position = prevPos;
+	//}
 }
 
 //弾の発射

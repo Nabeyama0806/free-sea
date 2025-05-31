@@ -22,4 +22,5 @@ private:
 public:
 	//コンストラクタ
 	Bullet(const Vector3& position, const Vector3& forward, Player* player);
+	virtual void OnCollision(const ModelActor* other);
 };

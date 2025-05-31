@@ -13,10 +13,10 @@ bool Collision::Check(
 {
 	//各矩形の中心座標とサイズを用意
 	Vector3 center1 = transform1.position + box1->m_offset * transform1.scale;
-	Vector3 size1 = box1->m_size * transform1.scale;
+	Vector3 size1 = box1->m_size;
 		  
 	Vector3 center2 = transform2.position + box2->m_offset * transform2.scale;
-	Vector3 size2 = box2->m_size * transform2.scale;
+	Vector3 size2 = box2->m_size;
 
 	//中心座標同士の距離と、サイズ/2の合計を比較
 	//それを各軸で行う
