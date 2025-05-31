@@ -19,9 +19,9 @@ private:
 	};
 
 	static constexpr Vector3 SpawnPos = Vector3(0, 0, 0);		//開始時の座標
-	static constexpr Vector3 Scale = Vector3(3.0f, 3.0f, 3.0f);	//自身のサイズ
 	static constexpr Vector3 BulletPosOffset = Vector3(0, 50, 0);
-	static constexpr float Speed = 1.2f * Scale.y;	//自身のサイズに合せた移動速度
+	static constexpr float Scale = 3.0f;			//自身のサイズ
+	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
 	static constexpr float Radius = 20.0f;			//衝突判定の半径
 
 	//弾
@@ -29,6 +29,7 @@ private:
 	static constexpr float ShotCoolTime = 1.4f;			//発射間隔
 	static constexpr float BulletFiringRate = 0.27f;	//弾間の発射間隔
 
+	//アニメーション配列
 	const char* AnimeFileName[static_cast<int>(Anime::Length)] =
 	{
 		"Man/Idle.mv1",		//待機
@@ -36,7 +37,6 @@ private:
 	};
 
 	Camera* m_camera;
-	Vector3 m_prevPos;
 	int m_mapModelHandle;		//マップの識別番号
 	int m_bulletInstanceAmount;	//生成された弾の数
 	float m_shotElapsedTime;	//発射間隔の経過時間

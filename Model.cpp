@@ -61,7 +61,7 @@ void Model::Draw(const Transform& transform)
 {
 	//ƒ‚ƒfƒ‹‚Ìp¨î•ñ‚ğİ’è	
 	MATRIX mat = MGetIdent();
-	mat = MMult(mat, MGetScale(transform.scale));
+	mat = MMult(mat, MGetScale(Vector3(transform.scale, transform.scale, transform.scale)));
 	mat = MMult(mat, transform.rotation);
 	mat = MMult(mat, MGetTranslate(transform.position));
 	MV1SetMatrix(m_modelHandle, mat);

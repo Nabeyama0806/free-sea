@@ -85,7 +85,7 @@ void Sprite::Draw(const Transform& transform)
 		static_cast<int>(transform.position.x), static_cast<int>(transform.position.y),
 		static_cast<int>(gridSize.x) * gridIndex, 0,
 		static_cast<int>(gridSize.x), static_cast<int>(gridSize.y),
-		transform.scale.x,
+		transform.scale,
 		transform.rotation.x,
 		m_runningAnime->textureId,
 		true,

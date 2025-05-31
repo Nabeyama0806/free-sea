@@ -10,9 +10,10 @@ class SpriteActor : public ActorBase
 protected: 
 	Sprite* m_sprite;		//2D画像
 
-	virtual void Load() override;	//リソースの読み込み
+	virtual void Load() override;		//リソースの読み込み
 	virtual void Release() override;	//リソースの開放
-	virtual void Draw() override;	//リソースの開放
+	virtual void Draw() override;		//リソースの開放
+	virtual void OnDestroy() override;	//オブジェクトの削除
 
 public:
 	//コンストラクタ

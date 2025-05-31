@@ -12,6 +12,7 @@ protected:
 	virtual void Load() override = 0;		//リソースの読み込み
 	virtual void Release() override = 0;	//リソースの開放
 	virtual void Draw() override = 0;		//リソースの開放
+	virtual void OnDestroy() = 0;			//オブジェクトの削除
 
 public:
 	//コンストラクタ

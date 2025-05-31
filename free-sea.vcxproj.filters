@@ -37,6 +37,12 @@
     <Filter Include="ソース ファイル\Utility">
       <UniqueIdentifier>{e26d3438-4ea8-4e4c-9a20-c72e995b5136}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Collider">
+      <UniqueIdentifier>{acf606a1-2d9f-4798-84c2-b4f4f83b5488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Collider">
+      <UniqueIdentifier>{50cdf53e-46e2-43d1-b265-8d68f5c55ebe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMain.h">
@@ -153,6 +159,21 @@
     <ClInclude Include="Bullet.h">
       <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="ModelActorCollision.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMain.cpp">
@@ -244,6 +265,12 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelActorCollision.cpp">
+      <Filter>ソース ファイル\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル\Collider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

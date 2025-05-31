@@ -58,3 +58,9 @@ void SpriteActor::TreeUpdate()
 		m_sprite->Update();
 	}
 }
+
+//”jŠüˆ—
+void SpriteActor::OnDestroy()
+{
+	//‰½‚à‚µ‚È‚¢
+}

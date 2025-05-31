@@ -5,6 +5,7 @@
 #include "Time.h"
 #include "EffectManager.h"
 #include "SceneManager.h"
+#include "ModelActorCollision.h"
 #include "SceneGame.h"
 #include "Fade.h"
 #include "Debug.h"
@@ -74,6 +75,9 @@ void GameMain::Run()
 
 		//シーンの更新
 		m_sceneManager->Updeta();
+
+		//衝突判定
+		ModelActorCollision::GetInstance()->Update();
 
 		//自作スクリーンに描画
 		SetDrawScreen(m_screen);

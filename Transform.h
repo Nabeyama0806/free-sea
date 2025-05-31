@@ -7,8 +7,8 @@ class Transform
 public:
 	Vector3 position;		//ç¿ïW
 	Quaternion rotation;	//äpìx(ÉâÉWÉAÉì)
-	Vector3 scale;			//ägèk
+	float scale;			//ägèk
 
 	Transform() :
-		scale(Vector3(1, 1, 1)) {}
+		scale(1) {}
 };

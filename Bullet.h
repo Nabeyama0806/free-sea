@@ -6,10 +6,10 @@ class Player;
 class Bullet : public ModelActor
 {
 public:
-	static constexpr Vector3 Scale = Vector3(20, 20, 20);		//‘å‚«‚³‚Ì’²®
+	static constexpr float Scale = 20.0f;		//‘å‚«‚³‚Ì’²®
 
 private:
-	static constexpr float AddForce = 700;		//“Š‚°‚é—Í
+	static constexpr float AddForce = 550.0f;	//“Š‚°‚é—Í
 	static constexpr float EraseTime = 3.0f;	//¶‘¶ŠÔ
 
 	Player* m_player;

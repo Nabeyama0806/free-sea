@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "Player.h"
+#include "CircleCollider.h"
 #include "Effect.h"
 #include "Time.h"
 
@@ -12,6 +13,9 @@ m_elapsedTime(0)
 {
 	//モデル
 	m_model = new Model("Resource/Model/Bubble2.mv1");
+
+	//当たり判定
+	m_collider = new CircleCollider(Scale + 5, Vector3(1, 8, -7));
 
 	//エフェクト
 	m_effect = new Effect("Resource/Effect/bullet.efk", 10, 700);
@@ -32,11 +36,7 @@ void Bullet::Update()
 
 	//生存時間を過ぎていれば削除
 	m_elapsedTime += Time::GetInstance()->GetDeltaTime();
-	if (m_elapsedTime > EraseTime)
-	{
-		m_effect->Stop();
-		Destroy();
-	}
+	if (m_elapsedTime > EraseTime) Destroy();
 
 	//投げる
 	m_transform.position += Shot(m_forward);
