@@ -4,6 +4,7 @@
 #include "BoxCollider.h"
 #include "CircleCollider.h"
 #include <cmath>
+
 using std::abs;
 using std::powf;
 
@@ -29,63 +30,14 @@ bool Collision::Check(
 	return false;
 }
 
+//矩形と球の当たり判定
 bool Collision::Check(
 	const Transform& transform1, const BoxCollider* box,
 	const Transform& transform2, const CircleCollider* circle)
 {
-	////矩形の左上・右下の座標、円の中心座標と半径を用意
-	//Vector3 boxTopLeft = transform1.position + box->offset * transform1.scale - box->m_size * transform1.scale / 2;
-	//Vector3 boxBottomRIght = boxTopLeft + box->m_size * transform1.scale;
-
-	//Vector3 circlePos = transform2.position + circle->offset * transform2.scale;
-	//float circleRadius = circle->radius * transform2.scale;
-
-	////矩形を円の半径分広げた範囲に、円の中心点がいないかどうか
-	//if (boxTopLeft.x - circleRadius > circlePos.x
-	//	|| boxBottomRIght.x + circleRadius < circlePos.x
-	//	|| boxTopLeft.y - circleRadius > circlePos.y
-	//	|| boxBottomRIght.y + circleRadius < circlePos.y)
-	//{
-	//	return false;
-	//}
-
-	////複数回使う各二乗の値を用意
-	//float left2Pow = powf(boxTopLeft.x - circlePos.x, 2);
-	//float right2Pow = powf(boxBottomRIght.x - circlePos.x, 2);
-	//float top2Pow = powf(boxTopLeft.y - circlePos.y, 2);
-	//float bottom2Pow = powf(boxBottomRIght.y - circlePos.y, 2);
-	//float radius2Pow = powf(circleRadius, 2);
-
-	////左上の当たり判定
-	//if (boxTopLeft.x > circlePos.x && boxTopLeft.y > circlePos.y
-	//	&& !(left2Pow + top2Pow < radius2Pow))
-	//{
-	//	return false;
-	//}
-
-	////右上の当たり判定
-	//if (boxBottomRIght.x < circlePos.x && boxTopLeft.y > circlePos.y
-	//	&& !(right2Pow + top2Pow < radius2Pow))
-	//{
-	//	return false;
-	//}
-
-	////左下の当たり判定
-	//if (boxTopLeft.x > circlePos.x && boxBottomRIght.y < circlePos.y
-	//	&& !(left2Pow + bottom2Pow < radius2Pow))
-	//{
-	//	return false;
-	//}
-
-	////右下の当たり判定
-	//if (boxBottomRIght.x < circlePos.x && boxBottomRIght.y < circlePos.y
-	//	&& !(right2Pow + bottom2Pow < radius2Pow))
-	//{
-	//	return false;
-	//}
-
 	return false;
 }
+
 
 bool Collision::Check(
 	const Transform& transform1, const CircleCollider* circle1,

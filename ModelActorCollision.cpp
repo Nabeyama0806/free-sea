@@ -25,11 +25,18 @@ void ModelActorCollision::Update()
 			if (actor1 == actor2) continue;
 
 			//ステージとの当たり判定
-			/*ColliderResult* result;
-			result = actor1->GetCollider()->CheckHitPolygon(actor1->GetTransform());
-			if (result->m_hitFlag) actor1->OnHitPolygon(result);
-			result = actor2->GetCollider()->CheckHitPolygon(actor2->GetTransform());
-			if (result->m_hitFlag) actor1->OnHitPolygon(result);*/
+			const ColliderResult* result1;
+			result1 = actor1->GetCollider()->CheckHitPolygon(actor1->GetTransform());
+			if (result1 && result1->m_hitFlag)
+			{
+				actor1->OnHitPolygon(result1);
+			}
+			const ColliderResult* result2;
+			result2 = actor2->GetCollider()->CheckHitPolygon(actor2->GetTransform());
+			if (result2 && result2->m_hitFlag)
+			{
+				actor2->OnHitPolygon(result2);
+			}
 
 			//衝突判定
 			if (actor1->GetCollider()->CheckCollision(

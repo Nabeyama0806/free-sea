@@ -13,14 +13,13 @@ class Collider
 public:
 	int m_mapModelHandle;
 	int m_frameIndex;
-   
-	ColliderResult* m_colliderResult;
 	Vector3 m_offset;
 
 	//コンストラクタ
 	Collider(const Vector3& offset) :
-		m_colliderResult(nullptr),
-		m_offset(offset){}
+		m_offset(offset),
+		m_mapModelHandle(0),
+		m_frameIndex(0){}
 
 	//衝突判定
 	//ダブルディスパッチによる形状識別を行う
@@ -31,6 +30,7 @@ public:
 	//ステージ(ポリゴン)との当たり判定
 	virtual ColliderResult* CheckHitPolygon(const Transform& transform) const 
 	{
+		//継承先で定義されていなければヌルを返す
 		return nullptr;
 	}
 

@@ -119,13 +119,13 @@ void Player::Move(Anime& anime)
 		m_transform.position += slide * Speed;
 	}
 
-	////調整後の座標でも範囲外にいれば移動をなかったことにする
-	//coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, Radius);
-	//m_isGrounded = coll.HitNum >= 1 ? true : false;
-	//if (!m_isGrounded)
-	//{
-	//	m_transform.position = prevPos;
-	//}
+	//調整後の座標でも範囲外にいれば移動をなかったことにする
+	coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, Radius);
+	m_isGrounded = coll.HitNum >= 1 ? true : false;
+	if (!m_isGrounded)
+	{
+		m_transform.position = prevPos;
+	}
 }
 
 //弾の発射

@@ -36,14 +36,14 @@ public:
 	//ステージ(ポリゴン)との当たり判定
 	virtual ColliderResult* CheckHitPolygon(const Transform& transform) const override
 	{
-		return m_colliderResult->GetColliderResult(MV1CollCheck_Sphere(m_mapModelHandle, m_frameIndex, transform.position + m_offset, m_radius));
+		return new ColliderResult(MV1CollCheck_Sphere(m_mapModelHandle, m_frameIndex, transform.position + m_offset, m_radius));
 	}
 
 #ifdef _DEBUG
 	//描画
 	virtual void Draw(const Transform& transform) const override
 	{
-		DrawSphere3D(transform.position + m_offset, m_radius, 8, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
+		DrawSphere3D(transform.position + m_offset, m_radius, 6, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
 	}
 #endif
 };

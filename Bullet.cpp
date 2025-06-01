@@ -6,10 +6,11 @@
 
 //コンストラクタ
 Bullet::Bullet(const Vector3& position, const Vector3& forward, Player* player) :
-ModelActor("Bullet", nullptr, position),
-m_player(player),
-m_forward(forward),
-m_elapsedTime(0)
+	ModelActor("Bullet", nullptr, position),
+	m_player(player),
+	m_forward(forward),
+	m_health(MaxHealth),
+	m_elapsedTime(0)
 {
 	//モデル
 	m_model = new Model("Resource/Model/Bubble2.mv1");
@@ -39,22 +40,31 @@ void Bullet::Update()
 	if (m_elapsedTime > EraseTime) Destroy();
 
 	//投げる
-	m_transform.position += Shot(m_forward);
-
+	m_transform.position += m_forward.Normalized() * AddForce * Time::GetInstance()->GetDeltaTime();
 }
 
-//発射
-Vector3 Bullet::Shot(Vector3& position) const
-{
-	//正面に飛ばす
-	return position.Normalized() * AddForce * Time::GetInstance()->GetDeltaTime();
-}
-
+//ModelActor同士の衝突イベント
 void Bullet::OnCollision(const ModelActor* other)
 {
-	//当たり判定用のオブジェクトに衝突したら自身を削除
+	//当たり判定用のオブジェクトに衝突したら削除
 	if (other->GetName() == "HitBox")
 	{
 		Destroy();
 	}
+}
+
+//ステージとの衝突イベント
+void Bullet::OnHitPolygon(const ColliderResult* result)
+{
+	//反射ベクトルを計算
+	Vector3 reflected;
+	Vector3::ReflectVector(&reflected, m_forward, result->Normal);
+	m_forward = reflected.Normalized();
+
+	//反射後、弾を少し法線方向にずらして多重反射を防ぐ
+	m_transform.position += result->Normal * 1.0f;
+
+	//体力を消費
+	m_health--;
+	if (m_health <= 0) Destroy();
 }
