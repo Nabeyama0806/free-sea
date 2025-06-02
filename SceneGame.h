@@ -5,9 +5,10 @@
 
 //クラスの前方宣言
 class Node;
-class Player;
-class Camera;
 class ModelActor;
+class Camera;
+class Stage;
+class Player;
 
 //	ゲームシーン
 class SceneGame : public SceneBase
@@ -19,12 +20,10 @@ private:
 	};
 
 	static constexpr float ResultTransitionTime = 2.0f;	//プレイヤーが死んでからリザルト画面に遷移するまでの時間
-	Node* m_rootNode;	//ツリーノード
-	Player* m_player;	//プレイヤー
-	Camera* m_mainCamera;	//プレイヤー
-
-	ModelActor* m_map;
-	ModelActor* m_mesh;	
+	Node* m_rootNode;		
+	Player* m_player;		
+	Camera* m_mainCamera;	
+	Stage* m_stage;			
 
 	Vector3 cameraPos = Vector3(0, 0, -700);
 
@@ -35,8 +34,7 @@ public:
 	//コンストラクタ
 	SceneGame() :
 		m_rootNode(nullptr), 
-		m_map(nullptr),
-		m_mesh(nullptr),
+		m_stage(nullptr),
 		m_player(nullptr),
 		m_mainCamera(nullptr),
 		m_resultTransitionTime(ResultTransitionTime),

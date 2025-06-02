@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActorBase.h" />
-    <ClInclude Include="ColliderResult.h" />
     <ClInclude Include="HitBox.h" />
     <ClInclude Include="ModelActorCollision.h" />
     <ClInclude Include="BoxCollider.h" />
@@ -60,6 +59,7 @@
     <ClInclude Include="SpriteActor.h" />
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteLoader.h" />
+    <ClInclude Include="Stage.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2.h" />

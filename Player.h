@@ -1,6 +1,7 @@
 #pragma once
 #include "ModelActor.h"
 #include "Model.h"
+#include "Stage.h"
 #include "Vector3.h"
 #include "Camera.h"
 #include <vector>
@@ -37,7 +38,7 @@ private:
 	};
 
 	Camera* m_camera;
-	int m_mapModelHandle;		//マップの識別番号
+	Stage* m_stage;
 	int m_bulletInstanceAmount;	//生成された弾の数
 	float m_shotElapsedTime;	//発射間隔の経過時間
 	float m_bulletElapsedTime;	//弾間の経過時間
@@ -54,5 +55,5 @@ protected:
 
 public:
 	//コンストラクタ
-	Player(Camera* camera, int mapModelHandle);
+	Player(Camera* camera, Stage* stage);
 };

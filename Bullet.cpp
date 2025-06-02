@@ -5,9 +5,10 @@
 #include "Time.h"
 
 //コンストラクタ
-Bullet::Bullet(const Vector3& position, const Vector3& forward, Player* player) :
+Bullet::Bullet(const Vector3& position, const Vector3& forward, Player* player, Stage* stage) :
 	ModelActor("Bullet", nullptr, position),
 	m_player(player),
+	m_stage(stage),
 	m_forward(forward),
 	m_health(MaxHealth),
 	m_elapsedTime(0)
@@ -41,6 +42,8 @@ void Bullet::Update()
 
 	//投げる
 	m_transform.position += m_forward.Normalized() * AddForce * Time::GetInstance()->GetDeltaTime();
+
+	// 反射
 }
 
 //ModelActor同士の衝突イベント
@@ -51,20 +54,4 @@ void Bullet::OnCollision(const ModelActor* other)
 	{
 		Destroy();
 	}
-}
-
-//ステージとの衝突イベント
-void Bullet::OnHitPolygon(const ColliderResult* result)
-{
-	//反射ベクトルを計算
-	Vector3 reflected;
-	Vector3::ReflectVector(&reflected, m_forward, result->Normal);
-	m_forward = reflected.Normalized();
-
-	//反射後、弾を少し法線方向にずらして多重反射を防ぐ
-	m_transform.position += result->Normal * 1.0f;
-
-	//体力を消費
-	m_health--;
-	if (m_health <= 0) Destroy();
 }

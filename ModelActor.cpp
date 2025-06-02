@@ -70,7 +70,6 @@ void ModelActor::Draw()
 	{
 		m_collider->Draw(m_transform);
 	}
-
 }
 
 //子ノードを含む更新

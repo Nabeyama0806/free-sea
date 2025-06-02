@@ -204,34 +204,4 @@ public:
 	{
 		return Normalize(*this);
 	}
-
-	// •Ç‚¸‚èƒxƒNƒgƒ‹
-	static Vector3* WallSlipVector(Vector3* out, const Vector3& forward, const Vector3& normal)
-	{
-		//”O‚Ì‚½‚ß‚É³‹K‰»
-		Vector3 normal_n = normal;
-		normal_n.Normalize();
-
-		//•Ç‚¸‚è‚ð‚·‚é•ûŒüƒxƒNƒgƒ‹‚ÌŽZo
-		*out = forward - forward.Dot(normal_n) * normal_n;
-
-		//³‹K‰»‚µ‚Ä•Ô‚·
-		out->Normalize();     
-		return out;
-	}
-
-	// ”½ŽËƒxƒNƒgƒ‹
-	static Vector3* ReflectVector(Vector3* out, const Vector3& forward, const Vector3& normal)
-	{
-		//”O‚Ì‚½‚ß‚É³‹K‰»
-		Vector3 normal_n = normal;
-		normal_n.Normalize();
-
-		//”½ŽËƒxƒNƒgƒ‹‚ÌŽZo
-		*out = forward - 2.0f * forward.Dot(normal_n) * normal_n;
-
-		//³‹K‰»‚µ‚Ä•Ô‚·
-		out->Normalize();     
-		return out;
-	}
 };

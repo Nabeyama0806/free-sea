@@ -1,7 +1,6 @@
 #pragma once
 #include "Collider.h"
 #include "Collision.h"
-#include "ColliderResult.h"
 #include "Dxlib.h"
 
 class CircleCollider : public Collider
@@ -31,12 +30,6 @@ public:
 	{
 		//円形と円形の当たり判定
 		return Collision::Check(transform1, this, transform2, collider2);
-	}
-
-	//ステージ(ポリゴン)との当たり判定
-	virtual ColliderResult* CheckHitPolygon(const Transform& transform) const override
-	{
-		return new ColliderResult(MV1CollCheck_Sphere(m_mapModelHandle, m_frameIndex, transform.position + m_offset, m_radius));
 	}
 
 #ifdef _DEBUG

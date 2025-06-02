@@ -6,7 +6,6 @@
 //クラスの前方宣言
 class BoxCollider;
 class CircleCollider;
-class ColliderResult;
 
 class Collider
 {
@@ -26,13 +25,6 @@ public:
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const Collider* collision2) const = 0;
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const BoxCollider* collision2) const = 0;
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const CircleCollider* collision2) const = 0;
-
-	//ステージ(ポリゴン)との当たり判定
-	virtual ColliderResult* CheckHitPolygon(const Transform& transform) const 
-	{
-		//継承先で定義されていなければヌルを返す
-		return nullptr;
-	}
 
 #ifdef _DEBUG
 	//Colliderの描画

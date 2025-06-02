@@ -98,6 +98,49 @@ public:
 		return (x == 0) && (y == 0);
 	}
 
+	//2つのベクトルの内積を取得
+	static constexpr float Dot(const Vector2& lhs, const Vector2& rhs)
+	{
+		return lhs.x * rhs.x + lhs.y * rhs.y;
+	}
+	constexpr float Dot(const Vector2& v) const
+	{
+		return Dot(*this, v);
+	}
+
+	//2つのベクトルの外積を取得
+	static constexpr float Cross(const Vector2& lhs, const Vector2& rhs)
+	{
+		return lhs.x * rhs.y - lhs.y * rhs.x;
+	}
+	constexpr float Cross(const Vector2& v)
+	{
+		return Cross(*this, v);
+	}
+
+	//正規化
+	static Vector2 Normalize(const Vector2& v)
+	{
+		Vector2 tmp = v;
+		
+		float m = tmp.Magnitude();
+		tmp.x /= m;
+		tmp.y /= m;
+
+		return tmp;
+	}
+	Vector2& Normalize()
+	{
+		*this = Normalize(*this);
+		return *this;
+	}
+
+	//正規化
+	Vector2 Normalized() const
+	{
+		return Normalize(*this);
+	}
+
 	//長さの2乗を取得
 	constexpr float SqrMagnitude() const
 	{

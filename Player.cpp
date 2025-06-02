@@ -11,16 +11,20 @@
 #include "Debug.h"
 
 //コンストラクタ
-Player::Player(Camera* camera, int mapModelHandle) :
+Player::Player(Camera* camera, Stage* stage) :
 	ModelActor("Player"),
 	m_camera(camera),
-	m_mapModelHandle(mapModelHandle),
+	m_stage(stage),
 	m_bulletInstanceAmount(0),
-	m_shotElapsedTime(ShotCoolTime),
 	m_bulletElapsedTime(0),
+	m_shotElapsedTime(ShotCoolTime),
 	m_isShot(false),
 	m_isGrounded(false)
 {
+	//姿勢情報の調整
+	m_transform.position = SpawnPos;
+	m_transform.scale = Scale;
+
 	//アニメーションの登録
 	m_model = new Model("Man/Man.mv1");
 	for (int i = 0; i < static_cast<int>(Anime::Length); ++i)
@@ -28,10 +32,6 @@ Player::Player(Camera* camera, int mapModelHandle) :
 		//アニメーションのファイルパスを渡す
 		m_model->Register(AnimeFileName[i]);
 	}
-
-	//姿勢情報の調整
-	m_transform.position = SpawnPos;
-	m_transform.scale = Scale;
 }
 
 //更新
@@ -55,10 +55,12 @@ void Player::Update()
 void Player::Draw()
 {
 	ModelActor::Draw();
-#ifdef _DEBUG
-	DrawSphere3D(m_transform.position, Radius, 8, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
-#endif
-}
+
+	DrawLine3D(
+		m_transform.position + Vector3(0, 0.5f, 0),
+		m_transform.position - Vector3(0, 0.1f, 0),
+		GetColor(255, 255, 0));
+}			   
 
 //移動
 void Player::Move(Anime& anime)
@@ -66,8 +68,15 @@ void Player::Move(Anime& anime)
 	//移動前の座標
 	Vector3 prevPos = m_transform.position;
 
+	// 移動前の床情報を取得
+	MV1_COLL_RESULT_POLY prevPoly = MV1CollCheck_Line(
+		m_stage->GetModelHandle(),
+		m_stage->GetFrameIndex(),
+		prevPos + Vector3(0, 100, 0),
+		prevPos - Vector3(0, 100, 0));
+
 	//入力方向の取得
-	Vector3 move = Vector3(0, 0, 0);
+	Vector3 move = Vector3();
 	if (Input::GetInstance()->MoveUp())    move.z = 1;
 	if (Input::GetInstance()->MoveDown())  move.z = -1;
 	if (Input::GetInstance()->MoveRight()) move.x = 1;
@@ -98,34 +107,76 @@ void Player::Move(Anime& anime)
 		anime = Anime::Run;
 	}
 
-	// 接地判定
-	MV1_COLL_RESULT_POLY_DIM coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, Radius);
-	m_isGrounded = coll.HitNum >= 1 ? true : false;
+	// 移動後の床情報を取得
+	MV1_COLL_RESULT_POLY poly = MV1CollCheck_Line(
+		m_stage->GetModelHandle(),
+		m_stage->GetFrameIndex(),
+		m_transform.position + Vector3(0, 100, 0),
+		m_transform.position - Vector3(0, 100, 0));
 
-	// 接地していない時、かつ移動入力がある時
-	if (m_isGrounded && !move.IsZero())
+	// 床を踏み外している？
+	if (!poly.HitFlag)
 	{
-		//格納用
-		Vector3 slide;
+		int index = 0;
+		while (index < 3)
+		{
+			// 床ポリゴンの三角形のうち、どの辺を跨いでいるかを調べる
+			int toIndex = index + 1 != 3 ? index + 1 : 0;
 
-		//壁の法線ベクトルを取得
-		VECTOR normal = coll.Dim[0].Normal;
-		Vector3 wallNormal(normal.x, normal.y, normal.z);
+			// 線分同士の交差判定
+			Vector2 a(prevPos.x, prevPos.z);
+			Vector2 b(m_transform.position.x, m_transform.position.z);
+			Vector2 c(prevPoly.Position[index].x, prevPoly.Position[index].z);
+			Vector2 d(prevPoly.Position[toIndex].x, prevPoly.Position[toIndex].z);
 
-		// 壁に沿って移動
-		Vector3 tmp = -move.Normalize() * 0.01f;
-		Vector3::WallSlipVector(&slide, move, wallNormal);
-		m_transform.position -= move * Speed + tmp;
-		m_transform.position += slide * Speed;
+			Vector2 ab = b - a;
+			Vector2 cd = d - c;
+			Vector2 ca = a - c;
+
+			index++;
+
+			// 線分が平行？
+			if (Vector2::Cross(cd, ab) == 0)
+			{
+				continue;
+			}
+
+			// 線分同士の交差点を計算
+			// tが0～1の間であれば線分同士が交差している
+			float t = Vector2::Cross(-cd, ca) / Vector2::Cross(cd, ab);
+			if (t < 0 || 1 < t)
+			{
+				continue;
+			}
+
+			// 交差座標を計算
+			Vector2 crossPos = Lerp::Exec(a, b, t);
+
+			// 壁ずりをするために、移動先から辺の最近点を計算
+			Vector2 cpcN = (c - crossPos).Normalize();
+			Vector2 x = crossPos + (cpcN * Vector2::Dot(cpcN, b - crossPos));
+
+			// 辺上だとMV1CollCheck_Lineの判定から外れてしまう場合があるため、ほんの少し余計に戻す
+			x += (x - b).Normalize() * 0.01f;
+
+			// 調整した座標へ移動
+			m_transform.position = Vector3(x.x, 0, x.y);
+
+			// 調整後の座標でも床に乗れない場合は移動をなかったことにする
+			if (!MV1CollCheck_Line(
+				m_stage->GetModelHandle(),
+				m_stage->GetFrameIndex(),
+				m_transform.position + Vector3(0, 100, 0),
+				m_transform.position - Vector3(0, 100, 0)).HitFlag)
+			{
+				m_transform.position = prevPos;
+			}
+			break;
+		}
 	}
 
-	//調整後の座標でも範囲外にいれば移動をなかったことにする
-	coll = MV1CollCheck_Sphere(m_mapModelHandle, -1, m_transform.position, Radius);
-	m_isGrounded = coll.HitNum >= 1 ? true : false;
-	if (!m_isGrounded)
-	{
-		m_transform.position = prevPos;
-	}
+	m_model->PlayAnime(static_cast<int>(anime));
+	
 }
 
 //弾の発射
@@ -171,7 +222,7 @@ bool Player::BulletInstance()
 
 		//正面から弾を発射する
 		Vector3 forward = m_transform.rotation * Vector3(0, 0, -1).Normalized();
-		AddChild(new Bullet(m_transform.position + BulletPosOffset, forward, this));
+		AddChild(new Bullet(m_transform.position + BulletPosOffset, forward, this, m_stage));
 
 		//効果音の再生
 		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");

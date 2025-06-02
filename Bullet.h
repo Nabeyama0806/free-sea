@@ -2,6 +2,7 @@
 #include "ModelActor.h"
 
 class Player;
+class Stage;
 
 class Bullet : public ModelActor
 {
@@ -14,6 +15,7 @@ private:
 	static constexpr float EraseTime = 3.0f;	//生存時間
 
 	Player* m_player;		//プレイヤー
+	Stage* m_stage;
 	Vector3 m_forward;		//自身の正面ベクトル
 	int m_health;			//現在の体力
 	float m_elapsedTime;	//生成されてからの生存時間
@@ -22,9 +24,8 @@ private:
 
 public:
 	//コンストラクタ
-	Bullet(const Vector3& position, const Vector3& forward, Player* player);
+	Bullet(const Vector3& position, const Vector3& forward, Player* player, Stage* stage);
 
 	//衝突イベント
 	virtual void OnCollision(const ModelActor* other);
-	virtual void OnHitPolygon(const ColliderResult* result);
 };

@@ -7,6 +7,7 @@
 #include "Time.h"
 #include "Camera.h"
 #include "Player.h"
+#include "Stage.h"
 #include "HitBox.h"
 #include "DxLib.h"
 
@@ -33,16 +34,16 @@ void SceneGame::Initialize()
 	actorLayer->AddChild(skybox);
 
 	//ステージ
-	m_map = new ModelActor("Ground", "Environment/Ground.mv1");
-	MV1SetupCollInfo(m_map->GetModelHandle(), -1);
-	m_rootNode->AddChild(m_map);
+	m_stage = new Stage();
+	MV1SetupCollInfo(m_stage->GetModelHandle(), -1);
+	m_rootNode->AddChild(m_stage);
 
 	//UIレイヤー
 	Node* uiLayer = new Node();
 	m_rootNode->AddChild(uiLayer);
 
 	//プレイヤー
-	m_player = new Player(m_mainCamera, m_map->GetModelHandle());
+	m_player = new Player(m_mainCamera, m_stage);
 	m_rootNode->AddChild(m_player);
 	m_mainCamera->SetLookAt(m_player);
 
