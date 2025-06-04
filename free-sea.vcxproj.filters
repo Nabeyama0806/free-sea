@@ -174,11 +174,8 @@
     <ClInclude Include="Collision.h">
       <Filter>ヘッダー ファイル\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderResult.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="HitBox.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
+    <ClInclude Include="Stage.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

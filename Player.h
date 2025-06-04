@@ -18,7 +18,7 @@ private:
 
 		Length,
 	};
-
+	
 	static constexpr Vector3 SpawnPos = Vector3(0, 0, 0);		//ŠJn‚ÌÀ•W
 	static constexpr Vector3 BulletPosOffset = Vector3(0, 50, 0);
 	static constexpr float Scale = 3.0f;			//©g‚ÌƒTƒCƒY
@@ -26,7 +26,7 @@ private:
 	static constexpr float Radius = 20.0f;			//Õ“Ë”»’è‚Ì”¼Œa
 
 	//’e
-	static constexpr int BulletAmount = 3;				//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
+	static constexpr int BulletAmount = 5;				//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
 	static constexpr float ShotCoolTime = 1.4f;			//”­ËŠÔŠu
 	static constexpr float BulletFiringRate = 0.27f;	//’eŠÔ‚Ì”­ËŠÔŠu
 

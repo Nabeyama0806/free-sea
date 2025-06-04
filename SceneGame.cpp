@@ -8,7 +8,6 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Stage.h"
-#include "HitBox.h"
 #include "DxLib.h"
 
 //‰Šú‰»
@@ -46,8 +45,6 @@ void SceneGame::Initialize()
 	m_player = new Player(m_mainCamera, m_stage);
 	m_rootNode->AddChild(m_player);
 	m_mainCamera->SetLookAt(m_player);
-
-	actorLayer->AddChild(new HitBox());
 
 	//BGM
 	m_bgm = SoundLoader::GetInstance()->Load("Resource/Sound/bgm_game.mp3");

@@ -21,6 +21,7 @@ private:
 	float m_elapsedTime;	//生成されてからの生存時間
 
 	virtual void Update() override;			//更新
+	virtual void Draw() override;			// 描画
 
 public:
 	//コンストラクタ

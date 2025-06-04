@@ -68,7 +68,7 @@ void Player::Move(Anime& anime)
 	//移動前の座標
 	Vector3 prevPos = m_transform.position;
 
-	// 移動前の床情報を取得
+	//移動前の床情報を取得
 	MV1_COLL_RESULT_POLY prevPoly = MV1CollCheck_Line(
 		m_stage->GetModelHandle(),
 		m_stage->GetFrameIndex(),
@@ -221,7 +221,7 @@ bool Player::BulletInstance()
 		m_bulletElapsedTime = 0;
 
 		//正面から弾を発射する
-		Vector3 forward = m_transform.rotation * Vector3(0, 0, -1).Normalized();
+		Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
 		AddChild(new Bullet(m_transform.position + BulletPosOffset, forward, this, m_stage));
 
 		//効果音の再生
