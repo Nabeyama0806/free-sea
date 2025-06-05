@@ -4,7 +4,9 @@
 //スティックの入力値
 Vector2 InputSystem::MoveValue(InputSystem::ActionMap actionMap)
 {
-	return (Input::GetInstance()->GetPadLeftStick(actionMap)).Normalize();
+	Vector2 tmp = Input::GetInstance()->GetPadLeftStick(actionMap);
+	if(tmp != Vector2()) tmp.Normalize();
+	return tmp;
 }
 
 // 上移動	

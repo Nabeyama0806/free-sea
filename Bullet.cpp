@@ -16,7 +16,7 @@ Bullet::Bullet(const Vector3& position, const Vector3& forward, Player* player, 
 	m_elapsedTime(0)
 {
 	//ƒ‚ƒfƒ‹
-	m_model = new Model("Resource/Model/Bubble2.mv1");
+	m_model = new Model("Resource/Model/Bubble.mv1");
 
 	//“–‚½‚è”»’è
 	m_collider = new CircleCollider(Scale + 5.0f, Vector3(1, 8, -7));

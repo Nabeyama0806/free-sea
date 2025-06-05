@@ -1,4 +1,5 @@
 #pragma once
+#include <assert.h>
 
 //ƒNƒ‰ƒX‚Ì‘O•ûéŒ¾
 class Vector3;
@@ -124,6 +125,7 @@ public:
 		Vector2 tmp = v;
 		
 		float m = tmp.Magnitude();
+		assert(m != 0 && "Vector2‚Å0œZ‚ª”­¶");
 		tmp.x /= m;
 		tmp.y /= m;
 

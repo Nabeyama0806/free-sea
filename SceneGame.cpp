@@ -34,22 +34,21 @@ void SceneGame::Initialize()
 
 	//ステージ
 	m_stage = new Stage();
-	MV1SetupCollInfo(m_stage->GetModelHandle(), -1);
+	MV1SetupCollInfo(m_stage->GetModelHandle(), m_stage->GetFrameIndex());
 	m_rootNode->AddChild(m_stage);
+	m_mainCamera->SetLookAt(m_stage);
 
 	//UIレイヤー
 	Node* uiLayer = new Node();
 	m_rootNode->AddChild(uiLayer);
 
 	//プレイヤー
-	m_player1 = new Player(m_mainCamera, m_stage, 0);
-	actorLayer->AddChild(m_player1);
-
-	m_player2 = new Player(m_mainCamera, m_stage, 1);
-	actorLayer->AddChild(m_player2);
+	for (int i = 0; i < 2; ++i)
+	{
+		m_player[i] = new Player(m_mainCamera, m_stage, PlayerPosition[i], i);
+		actorLayer->AddChild(m_player[i]);
+	}
 	
-	m_mainCamera->SetLookAt(m_stage);
-
 	//BGM
 	m_bgm = SoundLoader::GetInstance()->Load("Resource/Sound/bgm_game.mp3");
 	SoundManager::Play(m_bgm, DX_PLAYTYPE_LOOP);

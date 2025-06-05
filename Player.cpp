@@ -11,7 +11,7 @@
 #include "Debug.h"
 
 //コンストラクタ
-Player::Player(Camera* camera, Stage* stage, int playerIndex) :
+Player::Player(Camera* camera, Stage* stage, const Vector3& position, int playerIndex) :
 	ModelActor("Player"),
 	m_camera(camera),
 	m_stage(stage),
@@ -23,7 +23,7 @@ Player::Player(Camera* camera, Stage* stage, int playerIndex) :
 	m_isGrounded(false)
 {
 	//姿勢情報の調整
-	m_transform.position = SpawnPos;
+	m_transform.position = position;
 	m_transform.scale = Scale;
 
 	//アニメーションの登録
@@ -38,8 +38,11 @@ Player::Player(Camera* camera, Stage* stage, int playerIndex) :
 //更新
 void Player::Update()
 {
+	//本来の更新
+	ModelActor::Update();
+
 	//移動
-	Anime anime = Anime::Run;
+	Anime anime = Anime::Idle;
 	Move(anime);
 
 	//アニメーションの再生
@@ -47,14 +50,12 @@ void Player::Update()
 
 	//発射
 	BulletShot();
-
-	//本来の更新
-	ModelActor::Update();
 }
 
 //描画
 void Player::Draw()
 {
+	//本来の更新
 	ModelActor::Draw();
 }			   
 
@@ -167,7 +168,6 @@ void Player::Move(Anime& anime)
 			break;
 		}
 	}
-	m_model->PlayAnime(static_cast<int>(anime));
 }
 
 //弾の発射

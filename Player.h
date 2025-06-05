@@ -19,7 +19,6 @@ private:
 		Length,
 	};
 	
-	static constexpr Vector3 SpawnPos = Vector3(0, 0, 0);		//開始時の座標
 	static constexpr Vector3 BulletPosOffset = Vector3(0, 50, 0);
 	static constexpr float Scale = 3.0f;			//自身のサイズ
 	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
@@ -56,7 +55,7 @@ protected:
 
 public:
 	//コンストラクタ
-	Player(Camera* camera, Stage* stage, int playerIndex);
+	Player(Camera* camera, Stage* stage, const Vector3& position, int playerIndex);
 
 	//衝突イベント
 	virtual void OnCollision(const ModelActor* other);

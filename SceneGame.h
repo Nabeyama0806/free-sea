@@ -14,17 +14,24 @@ class Player;
 class SceneGame : public SceneBase
 {
 private:
+	static constexpr float ResultTransitionTime = 2.0f;	//プレイヤーが死んでからリザルト画面に遷移するまでの時間
+
 	const std::list<const char*> ImagePreload =
 	{
 		//"title.png"
 	};
 
-	static constexpr float ResultTransitionTime = 2.0f;	//プレイヤーが死んでからリザルト画面に遷移するまでの時間
-	Node* m_rootNode;		
-	Player* m_player1;	
-	Player* m_player2;	
-	Camera* m_mainCamera;	
-	Stage* m_stage;			
+	const Vector3 PlayerPosition[2] =
+	{
+		Vector3(800, 0, 0),
+		Vector3(-800, 0, 0),
+	};
+
+	Node* m_rootNode;
+	Player* m_player[2];
+	Camera* m_mainCamera;
+	Stage* m_stage;
+
 
 	Vector3 cameraPos = Vector3(0, 0, -700);
 
@@ -35,14 +42,15 @@ private:
 public:
 	//コンストラクタ
 	SceneGame() :
-		m_rootNode(nullptr), 
+		m_rootNode(nullptr),
 		m_stage(nullptr),
-		m_player1(nullptr),
-		m_player2(nullptr),
+		m_player{nullptr},
 		m_mainCamera(nullptr),
 		m_resultTransitionTime(ResultTransitionTime),
 		m_playerIndex(0),
-		m_bgm(0){}
+		m_bgm(0)
+	{
+	}
 
 	virtual void Initialize() override;		//初期化
 	virtual void Finalize() override;		//終了
