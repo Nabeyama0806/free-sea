@@ -36,7 +36,7 @@ public:
 	//•`‰æ
 	virtual void Draw(const Transform& transform) const override
 	{
-		DrawSphere3D(transform.position + m_offset, m_radius, 6, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
+		DrawSphere3D(transform.position + m_offset, transform.scale, 6, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
 	}
 #endif
 };

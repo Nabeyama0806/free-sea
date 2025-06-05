@@ -38,12 +38,15 @@ void Bullet::Update()
 	//本来の更新
 	ModelActor::Update();
 
-	//生存時間を過ぎていれば削除
-	m_elapsedTime += Time::GetInstance()->GetDeltaTime();
-	if (m_elapsedTime > EraseTime) Destroy();
-
 	//移動前の座標
 	Vector3 prevPos = m_transform.position;
+
+	//体力が無ければ削除
+	if (m_health <= 0) Destroy();
+
+	//生存時間を過ぎていたら削除
+	m_elapsedTime += Time::GetInstance()->GetDeltaTime();
+	if (m_elapsedTime >= EraseTime) Destroy();
 
 	//移動前の床情報を取得
 	MV1_COLL_RESULT_POLY prevPoly = MV1CollCheck_Line(
@@ -100,6 +103,12 @@ void Bullet::Update()
 
 			//X軸が等しいなら横軸に接触しているため、X軸を反転
 			crossPos.x == x.x ? m_forward.x *= -1 : m_forward.z *= -1;
+			
+			//反射後はサイズを小さくする
+			m_transform.scale -= 4;
+
+			//反射可能回数の減算
+			m_health--;
 		}
 	}
 }

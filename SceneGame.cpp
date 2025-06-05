@@ -42,9 +42,13 @@ void SceneGame::Initialize()
 	m_rootNode->AddChild(uiLayer);
 
 	//ƒvƒŒƒCƒ„[
-	m_player = new Player(m_mainCamera, m_stage);
-	m_rootNode->AddChild(m_player);
-	m_mainCamera->SetLookAt(m_player);
+	m_player1 = new Player(m_mainCamera, m_stage, 0);
+	actorLayer->AddChild(m_player1);
+
+	m_player2 = new Player(m_mainCamera, m_stage, 1);
+	actorLayer->AddChild(m_player2);
+	
+	m_mainCamera->SetLookAt(m_stage);
 
 	//BGM
 	m_bgm = SoundLoader::GetInstance()->Load("Resource/Sound/bgm_game.mp3");

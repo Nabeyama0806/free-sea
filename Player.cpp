@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Bullet.h"
-#include "Input.h"
+#include "InputSystem.h"
 #include "Time.h"
 #include "Quaternion.h"
 #include "ModelLoader.h"
@@ -11,10 +11,11 @@
 #include "Debug.h"
 
 //コンストラクタ
-Player::Player(Camera* camera, Stage* stage) :
+Player::Player(Camera* camera, Stage* stage, int playerIndex) :
 	ModelActor("Player"),
 	m_camera(camera),
 	m_stage(stage),
+	m_playerIndex(playerIndex),
 	m_bulletInstanceAmount(0),
 	m_bulletElapsedTime(0),
 	m_shotElapsedTime(ShotCoolTime),
@@ -26,7 +27,7 @@ Player::Player(Camera* camera, Stage* stage) :
 	m_transform.scale = Scale;
 
 	//アニメーションの登録
-	m_model = new Model("Man/Man.mv1");
+	m_model = playerIndex == 0 ? new Model("Man/Man.mv1") : new Model("Man/Man2.mv1");
 	for (int i = 0; i < static_cast<int>(Anime::Length); ++i)
 	{
 		//アニメーションのファイルパスを渡す
@@ -37,11 +38,8 @@ Player::Player(Camera* camera, Stage* stage) :
 //更新
 void Player::Update()
 {
-	//本来の更新
-	ModelActor::Update();
-
 	//移動
-	Anime anime = Anime::Idle;
+	Anime anime = Anime::Run;
 	Move(anime);
 
 	//アニメーションの再生
@@ -49,17 +47,15 @@ void Player::Update()
 
 	//発射
 	BulletShot();
+
+	//本来の更新
+	ModelActor::Update();
 }
 
 //描画
 void Player::Draw()
 {
 	ModelActor::Draw();
-
-	DrawLine3D(
-		m_transform.position + Vector3(0, 0.5f, 0),
-		m_transform.position - Vector3(0, 0.1f, 0),
-		GetColor(255, 255, 0));
 }			   
 
 //移動
@@ -76,11 +72,8 @@ void Player::Move(Anime& anime)
 		prevPos - Vector3(0, 100, 0));
 
 	//入力方向の取得
-	Vector3 move = Vector3();
-	if (Input::GetInstance()->MoveUp())    move.z = 1;
-	if (Input::GetInstance()->MoveDown())  move.z = -1;
-	if (Input::GetInstance()->MoveRight()) move.x = 1;
-	if (Input::GetInstance()->MoveLeft())  move.x = -1;
+	Vector2 input = InputSystem::GetInstance()->MoveValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
+	Vector3 move = Vector3(input.x, 0, -input.y);
 
 	//カメラの正面ベクトルを作成
 	Vector3 cameraForward = Vector3::Scale(m_camera->GetForward(), Vector3(1, 0, 1)).Normalized();
@@ -100,7 +93,7 @@ void Player::Move(Anime& anime)
 			m_transform.rotation = Quaternion::Slerp(
 				m_transform.rotation,
 				Quaternion::LookRotation(move),
-				0.2f);
+				0.1f);
 		}
 
 		//移動アニメーションの設定
@@ -174,9 +167,7 @@ void Player::Move(Anime& anime)
 			break;
 		}
 	}
-
 	m_model->PlayAnime(static_cast<int>(anime));
-	
 }
 
 //弾の発射
@@ -204,7 +195,7 @@ void Player::BulletShot()
 	if (m_shotElapsedTime < ShotCoolTime) return;
 
 	//発射ボタンが押されたら弾を生成
-	if (Input::GetInstance()->IsDecision())
+	if (InputSystem::GetInstance()->IsDecision(static_cast<InputSystem::ActionMap>(m_playerIndex)))
 	{
 		m_isShot = true;
 		m_shotElapsedTime = 0;
@@ -230,4 +221,12 @@ bool Player::BulletInstance()
 		return true;
 	}
 	return false;
+}
+
+void Player::OnCollision(const ModelActor* other)
+{
+	if (other->GetName() == "Bullet")
+	{
+		Destroy();
+	}
 }

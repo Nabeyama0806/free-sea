@@ -8,13 +8,13 @@
 void Camera::Update()
 {
 	// カメラの視点移動
-	if(!Input::GetInstance()->IsKeyPress(KEY_INPUT_0))MouseCamera();
+	//if(!Input::GetInstance()->IsKeyPress(KEY_INPUT_0))MouseCamera();
 
-	// マウスホイール回転量を距離に加える
-	m_cameraDistance -= Input::GetInstance()->GetMouseHweelRot() * CameraScaling;
-	if (Input::GetInstance()->IsPadPress(PAD_INPUT_6)) m_cameraDistance -= CameraScaling;
-	if (Input::GetInstance()->IsPadPress(PAD_INPUT_5)) m_cameraDistance += CameraScaling;
-	m_cameraDistance > MaxCameraDistance ? m_cameraDistance = MaxCameraDistance : m_cameraDistance < MinCameraDistance ? m_cameraDistance = MinCameraDistance : m_cameraDistance;
+	//// マウスホイール回転量を距離に加える
+	//m_cameraDistance -= Input::GetInstance()->GetMouseHweelRot() * CameraScaling;
+	//if (Input::GetInstance()->IsPadPress(PAD_INPUT_6)) m_cameraDistance -= CameraScaling;
+	//if (Input::GetInstance()->IsPadPress(PAD_INPUT_5)) m_cameraDistance += CameraScaling;
+	//m_cameraDistance > MaxCameraDistance ? m_cameraDistance = MaxCameraDistance : m_cameraDistance < MinCameraDistance ? m_cameraDistance = MinCameraDistance : m_cameraDistance;
 
 	Vector3 tempPosition1;
 	Vector3 tempPosition2;

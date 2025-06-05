@@ -21,13 +21,15 @@ private:
 
 	static constexpr float ResultTransitionTime = 2.0f;	//プレイヤーが死んでからリザルト画面に遷移するまでの時間
 	Node* m_rootNode;		
-	Player* m_player;		
+	Player* m_player1;	
+	Player* m_player2;	
 	Camera* m_mainCamera;	
 	Stage* m_stage;			
 
 	Vector3 cameraPos = Vector3(0, 0, -700);
 
 	float m_resultTransitionTime;
+	int m_playerIndex;
 	int m_bgm;
 
 public:
@@ -35,9 +37,11 @@ public:
 	SceneGame() :
 		m_rootNode(nullptr), 
 		m_stage(nullptr),
-		m_player(nullptr),
+		m_player1(nullptr),
+		m_player2(nullptr),
 		m_mainCamera(nullptr),
 		m_resultTransitionTime(ResultTransitionTime),
+		m_playerIndex(0),
 		m_bgm(0){}
 
 	virtual void Initialize() override;		//初期化

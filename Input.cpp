@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "InputSystem.h"
 #include "DxLib.h"
 #include <cstring>
 
@@ -30,27 +31,31 @@ void Input::Update()
 	//マウスホイールを取得
 	m_mouseWheel = DxLib::GetMouseWheelRotVol();
 
-	//マウスの左ボタンが押されたら、Zキーが入力されたことにする
-	if (m_mouseButton & MOUSE_INPUT_LEFT) m_keyState[KEY_INPUT_Z] = 1;
-
 	// パッド
-	m_padButtonPost = m_padButton;
-	m_padButton = GetJoypadInputState(DX_INPUT_PAD1);
+	for (int i = 0; i < static_cast<int>(InputSystem::ActionMap::Length); ++i)
+	{
+		//ボタン
+		m_padButtonPost[i] = m_padButton[i];
+		m_padButton[i] = GetJoypadInputState(DX_INPUT_PAD1 + i);
 
-	// パッドのトリガーの状態を取得
-	XINPUT_STATE state;
-	GetJoypadXInputState(DX_INPUT_PAD1, &state);
-	// 右トリガー
-	m_padRightTriggerPost = m_padRightTrigger;
-	m_padRightTrigger = state.RightTrigger;
-	// 左トリガー
-	m_padLeftTriggerPost = m_padLeftTrigger;
-	m_padLeftTrigger = state.LeftTrigger;
+		//スティック
+		int x, y;
+		GetJoypadAnalogInput(&x, &y, DX_INPUT_PAD1 + i);
+		m_padLeftStick[i] = Vector2(x, y);
+	}
 
-#ifdef _DEBUG
-	// パッドのShareボタンをESCキーにする
-	if (IsPadDown(PAD_INPUT_7)) m_keyState[KEY_INPUT_ESCAPE] = 1;
-#endif // DEBUG
+
+	//// パッドのトリガーの状態を取得
+	//XINPUT_STATE state;
+	//GetJoypadXInputState(DX_INPUT_PAD1, &state);
+
+	//// 右トリガー
+	//m_padRightTriggerPost = m_padRightTrigger;
+	//m_padRightTrigger = state.RightTrigger;
+
+	//// 左トリガー
+	//m_padLeftTriggerPost = m_padLeftTrigger;
+	//m_padLeftTrigger = state.LeftTrigger;
 }
 
 //何かキーが押された瞬間
@@ -71,9 +76,12 @@ bool Input::IsAnyKeyDown()
 	}
 
 	// パッド
-	if ((m_padButton & ~m_padButtonPost) != 0)
+	for (int i = 0; i < static_cast<int>(InputSystem::ActionMap::Length); ++i)
 	{
-		return true;
+		if ((m_padButton[i] & ~m_padButtonPost[i]) != 0)
+		{
+			return true;
+		}
 	}
 
 	if (m_padRightTrigger != 0 && m_padRightTriggerPost == 0 ||
@@ -96,9 +104,12 @@ bool Input::IsAnyKeyPress()
 	}
 
 	// パッド
-	if (m_padButton != 0)
+	for (int i = 0; i < static_cast<int>(InputSystem::ActionMap::Length); ++i)
 	{
-		return true;
+		if (m_padButton[i] != 0)
+		{
+			return true;
+		}
 	}
 
 	if (m_padRightTrigger != 0 || m_padLeftTrigger != 0)

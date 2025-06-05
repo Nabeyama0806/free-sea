@@ -26,7 +26,7 @@ private:
 	static constexpr float Radius = 20.0f;			//衝突判定の半径
 
 	//弾
-	static constexpr int BulletAmount = 5;				//一回で発射される弾の数
+	static constexpr int BulletAmount = 3;				//一回で発射される弾の数
 	static constexpr float ShotCoolTime = 1.4f;			//発射間隔
 	static constexpr float BulletFiringRate = 0.27f;	//弾間の発射間隔
 
@@ -39,6 +39,7 @@ private:
 
 	Camera* m_camera;
 	Stage* m_stage;
+	int m_playerIndex;			//自身のプレイヤー番号
 	int m_bulletInstanceAmount;	//生成された弾の数
 	float m_shotElapsedTime;	//発射間隔の経過時間
 	float m_bulletElapsedTime;	//弾間の経過時間
@@ -55,5 +56,8 @@ protected:
 
 public:
 	//コンストラクタ
-	Player(Camera* camera, Stage* stage);
+	Player(Camera* camera, Stage* stage, int playerIndex);
+
+	//衝突イベント
+	virtual void OnCollision(const ModelActor* other);
 };

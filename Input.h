@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include "InputSystem.h"
 #include "DxLib.h"
 
 #define KEY_INPUT_ENTER KEY_INPUT_RETURN
@@ -23,29 +24,32 @@ private:
 	int m_mouseButtonPost;		//前フレームのマウスボタン入力状態
 
 	// パッド
-	int m_padButton;
-	int m_padButtonPost;
+	int m_padButton[static_cast<int>(InputSystem::ActionMap::Length)];
+	int m_padButtonPost[static_cast<int>(InputSystem::ActionMap::Length)];
 
-	int m_padRightTrigger;	// 右トリガーの状態
-	int m_padRightTriggerPost;
+	Vector2 m_padLeftStick[static_cast<int>(InputSystem::ActionMap::Length)];
 
-	int m_padLeftTrigger;	// 左トリガーの状態
-	int m_padLeftTriggerPost;
+	int m_padRightTrigger[static_cast<int>(InputSystem::ActionMap::Length)];	// 右トリガーの状態
+	int m_padRightTriggerPost[static_cast<int>(InputSystem::ActionMap::Length)];
+
+	int m_padLeftTrigger[static_cast<int>(InputSystem::ActionMap::Length)];	// 左トリガーの状態
+	int m_padLeftTriggerPost[static_cast<int>(InputSystem::ActionMap::Length)];
 
 	//コンストラクタ
 	Input() :
 		m_keyState{ 0 },
 		m_keyStatePost{ 0 },
-		m_mouseWheel(0),
-		m_mouseButton(0),
+		m_mouseWheel{ 0 },
+		m_mouseButton{ 0 },
 		m_mouseButtonPost(0),
-		m_padButton(0),
-		m_padButtonPost(0),
-		m_padRightTrigger(0),
-		m_padRightTriggerPost(0),
-		m_padLeftTrigger(0),
-		m_padLeftTriggerPost(0) {
-	}	//配列の初期化は（）ではなく｛｝を使う
+		m_padButton{ 0 },
+		m_padButtonPost{ 0 },
+		m_padRightTrigger{ 0 },
+		m_padRightTriggerPost{ 0 },
+		m_padLeftTrigger{ 0 },
+		m_padLeftTriggerPost{ 0 }
+	{
+	}	
 
 public:
 	//シングルトン
@@ -126,57 +130,63 @@ public:
 	}
 
 	// パッドボタンが押された瞬間
-	bool IsPadDown(int button)
+	bool IsPadDown(int button, InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
-		return (m_padButton & button) && !(m_padButtonPost & button);
+		return (m_padButton[static_cast<int>(actionMap)] & button) && !(m_padButtonPost[static_cast<int>(actionMap)] & button);
 	}
 
 	// パッドボタンが押されている
-	bool IsPadPress(int button)
+	bool IsPadPress(int button, InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
-		return (m_padButton & button);
+		return (m_padButton[static_cast<int>(actionMap)] & button);
 	}
 
 	// パッドボタンが離された瞬間
-	bool IsPadUp(int button)
+	bool IsPadUp(int button, InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
-		return !(m_padButton & button) && (m_padButtonPost & button);
+		return !(m_padButton[static_cast<int>(actionMap)] & button) && (m_padButtonPost[static_cast<int>(actionMap)] & button);
 	}
 
-	bool IsPadRightTriggerDown()
+	//スティックの入力値
+	Vector2 GetPadLeftStick(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
+	{
+		return m_padLeftStick[static_cast<int>(actionMap)];
+	}
+
+	bool IsPadRightTriggerDown(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
 		// トリガーの状態が100以上で、前フレームのトリガーの状態が100未満
-		return m_padRightTrigger >= PadTriggerSensitivity && m_padRightTriggerPost < PadTriggerSensitivity;
+		return m_padRightTrigger[static_cast<int>(actionMap)] >= PadTriggerSensitivity && m_padRightTriggerPost[static_cast<int>(actionMap)] < PadTriggerSensitivity;
 	}
 
-	bool IsPadRightTriggerUp()
+	bool IsPadRightTriggerUp(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
 		// トリガーの状態が100未満で、前フレームのトリガーの状態が100以上
-		return m_padRightTrigger < PadTriggerSensitivity && m_padRightTriggerPost >= PadTriggerSensitivity;
+		return m_padRightTrigger[static_cast<int>(actionMap)] < PadTriggerSensitivity && m_padRightTriggerPost[static_cast<int>(actionMap)] >= PadTriggerSensitivity;
 	}
 
-	bool IsPadRightTriggerPress()
+	bool IsPadRightTriggerPress(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
 		// トリガーの状態が100以上
-		return m_padRightTrigger >= PadTriggerSensitivity;
+		return m_padRightTrigger[static_cast<int>(actionMap)] >= PadTriggerSensitivity;
 	}
 
-	bool IsPadLeftTriggerDown()
+	bool IsPadLeftTriggerDown(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
 		// トリガーの状態が100以上で、前フレームのトリガーの状態が100未満
-		return m_padLeftTrigger >= PadTriggerSensitivity && m_padLeftTriggerPost < PadTriggerSensitivity;
+		return m_padLeftTrigger[static_cast<int>(actionMap)] >= PadTriggerSensitivity && m_padLeftTriggerPost[static_cast<int>(actionMap)] < PadTriggerSensitivity;
 	}
 
-	bool IsPadLeftTriggerUp()
+	bool IsPadLeftTriggerUp(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
 		// トリガーの状態が100未満で、前フレームのトリガーの状態が100以上
-		return m_padLeftTrigger < PadTriggerSensitivity && m_padLeftTriggerPost >= PadTriggerSensitivity;
+		return m_padLeftTrigger[static_cast<int>(actionMap)] < PadTriggerSensitivity && m_padLeftTriggerPost[static_cast<int>(actionMap)] >= PadTriggerSensitivity;
 	}
 
-	bool IsPadLeftTriggerPress()
+	bool IsPadLeftTriggerPress(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
 		// トリガーの状態が100以上
-		return m_padLeftTrigger >= PadTriggerSensitivity;
+		return m_padLeftTrigger[static_cast<int>(actionMap)] >= PadTriggerSensitivity;
 	}
 
 	void SetPadStick(Vector2 movePadPoint)
@@ -184,81 +194,5 @@ public:
 		m_mousePoint += movePadPoint * PadStickSensitivity;
 		// マウスカーソルの位置を設定
 		SetMousePoint(static_cast<int>(m_mousePoint.x), static_cast<int>(m_mousePoint.y));
-	}
-
-	// インプットシステム
-	// 上移動	
-	bool MoveUp()
-	{
-		return IsKeyPress(KEY_INPUT_W) || IsPadPress(PAD_INPUT_UP);
-	}
-
-	// 下移動
-	bool MoveDown()
-	{
-		return IsKeyPress(KEY_INPUT_S) || IsPadPress(PAD_INPUT_DOWN);
-	}
-
-	// 左移動
-	bool MoveLeft()
-	{
-		return IsKeyPress(KEY_INPUT_A) || IsPadPress(PAD_INPUT_LEFT);
-	}
-
-	// 右移動
-	bool MoveRight()
-	{
-		return IsKeyPress(KEY_INPUT_D) || IsPadPress(PAD_INPUT_RIGHT);
-	}
-
-	// ボトルを投げる
-	bool NewBottle()
-	{
-		return IsMouseDown(MOUSE_INPUT_LEFT) || IsPadRightTriggerDown() || IsPadLeftTriggerDown();
-	}
-
-	// 決定
-	bool IsDecision()
-	{
-		return IsPadDown(PAD_INPUT_1) || IsMouseDown(MOUSE_INPUT_LEFT);
-	}
-
-	// 決定を離す
-	bool IsDecisionUp()
-	{
-		return IsPadUp(PAD_INPUT_1) || IsMouseUp(MOUSE_INPUT_LEFT);
-	}
-
-	bool IsReLoadMap()
-	{
-		return IsKeyDown(KEY_INPUT_R) || IsPadDown(PAD_INPUT_7);
-	}
-
-	// カメラの視点変更
-	bool IsCameraChange()
-	{
-		return IsKeyDown(KEY_INPUT_SPACE) || IsPadDown(PAD_INPUT_10);
-	}
-
-	// タイトルの選択
-	bool TitleSelectLeft()
-	{
-		return IsPadDown(PAD_INPUT_LEFT);
-	}
-
-	bool TitleSelectRight()
-	{
-		return IsPadDown(PAD_INPUT_RIGHT);
-	}
-
-	// タイトルのステージ選択
-	bool StageSelectRight()
-	{
-		return IsPadDown(PAD_INPUT_5);
-	}
-
-	bool StageSelectLeft()
-	{
-		return IsPadDown(PAD_INPUT_6);
 	}
 };

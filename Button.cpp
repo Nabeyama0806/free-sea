@@ -28,13 +28,13 @@ bool Button::IsMouseContain(const Vector2& position)
 void Button::Update(const Vector2& position)
 {
 	// ボタン上で指定されたマウスボタンが押されたか
-	if (Input::GetInstance()->IsDecision())
+	//if (Input::GetInstance()->IsDecision())
 	{
 		m_isClickDown = IsMouseContain(position);
 	}
 
 	// ボタン上で指定されたマウスボタンが離したか
-	if (m_isClickDown && Input::GetInstance()->IsDecisionUp())
+	//if (m_isClickDown && Input::GetInstance()->IsDecisionUp())
 	{
 		m_isClickDown = false;
 		if (IsMouseContain(position))

@@ -7,7 +7,7 @@ class Stage;
 class Bullet : public ModelActor
 {
 public:
-	static constexpr int MaxHealth = 3;			//”½Ë‚Å‚«‚é‰ñ”(‘Ì—Í)
+	static constexpr int MaxHealth = 5;			//”½Ë‚Å‚«‚é‰ñ”(‘Ì—Í)
 	static constexpr float Scale = 20.0f;		//‘å‚«‚³‚Ì’²®
 
 private:

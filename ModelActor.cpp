@@ -65,11 +65,13 @@ void ModelActor::Draw()
 		m_model->Draw(m_transform);
 	}
 
+#ifdef _DEBUG
 	//当たり判定
 	if (m_collider)
 	{
 		m_collider->Draw(m_transform);
 	}
+#endif
 }
 
 //子ノードを含む更新
