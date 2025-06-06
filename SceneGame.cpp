@@ -2,11 +2,12 @@
 #include "SceneResult.h"
 #include "SoundLoader.h"
 #include "SoundManager.h"
+#include "BlueBird.h"
+#include "GreenBird.h"
 #include "Input.h"
 #include "Node.h"
 #include "Time.h"
 #include "Camera.h"
-#include "Player.h"
 #include "Stage.h"
 #include "DxLib.h"
 
@@ -43,12 +44,11 @@ void SceneGame::Initialize()
 	m_rootNode->AddChild(uiLayer);
 
 	//ƒvƒŒƒCƒ„[
-	for (int i = 0; i < 2; ++i)
-	{
-		PlayerBase::Bullet bullet = i == 0 ? PlayerBase::Bullet::Straight : PlayerBase::Bullet::Reflect;
-		m_player[i] = new Player(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
-		actorLayer->AddChild(m_player[i]);
-	}
+	m_blueBird = new BlueBird(m_mainCamera, m_stage, PlayerPosition[0], 0);
+	actorLayer->AddChild(m_blueBird);
+
+	m_greenBird = new GreenBird(m_mainCamera, m_stage, PlayerPosition[1], 1);
+	actorLayer->AddChild(m_greenBird);
 	
 	//BGM
 	m_bgm = SoundLoader::GetInstance()->Load("Resource/Sound/bgm_game.mp3");

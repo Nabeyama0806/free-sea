@@ -1,4 +1,4 @@
-#include "BulletBase.h"
+#include "Bullet.h"
 #include "Stage.h"
 #include "Effect.h"
 #include "CircleCollider.h"
@@ -6,12 +6,13 @@
 #include "Lerp.h"
 
 //コンストラクタ
-BulletBase::BulletBase(const Vector3& position, const Vector3& forward, Stage* stage, int maxHelath, float addForce) :
+Bullet::Bullet(const Vector3& position, const Vector3& forward, Stage* stage, int maxHelath, int powar, float addForce, float size) :
 	ModelActor("Bullet", nullptr, position),
 	m_stage(stage),
 	m_forward(forward),
-	m_addForce(addForce),
 	m_health(maxHelath),
+	m_powar(powar),
+	m_addForce(addForce),
 	m_elapsedTime(0)
 {
 	//モデル
@@ -20,19 +21,19 @@ BulletBase::BulletBase(const Vector3& position, const Vector3& forward, Stage* s
 	//当たり判定
 	m_collider = new CircleCollider(Scale, Vector3(1, 8, -7));
 
+	//姿勢情報
+	m_transform.scale = size;
+	m_effectOffset = Vector3(0, -25, -10);
+
 	//エフェクト
 	m_effect = new Effect("Resource/Effect/bullet.efk", 10, 700);
 
-	//姿勢情報
-	m_transform.scale = Scale;
-	m_effectOffset = Vector3(0, -25, -10);
-
 	//エフェクトの再生
-	m_effect->Play(false);
+	m_effect->Play();
 }
 
 //更新
-void BulletBase::Update()
+void Bullet::Update()
 {
 	//本来の更新
 	ModelActor::Update();
@@ -109,5 +110,16 @@ void BulletBase::Update()
 			//反射可能回数の減算
 			m_health--;
 		}
+	}
+
+	//調整後の座標でも範囲外にいるなら、移動をなかったことにする
+	poly = MV1CollCheck_Line(
+		m_stage->GetModelHandle(),
+		m_stage->GetFrameIndex(),
+		m_transform.position + Vector3(0, 100, 0),
+		m_transform.position - Vector3(0, 100, 0));
+	if (!poly.HitFlag)
+	{
+		m_transform.position = prevPos;
 	}
 }

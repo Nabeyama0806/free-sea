@@ -20,11 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActorBase.h" />
-    <ClInclude Include="BulletBase.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="GreenBird.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="ModelActorCollision.h" />
     <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="PlayerBase.h" />
+    <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="ReflectionBullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
@@ -47,7 +48,7 @@
     <ClInclude Include="ModelAnimation.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="BlueBird.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneGame.h" />
@@ -69,10 +70,11 @@
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BulletBase.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="GreenBird.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="ModelActorCollision.cpp" />
-    <ClCompile Include="PlayerBase.cpp" />
+    <ClCompile Include="CharacterBase.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -90,7 +92,7 @@
     <ClCompile Include="ModelAnimation.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="BlueBird.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneManager.cpp" />

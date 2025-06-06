@@ -1,4 +1,4 @@
-#include "PlayerBase.h"
+#include "CharacterBase.h"
 #include "ReflectionBullet.h"
 #include "StraightBullet.h"
 #include "Model.h"
@@ -15,24 +15,25 @@
 #include "Lerp.h"
 
 //コンストラクタ
-PlayerBase::PlayerBase(
+CharacterBase::CharacterBase(
+	const char* modelFilePath,
 	Camera* camera,
 	Stage* stage,
 	const Vector3& position,
-	PlayerBase::Bullet bullet,
-	int playerIndex,
-	int maxBulletAmount,
-	float shotCoolTime,
-	float bulletFiringRate
+	int health,
+	int playerIndex
 ) :
 	ModelActor("Player"),
+	m_modelFilePath(modelFilePath),
 	m_camera(camera),
 	m_stage(stage),
-	m_bullet(bullet),
+	m_health(health),
 	m_playerIndex(playerIndex),
-	m_maxBulletAmount(maxBulletAmount),
-	m_shotCoolTime(shotCoolTime),
-	m_bulletFiringRate(bulletFiringRate),
+	m_invincibleTime(0),
+	m_maxBulletAmount(0),
+	m_shotCoolTime(0),
+	m_bulletFiringRate(0),
+	m_bulletInstanceAmount(0),
 	m_bulletElapsedTime(0),
 	m_shotElapsedTime(0),
 	m_isShot(false),
@@ -43,43 +44,31 @@ PlayerBase::PlayerBase(
 	m_transform.scale = Scale;
 
 	//アニメーションの登録
-	m_model = playerIndex == 0 ? new Model("Man/Man.mv1") : new Model("Man/Man2.mv1");
+	m_model = new Model(m_modelFilePath);
 	for (int i = 0; i < static_cast<int>(Anime::Length); ++i)
 	{
 		//アニメーションのファイルパスを渡す
 		m_model->Register(AnimeFileName[i]);
 	}
 
-	m_collider = new CircleCollider(30);
+	m_collider = new CircleCollider(Radius, Vector3(0, 50, 0));
 }
 
 //更新
-void PlayerBase::Update()
+void CharacterBase::Update()
 {
 	//本来の更新
 	ModelActor::Update();
 
-	//移動
+	//無敵時間のカウントダウン
+	if (m_invincibleTime > 0)
+	{
+		m_invincibleTime -= Time::GetInstance()->GetDeltaTime();
+	}
+
+	//アニメーション
 	Anime anime = Anime::Idle;
-	Move(anime);
 
-	//アニメーションの再生
-	m_model->PlayAnime(static_cast<int>(anime));
-
-	//発射
-	BulletShot();
-}
-
-//描画
-void PlayerBase::Draw()
-{
-	//本来の更新
-	ModelActor::Draw();
-}
-
-//移動
-void PlayerBase::Move(Anime& anime)
-{
 	//移動前の座標
 	Vector3 prevPos = m_transform.position;
 
@@ -112,7 +101,7 @@ void PlayerBase::Move(Anime& anime)
 			m_transform.rotation = Quaternion::Slerp(
 				m_transform.rotation,
 				Quaternion::LookRotation(move),
-				0.1f);
+				0.3f);
 		}
 
 		//移動アニメーションの設定
@@ -186,58 +175,46 @@ void PlayerBase::Move(Anime& anime)
 			break;
 		}
 	}
+
+	//アニメーションの再生
+	m_model->PlayAnime(static_cast<int>(anime));
 }
 
-//弾の発射
-void PlayerBase::BulletShot()
+//描画
+void CharacterBase::Draw()
 {
-	//既に発射済み
-	if (m_isShot)
+	//無敵時間中は表示/非表示を繰り返して点滅させる
+	if (m_invincibleTime > 0)
 	{
-		//弾の発射間隔の経過時間
-		m_bulletElapsedTime += Time::GetInstance()->GetDeltaTime();
-
-		//生成した弾の数を加算
-		if (BulletInstance()) m_bulletInstanceAmount++;
-
-		//最大数まで生成したらフラグを折る
-		if (m_bulletInstanceAmount == m_maxBulletAmount)
+		//無敵時間中の小数点第一位が奇数なら非表示
+		if (static_cast<int>(m_invincibleTime * 10) % 2)
 		{
-			m_isShot = false;
-			m_bulletInstanceAmount = 0;
+			return;
 		}
 	}
 
-	//発射の入力受付の経過時間
-	m_shotElapsedTime += Time::GetInstance()->GetDeltaTime();
-	if (m_shotElapsedTime < m_shotCoolTime) return;
-
-	//発射ボタンが押されたら弾を生成
-	if (InputSystem::GetInstance()->IsDecision(static_cast<InputSystem::ActionMap>(m_playerIndex)))
-	{
-		m_isShot = true;
-		m_shotElapsedTime = 0;
-	}
+	//本来の更新
+	ModelActor::Draw();
 }
 
-//弾の生成
-bool PlayerBase::BulletInstance()
+//被弾
+void CharacterBase::Damage(int damage)
 {
-	//弾間の経過時間が発射レートを超えていれば弾を発射
-	if (m_bulletElapsedTime > m_bulletFiringRate)
+	//無敵中はダメージを受けない
+	if (m_invincibleTime > 0)
 	{
-		//経過時間のリセット
-		m_bulletElapsedTime = 0;
-
-		//正面から弾を発射する
-		Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
-		Vector3 instancePos = m_transform.position + BulletOffset + forward * 30;
-		m_bullet == PlayerBase::Bullet::Straight ? AddChild(new StraightBullet(instancePos, forward, m_stage)) : AddChild(new ReflectionBullet(instancePos, forward, m_stage));
-
-		//効果音の再生
-		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");
-
-		return true;
+		return;
 	}
-	return false;
+
+	//無敵時間をセット
+	m_invincibleTime = InvincibleTime;
+
+	//体力を減らす
+	m_health -= damage;
+
+	//死んだら当たり判定を無くす
+	if (m_health <= 0)
+	{
+		Destroy();
+	}
 }

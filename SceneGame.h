@@ -8,7 +8,8 @@ class Node;
 class ModelActor;
 class Camera;
 class Stage;
-class Player;
+class BlueBird;
+class GreenBird;
 
 //	ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame : public SceneBase
@@ -28,7 +29,8 @@ private:
 	};
 
 	Node* m_rootNode;
-	Player* m_player[2];
+	GreenBird* m_greenBird;
+	BlueBird* m_blueBird;
 	Camera* m_mainCamera;
 	Stage* m_stage;
 
@@ -44,7 +46,8 @@ public:
 	SceneGame() :
 		m_rootNode(nullptr),
 		m_stage(nullptr),
-		m_player{nullptr},
+		m_greenBird(nullptr),
+		m_blueBird(nullptr),
 		m_mainCamera(nullptr),
 		m_resultTransitionTime(ResultTransitionTime),
 		m_playerIndex(0),
