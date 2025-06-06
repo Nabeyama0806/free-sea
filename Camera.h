@@ -5,12 +5,11 @@
 class Camera : public Node
 {
 private:
-	static constexpr Vector3 CameraPos = Vector3(0, 850, -1100);
+	static constexpr Vector3 CameraPos = Vector3(0, 1050, -1000);
 	static constexpr float CameraNear = 5.0f;
 	static constexpr float CameraFar = 1000000.0f;
 
 	ModelActor* m_lookAt;		//注視するオブジェクト
-
 	Vector3 m_targetPos;
 
 protected:

@@ -111,15 +111,4 @@ void Bullet::Update()
 			m_health--;
 		}
 	}
-
-	//’²®Œã‚ÌÀ•W‚Å‚à”ÍˆÍŠO‚É‚¢‚é‚È‚çAˆÚ“®‚ð‚È‚©‚Á‚½‚±‚Æ‚É‚·‚é
-	poly = MV1CollCheck_Line(
-		m_stage->GetModelHandle(),
-		m_stage->GetFrameIndex(),
-		m_transform.position + Vector3(0, 100, 0),
-		m_transform.position - Vector3(0, 100, 0));
-	if (!poly.HitFlag)
-	{
-		m_transform.position = prevPos;
-	}
 }

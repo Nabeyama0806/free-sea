@@ -1,6 +1,7 @@
 #pragma once
 #include "ModelActor.h"
 #include "CharacterBase.h"
+#include "DxLib.h"
 
 class Stage;
 
@@ -8,7 +9,7 @@ class Bullet : public ModelActor
 {
 private:
 	static constexpr float Scale = 25.0f;		//大きさの調整
-	static constexpr float EraseTime = 3.5f;	//生存時間
+	static constexpr float EraseTime = 2.5f;	//生存時間
 
 	Stage* m_stage;
 	Vector3 m_forward;		//自身の正面ベクトル
@@ -43,5 +44,5 @@ public:
 			//他プレイヤーと衝突したらダメージを与える
 			dynamic_cast<CharacterBase*>(const_cast<ModelActor*>(other))->Damage(m_powar);
 		}
-	};
+	}
 };

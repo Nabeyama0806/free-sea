@@ -1,12 +1,13 @@
 #pragma once
 #include "Bullet.h"
+#include "DxLib.h"
 
 class StraightBullet : public Bullet
 {
 private:
 	static constexpr int MaxHealth = 1;			//反射できる回数(体力)
 	static constexpr int Powar = 20;
-	static constexpr float AddForce = 1050.0f;	//投げる力
+	static constexpr float AddForce = 950.0f;	//投げる力
 
 public:
 	//コンストラクタ
