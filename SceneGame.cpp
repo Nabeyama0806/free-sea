@@ -45,7 +45,8 @@ void SceneGame::Initialize()
 	//ƒvƒŒƒCƒ„[
 	for (int i = 0; i < 2; ++i)
 	{
-		m_player[i] = new Player(m_mainCamera, m_stage, PlayerPosition[i], i);
+		PlayerBase::Bullet bullet = i == 0 ? PlayerBase::Bullet::Straight : PlayerBase::Bullet::Reflect;
+		m_player[i] = new Player(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
 		actorLayer->AddChild(m_player[i]);
 	}
 	

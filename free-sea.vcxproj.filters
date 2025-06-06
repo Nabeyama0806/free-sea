@@ -43,6 +43,18 @@
     <Filter Include="ヘッダー ファイル\Collider">
       <UniqueIdentifier>{50cdf53e-46e2-43d1-b265-8d68f5c55ebe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Player">
+      <UniqueIdentifier>{0f414d7e-9c34-4044-aa94-e01166dcc86f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Player">
+      <UniqueIdentifier>{5e666ec4-9e65-4fdc-a5eb-f37a6ab25bde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Bullet">
+      <UniqueIdentifier>{4b86f185-b604-4ddb-8dff-be89ec876622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Bullet">
+      <UniqueIdentifier>{0190676c-0cab-4277-b2b3-729616b6095c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMain.h">
@@ -63,19 +75,10 @@
     <ClInclude Include="ModelActor.h">
       <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="ModelAnimation.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
     <ClInclude Include="SpriteActor.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteAnimation.h">
       <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
     <ClInclude Include="SceneTitle.h">
@@ -156,9 +159,6 @@
     <ClInclude Include="Vector3.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="ModelActorCollision.h">
       <Filter>ヘッダー ファイル\Collider</Filter>
     </ClInclude>
@@ -180,6 +180,27 @@
     <ClInclude Include="Stage.h">
       <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerBase.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>ヘッダー ファイル\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionBullet.h">
+      <Filter>ヘッダー ファイル\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletBase.h">
+      <Filter>ヘッダー ファイル\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimation.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAnimation.h">
+      <Filter>ヘッダー ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="StraightBullet.h">
+      <Filter>ヘッダー ファイル\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMain.cpp">
@@ -194,16 +215,10 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
     <ClCompile Include="ModelActor.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelAnimation.cpp">
       <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
@@ -269,9 +284,6 @@
     <ClCompile Include="Vector3.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="ModelActorCollision.cpp">
       <Filter>ソース ファイル\Collider</Filter>
     </ClCompile>
@@ -279,6 +291,18 @@
       <Filter>ソース ファイル\Collider</Filter>
     </ClCompile>
     <ClCompile Include="InputSystem.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBase.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>ソース ファイル\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletBase.cpp">
+      <Filter>ソース ファイル\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelAnimation.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActorBase.h" />
+    <ClInclude Include="BulletBase.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="ModelActorCollision.h" />
     <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="PlayerBase.h" />
+    <ClInclude Include="ReflectionBullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollider.h" />
@@ -60,15 +62,17 @@
     <ClInclude Include="SpriteAnimation.h" />
     <ClInclude Include="SpriteLoader.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="StraightBullet.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BulletBase.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="ModelActorCollision.cpp" />
-    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="PlayerBase.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />

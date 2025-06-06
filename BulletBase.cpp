@@ -1,25 +1,24 @@
-#include "Bullet.h"
-#include "Player.h"
-#include "CircleCollider.h"
+#include "BulletBase.h"
+#include "Stage.h"
 #include "Effect.h"
+#include "CircleCollider.h"
 #include "Time.h"
 #include "Lerp.h"
-#include "Debug.h"
 
 //コンストラクタ
-Bullet::Bullet(const Vector3& position, const Vector3& forward, Player* player, Stage* stage) :
+BulletBase::BulletBase(const Vector3& position, const Vector3& forward, Stage* stage, int maxHelath, float addForce) :
 	ModelActor("Bullet", nullptr, position),
-	m_player(player),
 	m_stage(stage),
 	m_forward(forward),
-	m_health(MaxHealth),
+	m_addForce(addForce),
+	m_health(maxHelath),
 	m_elapsedTime(0)
 {
 	//モデル
-	m_model = new Model("Resource/Model/Bubble.mv1");
+	m_model = new Model("Resource/Model/Bullet.mv1");
 
 	//当たり判定
-	m_collider = new CircleCollider(Scale + 5.0f, Vector3(1, 8, -7));
+	m_collider = new CircleCollider(Scale, Vector3(1, 8, -7));
 
 	//エフェクト
 	m_effect = new Effect("Resource/Effect/bullet.efk", 10, 700);
@@ -33,7 +32,7 @@ Bullet::Bullet(const Vector3& position, const Vector3& forward, Player* player, 
 }
 
 //更新
-void Bullet::Update()
+void BulletBase::Update()
 {
 	//本来の更新
 	ModelActor::Update();
@@ -56,7 +55,7 @@ void Bullet::Update()
 		prevPos - Vector3(0, 100, 0));
 
 	//自身の正面に移動
-	m_transform.position += m_forward.Normalized() * AddForce * Time::GetInstance()->GetDeltaTime();
+	m_transform.position += m_forward.Normalized() * m_addForce * Time::GetInstance()->GetDeltaTime();
 
 	//移動後の床情報を取得
 	MV1_COLL_RESULT_POLY poly = MV1CollCheck_Line(
@@ -103,27 +102,12 @@ void Bullet::Update()
 
 			//X軸が等しいなら横軸に接触しているため、X軸を反転
 			crossPos.x == x.x ? m_forward.x *= -1 : m_forward.z *= -1;
-			
+
 			//反射後はサイズを小さくする
 			m_transform.scale -= 4;
 
 			//反射可能回数の減算
 			m_health--;
 		}
-	}
-}
-
-void Bullet::Draw()
-{
-	ModelActor::Draw();
-}
-
-//ModelActor同士の衝突イベント
-void Bullet::OnCollision(const ModelActor* other)
-{
-	//当たり判定用のオブジェクトに衝突したら削除
-	if (other->GetName() == "HitBox")
-	{
-		Destroy();
 	}
 }

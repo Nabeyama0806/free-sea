@@ -44,7 +44,6 @@ void Input::Update()
 		m_padLeftStick[i] = Vector2(x, y);
 	}
 
-
 	//// パッドのトリガーの状態を取得
 	//XINPUT_STATE state;
 	//GetJoypadXInputState(DX_INPUT_PAD1, &state);
