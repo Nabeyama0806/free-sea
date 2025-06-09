@@ -37,11 +37,6 @@ void Input::Update()
 		//ボタン
 		m_padButtonPost[i] = m_padButton[i];
 		m_padButton[i] = GetJoypadInputState(DX_INPUT_PAD1 + i);
-
-		//スティック
-		int x, y;
-		GetJoypadAnalogInput(&x, &y, DX_INPUT_PAD1 + i);
-		m_padLeftStick[i] = Vector2(x, y);
 	}
 
 	// パッドのトリガーの状態を取得
@@ -57,6 +52,18 @@ void Input::Update()
 		// 左トリガー
 		m_padLeftTriggerPost[i] = m_padLeftTrigger[i];
 		m_padLeftTrigger[i] = state.LeftTrigger;
+
+		//右スティック
+		int rx, ry;
+		rx = state.ThumbRX;
+		ry = state.ThumbRY;
+		m_padRightStick[i] = Vector2(rx, ry);
+
+		//左スティック
+		int lx, ly;
+		lx = state.ThumbLX;
+		ly = state.ThumbLY;
+		m_padLeftStick[i] = Vector2(lx, ly);
 	}
 }
 

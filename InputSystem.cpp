@@ -1,11 +1,19 @@
 #include "InputSystem.h"
 #include "Input.h"
 
-//スティックの入力値
+//左スティックによる移動入力
 Vector2 InputSystem::MoveValue(InputSystem::ActionMap actionMap)
 {
 	Vector2 tmp = Input::GetInstance()->GetPadLeftStick(actionMap);
 	if(tmp != Vector2()) tmp.Normalize();
+	return tmp;
+}
+
+//右スティックによる回転入力
+Vector2 InputSystem::RotationValue(InputSystem::ActionMap actionMap)
+{
+	Vector2 tmp = Input::GetInstance()->GetPadRightStick(actionMap);
+	if (tmp != Vector2()) tmp.Normalize();
 	return tmp;
 }
 
@@ -33,10 +41,10 @@ bool InputSystem::MoveRight(InputSystem::ActionMap actionMap)
 	return Input::GetInstance()->IsPadPress(PAD_INPUT_RIGHT, actionMap);
 }
 
-// ボトルを投げる
+//射撃
 bool InputSystem::BulletShot(InputSystem::ActionMap actionMap)
 {
-	return Input::GetInstance()->IsPadRightTriggerPress(actionMap) || Input::GetInstance()->IsPadLeftTriggerPress(actionMap);
+	return Input::GetInstance()->IsPadLeftTriggerPress(actionMap) || Input::GetInstance()->IsPadRightTriggerPress(actionMap);
 }
 
 // 決定
@@ -49,11 +57,6 @@ bool InputSystem::IsDecision(InputSystem::ActionMap actionMap)
 bool InputSystem::IsDecisionUp(InputSystem::ActionMap actionMap)
 {
 	return Input::GetInstance()->IsPadUp(PAD_INPUT_1, actionMap);
-}
-
-bool InputSystem::IsReLoadMap(InputSystem::ActionMap actionMap)
-{
-	return Input::GetInstance()->IsPadDown(PAD_INPUT_7, actionMap);
 }
 
 // カメラの視点変更

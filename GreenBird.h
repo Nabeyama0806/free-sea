@@ -14,6 +14,7 @@ private:
 
 protected:
 	virtual void Update() override;			//更新
+	virtual void Draw() override;
 
 public:
 	//コンストラクタ

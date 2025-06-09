@@ -28,6 +28,7 @@ private:
 	int m_padButtonPost[static_cast<int>(InputSystem::ActionMap::Length)];
 
 	Vector2 m_padLeftStick[static_cast<int>(InputSystem::ActionMap::Length)];
+	Vector2 m_padRightStick[static_cast<int>(InputSystem::ActionMap::Length)];
 
 	int m_padRightTrigger[static_cast<int>(InputSystem::ActionMap::Length)];	// âEÉgÉäÉKÅ[ÇÃèÛë‘
 	int m_padRightTriggerPost[static_cast<int>(InputSystem::ActionMap::Length)];
@@ -151,6 +152,10 @@ public:
 	Vector2 GetPadLeftStick(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
 		return m_padLeftStick[static_cast<int>(actionMap)];
+	}
+	Vector2 GetPadRightStick(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
+	{
+		return m_padRightStick[static_cast<int>(actionMap)];
 	}
 
 	bool IsPadRightTriggerDown(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)

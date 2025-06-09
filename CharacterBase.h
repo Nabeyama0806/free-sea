@@ -39,9 +39,9 @@ protected:
 	};
 	static constexpr int HealthSlideHeight = 20;
 
-	const char* m_modelFilePath;
 	Camera* m_camera;
 	Stage* m_stage;
+	Vector2 m_shotRotate;
 	int m_playerIndex;			//自身のプレイヤー番号
 	float m_invincibleTime;		//残りの無敵時間
 	bool m_isGrounded;			//床との接触判定
@@ -73,6 +73,14 @@ public:
 
 	//被弾
 	void Damage(int damage);
+
+	//射出方向の取得
+	Vector3 GetShotForward()
+	{
+		Vector3 tmp = Vector3(m_shotRotate.x, 0, m_shotRotate.y);
+		if (!tmp.IsZero()) tmp.Normalize();
+		return tmp;
+	}
 
 	//衝突イベント
 	virtual void OnCollision(const ModelActor* other) {};

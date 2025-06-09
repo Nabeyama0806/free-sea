@@ -67,8 +67,7 @@ bool BlueBird::BulletInstance()
 		m_bulletElapsedTime = 0;
 
 		//³–Ê‚©‚ç’e‚ğ”­Ë‚·‚é
-		Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
-		AddChild(new ReflectionBullet(m_transform.position, forward, m_stage));
+		AddChild(new ReflectionBullet(m_transform.position, GetShotForward(), m_stage));
 
 		//Œø‰Ê‰¹‚ÌÄ¶
 		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");

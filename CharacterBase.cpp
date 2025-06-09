@@ -24,7 +24,6 @@ CharacterBase::CharacterBase(
 	int playerIndex
 ) :
 	ModelActor("Player"),
-	m_modelFilePath(modelFilePath),
 	m_camera(camera),
 	m_stage(stage),
 	m_maxHealth(health),
@@ -45,7 +44,7 @@ CharacterBase::CharacterBase(
 	m_transform.scale = Scale;
 
 	//アニメーションの登録
-	m_model = new Model(m_modelFilePath);
+	m_model = new Model(modelFilePath);
 	for (int i = 0; i < static_cast<int>(Anime::Length); ++i)
 	{
 		//アニメーションのファイルパスを渡す
@@ -83,7 +82,7 @@ void CharacterBase::Update()
 
 	//入力方向の取得
 	Vector2 input = InputSystem::GetInstance()->MoveValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
-	Vector3 move = Vector3(input.x, 0, -input.y);
+	Vector3 move = Vector3(input.x, 0, input.y);
 
 	//カメラの正面ベクトルを作成
 	Vector3 cameraForward = Vector3::Scale(m_camera->GetForward(), Vector3(1, 0, 1)).Normalized();
@@ -103,7 +102,14 @@ void CharacterBase::Update()
 			m_transform.rotation = Quaternion::Slerp(
 				m_transform.rotation,
 				Quaternion::LookRotation(move),
-				0.3f);
+				0.2f);
+		}
+		else
+		{
+			m_transform.rotation = Quaternion::Slerp(
+				m_transform.rotation,
+				Quaternion::LookRotation(GetShotForward()),
+				0.1f);
 		}
 
 		//移動アニメーションの設定
@@ -178,6 +184,19 @@ void CharacterBase::Update()
 		}
 	}
 
+	//射出方向の取得
+	if (!m_isShot)
+	{
+		float length = 80.0f;
+		m_shotRotate = InputSystem::GetInstance()->RotationValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
+		if (!m_shotRotate.IsZero()) m_shotRotate.Normalize() *= length;
+		else
+		{
+			Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
+			m_shotRotate = forward;
+		}
+	}
+		
 	//アニメーションの再生
 	m_model->PlayAnime(static_cast<int>(anime));
 }
@@ -187,6 +206,13 @@ void CharacterBase::Draw()
 {
 	//本来の更新
 	ModelActor::Draw();
+
+	//射出方向の描画
+	DrawLine3D(
+		m_transform.position,
+		m_transform.position + Vector3(m_shotRotate.x, 70, m_shotRotate.y),
+		GetColor(255, 0, 0)
+	);
 
 	//体力表示
 	DrawBox(

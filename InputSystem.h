@@ -24,8 +24,11 @@ public:
 	}
 
 public:
-	//スティックの入力値
+	//左スティックによる移動入力
 	Vector2 MoveValue(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
+
+	//右スティックによる回転入力
+	Vector2 RotationValue(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
 	// 上移動	
 	bool MoveUp(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
@@ -47,8 +50,6 @@ public:
 
 	// 決定を離す
 	bool IsDecisionUp(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
-
-	bool IsReLoadMap(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
 	// カメラの視点変更
 	bool IsCameraChange(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
