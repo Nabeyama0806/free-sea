@@ -44,17 +44,20 @@ void Input::Update()
 		m_padLeftStick[i] = Vector2(x, y);
 	}
 
-	//// パッドのトリガーの状態を取得
-	//XINPUT_STATE state;
-	//GetJoypadXInputState(DX_INPUT_PAD1, &state);
+	// パッドのトリガーの状態を取得
+	for (int i = 0; i < static_cast<int>(InputSystem::ActionMap::Length); ++i)
+	{
+		XINPUT_STATE state;
+		GetJoypadXInputState(DX_INPUT_PAD1 + i, &state);
 
-	//// 右トリガー
-	//m_padRightTriggerPost = m_padRightTrigger;
-	//m_padRightTrigger = state.RightTrigger;
+		// 右トリガー
+		m_padRightTriggerPost[i] = m_padRightTrigger[i];
+		m_padRightTrigger[i] = state.RightTrigger;
 
-	//// 左トリガー
-	//m_padLeftTriggerPost = m_padLeftTrigger;
-	//m_padLeftTrigger = state.LeftTrigger;
+		// 左トリガー
+		m_padLeftTriggerPost[i] = m_padLeftTrigger[i];
+		m_padLeftTrigger[i] = state.LeftTrigger;
+	}
 }
 
 //何かキーが押された瞬間

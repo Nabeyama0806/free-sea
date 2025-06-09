@@ -36,7 +36,7 @@ void SceneGame::Initialize()
 	//ステージ
 	m_stage = new Stage();
 	MV1SetupCollInfo(m_stage->GetModelHandle(), m_stage->GetFrameIndex());
-	m_rootNode->AddChild(m_stage);
+	actorLayer->AddChild(m_stage);
 	m_mainCamera->SetLookAt(m_stage);
 
 	//UIレイヤー
@@ -44,10 +44,10 @@ void SceneGame::Initialize()
 	m_rootNode->AddChild(uiLayer);
 
 	//プレイヤー
-	m_blueBird = new BlueBird(m_mainCamera, m_stage, PlayerPosition[0], 0);
+	m_blueBird = new BlueBird(m_mainCamera, m_stage, PlayerPosition[0], 1);
 	actorLayer->AddChild(m_blueBird);
 
-	m_greenBird = new GreenBird(m_mainCamera, m_stage, PlayerPosition[1], 1);
+	m_greenBird = new GreenBird(m_mainCamera, m_stage, PlayerPosition[1], 0);
 	actorLayer->AddChild(m_greenBird);
 	
 	//BGM

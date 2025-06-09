@@ -5,7 +5,7 @@
 class Camera : public Node
 {
 private:
-	static constexpr Vector3 CameraPos = Vector3(0, 1050, -1000);
+	static constexpr Vector3 CameraPos = Vector3(0, 1350, -450);
 	static constexpr float CameraNear = 5.0f;
 	static constexpr float CameraFar = 1000000.0f;
 
@@ -26,7 +26,7 @@ public:
 	void SetLookAt(ModelActor* actor)
 	{
 		m_lookAt = actor;
-		m_targetPos = actor->GetPosition();
+		m_targetPos = actor->GetPosition() + Vector3(0, -200, 0);
 	}
 
 	Vector3 GetForward() const

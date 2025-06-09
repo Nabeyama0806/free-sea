@@ -23,12 +23,12 @@ public:
 	}
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const BoxCollider* collider2) const override
 	{
-		//矩形と矩形の当たり判定
+		//矩形と矩形の衝突判定
 		return Collision::Check(transform1, this, transform2, collider2);
 	}
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const CircleCollider* collider2) const override
 	{
-		//矩形と円形の当たり判定
+		//矩形と円形の衝突判定
 		return Collision::Check(transform1, this, transform2, collider2);
 	}
 

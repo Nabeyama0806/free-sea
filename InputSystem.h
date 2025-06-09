@@ -7,9 +7,11 @@ class InputSystem
 public:
 	enum class ActionMap
 	{
-		All,		//‹¤’Ê‚Ì“ü—Í
 		Player1,	
 		Player2,
+		Player3,	
+		Player4,
+		All,		//‹¤’Ê‚Ì“ü—Í
 
 		Length,
 	};
@@ -38,7 +40,7 @@ public:
 	bool MoveRight(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
 	// ƒ{ƒgƒ‹‚ð“Š‚°‚é
-	bool NewBottle(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
+	bool BulletShot(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
 	// Œˆ’è
 	bool IsDecision(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);

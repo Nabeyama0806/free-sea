@@ -14,6 +14,7 @@ GreenBird::GreenBird(Camera* camera, Stage* stage, const Vector3& position, int 
 	m_bulletFiringRate = BulletFiringRate;
 }
 
+//更新
 void GreenBird::Update()
 {
 	//本来の更新
@@ -48,7 +49,7 @@ void GreenBird::BulletShot()
 	if (m_shotElapsedTime < m_shotCoolTime) return;
 
 	//発射ボタンが押されたら弾を生成
-	if (InputSystem::GetInstance()->IsDecision(static_cast<InputSystem::ActionMap>(m_playerIndex)))
+	if (InputSystem::GetInstance()->BulletShot(static_cast<InputSystem::ActionMap>(m_playerIndex)))
 	{
 		m_isShot = true;
 		m_shotElapsedTime = 0;

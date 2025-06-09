@@ -11,7 +11,7 @@ public:
 	//コンストラクタ
 	CircleCollider(float radius, const Vector3& offset = Vector3()) :
 		Collider(offset),
-		m_radius(radius) 
+		m_radius(radius)
 	{
 	}
 
@@ -23,12 +23,12 @@ public:
 	}
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const BoxCollider* collider2) const override
 	{
-		//矩形と円形の当たり判定
+		//矩形と円形の衝突判定
 		return Collision::Check(transform2, collider2, transform1, this);
 	}
 	virtual bool CheckCollision(const Transform& transform1, const Transform& transform2, const CircleCollider* collider2) const override
 	{
-		//円形と円形の当たり判定
+		//円形と円形の衝突判定
 		return Collision::Check(transform1, this, transform2, collider2);
 	}
 
@@ -36,7 +36,7 @@ public:
 	//描画
 	virtual void Draw(const Transform& transform) const override
 	{
-		DrawSphere3D(transform.position + m_offset, transform.scale, 6, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
+		DrawSphere3D(transform.position + m_offset, m_radius, 6, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
 	}
 #endif
 };

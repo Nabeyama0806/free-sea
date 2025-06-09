@@ -30,7 +30,7 @@ bool Collision::Check(
 	return false;
 }
 
-//‹éŒ`‚Æ‹…‚Ì“–‚½‚è”»’è
+//‹éŒ`‚Æ‹…‚ÌÕ“Ë”»’è
 bool Collision::Check(
 	const Transform& transform1, const BoxCollider* box,
 	const Transform& transform2, const CircleCollider* circle)

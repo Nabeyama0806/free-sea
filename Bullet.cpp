@@ -6,19 +6,19 @@
 #include "Lerp.h"
 
 //コンストラクタ
-Bullet::Bullet(const Vector3& position, const Vector3& forward, Stage* stage, int maxHelath, int powar, float addForce, float size) :
+Bullet::Bullet(const Vector3& position, const Vector3& forward, Stage* stage, int maxHelath, int power, float addForce, float size) :
 	ModelActor("Bullet", nullptr, position),
 	m_stage(stage),
 	m_forward(forward),
 	m_health(maxHelath),
-	m_powar(powar),
+	m_power(power),
 	m_addForce(addForce),
 	m_elapsedTime(0)
 {
 	//モデル
 	m_model = new Model("Resource/Model/Bullet.mv1");
 
-	//当たり判定
+	//衝突判定
 	m_collider = new CircleCollider(Scale, Vector3(1, 8, -7));
 
 	//姿勢情報
@@ -40,9 +40,6 @@ void Bullet::Update()
 
 	//移動前の座標
 	Vector3 prevPos = m_transform.position;
-
-	//体力が無ければ削除
-	if (m_health <= 0) Destroy();
 
 	//生存時間を過ぎていたら削除
 	m_elapsedTime += Time::GetInstance()->GetDeltaTime();
@@ -101,6 +98,12 @@ void Bullet::Update()
 			Vector2 cpcN = (c - crossPos).Normalize();
 			Vector2 x = crossPos + (cpcN * Vector2::Dot(cpcN, b - crossPos));
 
+			//垂直に接触したなら自身の正面ベクトルを反転
+			if (static_cast<int>(crossPos.x) == static_cast<int>(crossPos.y))
+			{
+				m_forward = -m_forward;
+			}
+
 			//X軸が等しいなら横軸に接触しているため、X軸を反転
 			crossPos.x == x.x ? m_forward.x *= -1 : m_forward.z *= -1;
 
@@ -109,6 +112,9 @@ void Bullet::Update()
 
 			//反射可能回数の減算
 			m_health--;
+
+			//体力が無ければ削除
+			if (m_health <= 0) Destroy();
 		}
 	}
 }

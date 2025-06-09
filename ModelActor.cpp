@@ -66,7 +66,7 @@ void ModelActor::Draw()
 	}
 
 #ifdef _DEBUG
-	//“–‚½‚è”»’è
+	//Õ“Ë”»’è
 	if (m_collider)
 	{
 		m_collider->Draw(m_transform);

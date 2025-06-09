@@ -15,7 +15,7 @@ private:
 	Vector3 m_forward;		//自身の正面ベクトル
 
 	int m_health;			//反射できる回数
-	int m_powar;			//攻撃力
+	int m_power;			//攻撃力
 	float m_addForce;		//投げる力
 	float m_elapsedTime;	//生成されてからの生存時間
 
@@ -28,7 +28,7 @@ public:
 		const Vector3& forward,
 		Stage* stage,
 		int maxHelath,
-		int powar,
+		int power,
 		float addForce,
 		float Size = 30
 	);
@@ -42,7 +42,8 @@ public:
 			if (GetParent() == other) return;
 			
 			//他プレイヤーと衝突したらダメージを与える
-			dynamic_cast<CharacterBase*>(const_cast<ModelActor*>(other))->Damage(m_powar);
+			dynamic_cast<CharacterBase*>(const_cast<ModelActor*>(other))->Damage(m_power);
+			Destroy();
 		}
 	}
 };

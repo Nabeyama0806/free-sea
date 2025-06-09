@@ -1,6 +1,7 @@
 #pragma once
 #include "ModelActor.h"
 #include "Vector3.h"
+#include "Vector2.h"
 
 class Camera;
 class Stage;
@@ -10,7 +11,7 @@ class CharacterBase : public ModelActor
 private:
 	static constexpr float Scale = 3.0f;			//自身のサイズ
 	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
-	static constexpr float Radius = 45.0f;			//衝突判定の半径
+	static constexpr float Radius = 20.0f;			//衝突判定の半径
 	static constexpr float InvincibleTime = 0.8f;	//無敵時間
 
 	//アニメーションパターン
@@ -31,6 +32,12 @@ private:
 
 protected:
 	static constexpr Vector3 BulletOffset = Vector3(0, 50, 0);
+	static constexpr Vector2 HealthSlidePos[2] =
+	{
+		Vector2(350, 100),
+		Vector2(1230, 100),
+	};
+	static constexpr int HealthSlideHeight = 20;
 
 	const char* m_modelFilePath;
 	Camera* m_camera;
@@ -44,13 +51,14 @@ protected:
 	float m_shotElapsedTime;	//発射間隔の経過時間
 	float m_bulletElapsedTime;	//弾間の経過時間
 
+	int m_maxHealth;			//最大体力
 	int m_health;				//体力
 	int	m_maxBulletAmount;		//一回で発射される弾の数
 	float m_shotCoolTime;		//発射間隔
 	float m_bulletFiringRate;	//弾間の発射間隔
 
 	virtual void Update() override;	//更新
-	virtual void Draw() override;
+	virtual void Draw() override;	//描画
 
 public:
 	//コンストラクタ

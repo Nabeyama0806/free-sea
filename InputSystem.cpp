@@ -34,9 +34,9 @@ bool InputSystem::MoveRight(InputSystem::ActionMap actionMap)
 }
 
 // ƒ{ƒgƒ‹‚ð“Š‚°‚é
-bool InputSystem::NewBottle(InputSystem::ActionMap actionMap)
+bool InputSystem::BulletShot(InputSystem::ActionMap actionMap)
 {
-	return Input::GetInstance()->IsPadRightTriggerDown(actionMap) || Input::GetInstance()->IsPadLeftTriggerDown(actionMap);
+	return Input::GetInstance()->IsPadRightTriggerPress(actionMap) || Input::GetInstance()->IsPadLeftTriggerPress(actionMap);
 }
 
 // Œˆ’è

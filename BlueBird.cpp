@@ -4,6 +4,7 @@
 #include "Time.h"
 #include "InputSystem.h"
 #include "SoundManager.h"
+#include "Debug.h"
 
 //コンストラクタ
 BlueBird::BlueBird(Camera* camera, Stage* stage, const Vector3& position, int playerIndex) :
@@ -49,7 +50,7 @@ void BlueBird::BulletShot()
 	if (m_shotElapsedTime < m_shotCoolTime) return;
 
 	//発射ボタンが押されたら弾を生成
-	if (InputSystem::GetInstance()->IsDecision(static_cast<InputSystem::ActionMap>(m_playerIndex)))
+	if (InputSystem::GetInstance()->BulletShot(static_cast<InputSystem::ActionMap>(m_playerIndex)))
 	{
 		m_isShot = true;
 		m_shotElapsedTime = 0;

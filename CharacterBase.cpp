@@ -27,6 +27,7 @@ CharacterBase::CharacterBase(
 	m_modelFilePath(modelFilePath),
 	m_camera(camera),
 	m_stage(stage),
+	m_maxHealth(health),
 	m_health(health),
 	m_playerIndex(playerIndex),
 	m_invincibleTime(0),
@@ -51,6 +52,7 @@ CharacterBase::CharacterBase(
 		m_model->Register(AnimeFileName[i]);
 	}
 
+	//衝突判定
 	m_collider = new CircleCollider(Radius, Vector3(0, 50, 0));
 }
 
@@ -183,6 +185,19 @@ void CharacterBase::Update()
 //描画
 void CharacterBase::Draw()
 {
+	//本来の更新
+	ModelActor::Draw();
+
+	//体力表示
+	DrawBox(
+		HealthSlidePos[m_playerIndex].x,
+		HealthSlidePos[m_playerIndex].y,
+		HealthSlidePos[m_playerIndex].x + m_maxHealth,
+		HealthSlidePos[m_playerIndex].y + HealthSlideHeight,
+		GetColor(50, 50, 55),
+		false
+	);
+
 	//無敵時間中は表示/非表示を繰り返して点滅させる
 	if (m_invincibleTime > 0)
 	{
@@ -193,26 +208,27 @@ void CharacterBase::Draw()
 		}
 	}
 
-	//本来の更新
-	ModelActor::Draw();
+	//体力表示
+	DrawBox(
+		HealthSlidePos[m_playerIndex].x,
+		HealthSlidePos[m_playerIndex].y,
+		HealthSlidePos[m_playerIndex].x + m_health,
+		HealthSlidePos[m_playerIndex].y + HealthSlideHeight,
+		GetColor(40, 255, 30),
+		true
+	);
 }
 
 //被弾
 void CharacterBase::Damage(int damage)
 {
-	//無敵中はダメージを受けない
-	if (m_invincibleTime > 0)
-	{
-		return;
-	}
-
 	//無敵時間をセット
 	m_invincibleTime = InvincibleTime;
 
 	//体力を減らす
 	m_health -= damage;
 
-	//死んだら当たり判定を無くす
+	//死んだら衝突判定を無くす
 	if (m_health <= 0)
 	{
 		Destroy();
