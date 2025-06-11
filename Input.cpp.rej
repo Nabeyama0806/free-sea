@@ -1,0 +1,16 @@
+diff a/Input.cpp b/Input.cpp	(rejected hunks)
+@@ -27,14 +27,6 @@
+ 	//�}�E�X�z�C�[����擾
+ 	m_mouseWheel = DxLib::GetMouseWheelRotVol();
+ 
+-	// �p�b�h
+-	for (int i = 0; i < static_cast<int>(InputSystem::ActionMap::Length); ++i)
+-	{
+-		//�{�^��
+-		m_padButtonPost[i] = m_padButton[i];
+-		m_padButton[i] = GetJoypadInputState(DX_INPUT_PAD1 + i);
+-	}
+-
+ 	// �p�b�h�̃g���K�[�̏�Ԃ�擾
+ 	for (int i = 0; i < static_cast<int>(InputSystem::ActionMap::Length); ++i)
+ 	{

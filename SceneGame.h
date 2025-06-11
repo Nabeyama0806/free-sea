@@ -24,8 +24,8 @@ private:
 
 	const Vector3 PlayerPosition[2] =
 	{
-		Vector3(800, 0, 0),
-		Vector3(-800, 0, 0),
+		Vector3(650, 0, 0),
+		Vector3(-650, 0, 0),
 	};
 
 	Node* m_rootNode;
@@ -33,7 +33,6 @@ private:
 	BlueBird* m_blueBird;
 	Camera* m_mainCamera;
 	Stage* m_stage;
-
 
 	Vector3 cameraPos = Vector3(0, 0, -700);
 

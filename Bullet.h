@@ -45,10 +45,5 @@ public:
 			dynamic_cast<CharacterBase*>(const_cast<ModelActor*>(other))->Damage(m_power);
 			Destroy();
 		}
-
-		if (other->GetName() == "Bullet")
-		{
-			Destroy();
-		}
 	}
 };

@@ -35,7 +35,7 @@ protected:
 	static constexpr Vector2 HealthSlidePos[2] =
 	{
 		Vector2(350, 100),
-		Vector2(1230, 100),
+		Vector2(1400, 100),
 	};
 	static constexpr int HealthSlideHeight = 20;
 

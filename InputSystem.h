@@ -13,7 +13,7 @@ public:
 		Player4,
 		All,		//‹¤’Ê‚Ì“ü—Í
 
-		Length,
+		Length
 	};
 
 	//ƒVƒ“ƒOƒ‹ƒgƒ“
