@@ -66,12 +66,12 @@ bool InputSystem::IsCameraChange(InputSystem::ActionMap actionMap)
 }
 
 // タイトルの選択
-bool InputSystem::TitleSelectLeft(InputSystem::ActionMap actionMap)
+bool InputSystem::SelectLeft(InputSystem::ActionMap actionMap)
 {
-	return Input::GetInstance()->IsPadDown(PAD_INPUT_LEFT, actionMap);
+	return Input::GetInstance()->IsPadDown(PAD_INPUT_LEFT, actionMap); 
 }
 
-bool InputSystem::TitleSelectRight(InputSystem::ActionMap actionMap)
+bool InputSystem::SelectRight(InputSystem::ActionMap actionMap)
 {
 	return Input::GetInstance()->IsPadDown(PAD_INPUT_RIGHT, actionMap);
 }

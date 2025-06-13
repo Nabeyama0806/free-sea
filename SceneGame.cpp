@@ -2,6 +2,7 @@
 #include "SceneResult.h"
 #include "SoundLoader.h"
 #include "SoundManager.h"
+#include "CharacterBase.h"
 #include "BlueBird.h"
 #include "GreenBird.h"
 #include "Input.h"
@@ -43,12 +44,26 @@ void SceneGame::Initialize()
 	Node* uiLayer = new Node();
 	m_rootNode->AddChild(uiLayer);
 
-	//プレイヤー
-	m_blueBird = new BlueBird(m_mainCamera, m_stage, PlayerPosition[0], 1);
-	actorLayer->AddChild(m_blueBird);
+	//プレイヤーが選択したキャラ番号に応じて生成するキャラを変更
+	for (int i = 0; i < GetJoypadNum(); ++i)
+	{
+		CharacterBase::Type chara = static_cast<CharacterBase::Type>(m_playerChara[i]);
 
-	m_greenBird = new GreenBird(m_mainCamera, m_stage, PlayerPosition[1], 0);
-	actorLayer->AddChild(m_greenBird);
+		switch (chara)
+		{
+		case CharacterBase::Type::BlueBird:
+			m_characters[i] = new BlueBird(m_mainCamera, m_stage, PlayerPosition[i], i);
+			break;
+
+		case CharacterBase::Type::GreenBird:
+			m_characters[i] = new GreenBird(m_mainCamera, m_stage, PlayerPosition[i], i);
+			break;
+			
+		default:
+			break;
+		}
+		actorLayer->AddChild(m_characters[i]);
+	}
 	
 	//BGM
 	m_bgm = SoundLoader::GetInstance()->Load("Resource/Sound/bgm_game.mp3");

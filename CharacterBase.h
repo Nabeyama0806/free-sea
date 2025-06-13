@@ -8,6 +8,15 @@ class Stage;
 
 class CharacterBase : public ModelActor
 {
+public:
+	enum class Type
+	{
+		BlueBird,
+		GreenBird,
+
+		Length,
+	};
+
 private:
 	static constexpr float Scale = 3.0f;			//自身のサイズ
 	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
@@ -37,7 +46,7 @@ protected:
 		Vector2(350, 100),
 		Vector2(1400, 100),
 	};
-	static constexpr int HealthSlideHeight = 20;
+	static constexpr int HealthSlideHeight = 5;
 
 	Camera* m_camera;
 	Stage* m_stage;

@@ -2,20 +2,20 @@
 #include"SceneBase.h"
 #include "Vector3.h"
 #include <list>
+#include <vector>
 
 //クラスの前方宣言
 class Node;
 class ModelActor;
 class Camera;
 class Stage;
-class BlueBird;
-class GreenBird;
+class CharacterBase;
 
-//	ゲームシーン
+//ゲームシーン
 class SceneGame : public SceneBase
-{
+{	
 private:
-	static constexpr float ResultTransitionTime = 2.0f;	//プレイヤーが死んでからリザルト画面に遷移するまでの時間
+	static constexpr float ResultTransitionTime = 2.0f;		//プレイヤーが死んでからリザルト画面に遷移するまでの時間
 
 	const std::list<const char*> ImagePreload =
 	{
@@ -29,12 +29,12 @@ private:
 	};
 
 	Node* m_rootNode;
-	GreenBird* m_greenBird;
-	BlueBird* m_blueBird;
+	CharacterBase* m_characters[2];
 	Camera* m_mainCamera;
 	Stage* m_stage;
 
 	Vector3 cameraPos = Vector3(0, 0, -700);
+	std::vector<int> m_playerChara;
 
 	float m_resultTransitionTime;
 	int m_playerIndex;
@@ -42,13 +42,13 @@ private:
 
 public:
 	//コンストラクタ
-	SceneGame() :
+	SceneGame(std::vector<int>& playerChara) :
 		m_rootNode(nullptr),
 		m_stage(nullptr),
-		m_greenBird(nullptr),
-		m_blueBird(nullptr),
 		m_mainCamera(nullptr),
+		m_characters{nullptr},
 		m_resultTransitionTime(ResultTransitionTime),
+		m_playerChara(playerChara),
 		m_playerIndex(0),
 		m_bgm(0)
 	{

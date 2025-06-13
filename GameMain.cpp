@@ -1,4 +1,5 @@
 #include "GameMain.h"
+#include "SceneTitle.h"
 #include "GameConfig.h"
 #include "Screen.h"
 #include "Input.h"
@@ -50,7 +51,7 @@ void GameMain::Run()
 	EffectManager::GetInstance()->Initialize();
 
 	//シーン起動
-	m_sceneManager = new SceneManager(new SceneGame());
+	m_sceneManager = new SceneManager(new SceneTitle());
 
 	//スクリーンの作成
 	m_screen = MakeScreen(Screen::Width, Screen::Heigth);

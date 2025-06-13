@@ -55,9 +55,9 @@ public:
 	bool IsCameraChange(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
 	// タイトルの選択
-	bool TitleSelectLeft(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
+	bool SelectLeft(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
-	bool TitleSelectRight(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
+	bool SelectRight(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
 	// タイトルのステージ選択
 	bool StageSelectRight(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
