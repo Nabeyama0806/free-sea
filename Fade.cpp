@@ -1,6 +1,7 @@
 #include "Fade.h"
 #include "Time.h"
 #include "Lerp.h"
+#include "SoundManager.h"
 #include "DxLib.h"
 
 //コンストラクタ
@@ -52,6 +53,9 @@ void Fade::StartFadeIn(float duration, Color color)
 //フェードアウト
 void Fade::StartFadeOut(float duration, Color color)
 {
+	//効果音
+	SoundManager::Play("Resource/Sound/se_fade.mp3");
+
 	m_phase = Phase::Fade;
 	m_elapsedTime = 0;
 	m_duration = duration;

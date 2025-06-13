@@ -1,6 +1,5 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
-#include "SoundLoader.h"
 #include "SoundManager.h"
 #include "CharacterBase.h"
 #include "BlueBird.h"
@@ -66,7 +65,7 @@ void SceneGame::Initialize()
 	}
 	
 	//BGM
-	m_bgm = SoundLoader::GetInstance()->Load("Resource/Sound/bgm_game.mp3");
+	m_bgm = SoundManager::Load("Resource/Sound/bgm_game.mp3");
 	SoundManager::Play(m_bgm, DX_PLAYTYPE_LOOP);
 }
 
@@ -79,7 +78,7 @@ void SceneGame::Finalize()
 	m_rootNode = nullptr;
 
 	//BGM
-	SoundLoader::GetInstance()->Delete("Resource/Sound/bgm_game.mp3");
+	//SoundLoader::GetInstance()->Delete("Resource/Sound/bgm_game.mp3");
 }
 
 //XV

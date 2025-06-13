@@ -1,8 +1,9 @@
 #include "SceneTitle.h"
 #include "SpriteActor.h"
 #include "SpriteAnimation.h"
-#include"SceneGame.h"
+#include "SceneGame.h"
 #include "CharacterBase.h"
+#include "SoundManager.h"
 #include "Screen.h"
 #include "Input.h"
 #include "DxLib.h"
@@ -24,13 +25,10 @@ void SceneTitle::Initialize()
 	{
 		m_select.push_back(i);
 	}
-	
-	//画像
-	/*m_sprite = new Sprite();
-	for (int i = 0; i < static_cast<int>(CharacterBase::Type::Length); ++i)
-	{
-		m_sprite->Register(CharaTextureName[i], FilePath[i]);
-	}*/
+
+	//BGM
+	m_bgm = SoundManager::Load("Resource/sound/bgm_title.mp3");
+	SoundManager::Play(m_bgm, DX_PLAYTYPE_LOOP);
 }
 
 //終了
@@ -44,9 +42,6 @@ void SceneTitle::Finalize()
 //更新
 SceneBase* SceneTitle::Update()
 {
-	//画像の更新
-	//m_sprite->Update();
-
 	//いずれかのキーが押されたらゲームシーンへ移動
 	switch (m_phase)
 	{
@@ -65,6 +60,7 @@ SceneBase* SceneTitle::Update()
 			//決定ボタンが押されたらゲーム開始
 			if (InputSystem::GetInstance()->IsDecision(static_cast<InputSystem::ActionMap>(i)))
 			{
+				SoundManager::SoundStop(m_bgm);
 				m_phase = Phase::GameStart;
 			}
 		}
@@ -89,6 +85,4 @@ void SceneTitle::Draw()
 {
 	//ノードの描画
 	m_rootNode->TreeDraw();
-
-	//m_sprite->Draw(m_transform);
 }

@@ -8,6 +8,12 @@ private:
 	static constexpr int Volume = 120;
 
 public:
+	//Œø‰Ê‰¹‚Ì“Ç‚İ‚İ
+	static int Load(const char* path)
+	{
+		return SoundLoader::GetInstance()->Load(path);
+	}
+
 	//Œø‰Ê‰¹‚ÌÄ¶
 	static void Play(int se, int type = DX_PLAYTYPE_BACK)
 	{

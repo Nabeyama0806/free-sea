@@ -24,24 +24,13 @@ private:
 	Phase m_phase;
 
 private:
-	const char* CharaTextureName[static_cast<int>(CharacterBase::Type::Length)] =
-	{
-		"Blue",
-		"Green",
-	};
-
-	const SpriteAnimation FilePath[static_cast<int>(CharacterBase::Type::Length)] =
-	{
-		SpriteAnimation("Resource/Texture/bird_blue.png", 1, 1, false),
-		SpriteAnimation("Resource/Texture/bird_green.png", 1, 1, false),
-	};
-
 	std::vector<int> m_select;	//選択されているキャラクター
 
 	Node* m_rootNode;
 	Transform m_transform;
 	Sprite* m_sprite;
 	int m_padAmount;
+	int m_bgm;
 
 public:
 	//コンストラクタ
@@ -50,7 +39,8 @@ public:
 		m_rootNode(nullptr),
 		m_sprite(nullptr),
 		m_select(0) ,
-		m_padAmount(0)
+		m_padAmount(0),
+		m_bgm(0)
 	{
 	}
 
