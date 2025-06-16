@@ -1,8 +1,8 @@
 #include "SceneTitle.h"
-#include "SpriteActor.h"
-#include "SpriteAnimation.h"
 #include "SceneGame.h"
 #include "CharacterBase.h"
+#include "SpriteActor.h"
+#include "SpriteAnimation.h"
 #include "SoundManager.h"
 #include "Screen.h"
 #include "Input.h"
@@ -54,11 +54,21 @@ SceneBase* SceneTitle::Update()
 		break;
 
 	case SceneTitle::Phase::Select:
-
+		//プレイヤーごとのキャラ選択
 		for (int i = 0; i < GetJoypadNum(); ++i)
 		{
+			InputSystem::ActionMap actionMap = static_cast<InputSystem::ActionMap>(i);
+
+			//キャラ選択
+			if (InputSystem::GetInstance()->SelectLeft(actionMap))	m_select[i]--;
+			if (InputSystem::GetInstance()->SelectRight(actionMap)) m_select[i]++;
+
+			//範囲内に調整
+			if (m_select[i] <= 0) m_select[i] = static_cast<int>(CharacterBase::Type::Length);
+			if (m_select[i] >= static_cast<int>(CharacterBase::Type::Length)) m_select[i] = 0;
+
 			//決定ボタンが押されたらゲーム開始
-			if (InputSystem::GetInstance()->IsDecision(static_cast<InputSystem::ActionMap>(i)))
+			if (InputSystem::GetInstance()->IsDecision(actionMap))
 			{
 				SoundManager::SoundStop(m_bgm);
 				m_phase = Phase::GameStart;
