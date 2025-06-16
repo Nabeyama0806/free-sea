@@ -1,5 +1,6 @@
 #pragma once
 #include"SceneBase.h"
+#include"CharacterBase.h"
 #include "Vector3.h"
 #include <list>
 #include <vector>
@@ -9,12 +10,12 @@ class Node;
 class ModelActor;
 class Camera;
 class Stage;
-class CharacterBase;
 
 //ゲームシーン
 class SceneGame : public SceneBase
 {	
 private:
+	static constexpr int MaxControllerNum = 4;
 	static constexpr float ResultTransitionTime = 2.0f;		//プレイヤーが死んでからリザルト画面に遷移するまでの時間
 
 	const std::list<const char*> ImagePreload =
@@ -22,14 +23,16 @@ private:
 		//"title.png"
 	};
 
-	const Vector3 PlayerPosition[2] =
+	const Vector3 PlayerPosition[MaxControllerNum] =
 	{
-		Vector3(650, 0, 0),
-		Vector3(-650, 0, 0),
+		Vector3(620, 0, 0),
+		Vector3(-620, 0, 0),
+		Vector3(0, 0, 450),
+		Vector3(0, 0, -450),
 	};
 
 	Node* m_rootNode;
-	CharacterBase* m_characters[2];
+	CharacterBase* m_characters[MaxControllerNum];
 	Camera* m_mainCamera;
 	Stage* m_stage;
 

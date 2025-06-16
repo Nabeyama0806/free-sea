@@ -6,7 +6,7 @@ class ReflectionBullet : public Bullet
 {
 private:
 	static constexpr int MaxHealth = 5;			//”½Ë‚Å‚«‚é‰ñ”(‘Ì—Í)
-	static constexpr int Power = 10;
+	static constexpr int Power = 13;
 	static constexpr float AddForce = 500.0f;	//“Š‚°‚é—Í
 	static constexpr float Size = 25;
 

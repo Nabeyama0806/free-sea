@@ -36,7 +36,7 @@ private:
 	const char* AnimeFileName[static_cast<int>(Anime::Length)] =
 	{
 		"Man/Idle.mv1",		//‘Ò‹@
-		"Man/Sprint.mv1"	//ˆÚ“®
+		"Man/Walking.mv1"	//ˆÚ“®
 	};
 
 protected:

@@ -6,7 +6,7 @@
 
 //コンストラクタ
 GreenBird::GreenBird(Camera* camera, Stage* stage, const Vector3& position, int playerIndex) :
-	CharacterBase("Man/Man2.mv1", camera, stage, position, Health, playerIndex)
+	CharacterBase("Man/Man4.mv1", camera, stage, position, Health, playerIndex)
 {
 	//弾
 	m_maxBulletAmount = BulletAmount;

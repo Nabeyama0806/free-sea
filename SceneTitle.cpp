@@ -23,7 +23,7 @@ void SceneTitle::Initialize()
 	//接続されているパッドの数だけ配列の要素数を追加
 	for (int i = 0; i < GetJoypadNum(); ++i)
 	{
-		m_select.push_back(i);
+		m_select.push_back(0);
 	}
 
 	//BGM

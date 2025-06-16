@@ -99,17 +99,29 @@ void CharacterBase::Update()
 		//発射中は回転しない
 		if (!m_isShot)
 		{
-			m_transform.rotation = Quaternion::Slerp(
-				m_transform.rotation,
-				Quaternion::LookRotation(move),
-				0.2f);
+			//射出方向を定めているとき
+			if (input.IsZero())
+			{
+				m_transform.rotation = Quaternion::Slerp(
+					m_transform.rotation,
+					Quaternion::LookRotation(GetShotForward()),
+					0.2f);
+			}
+			else
+			{
+				m_transform.rotation = Quaternion::Slerp(
+					m_transform.rotation,
+					Quaternion::LookRotation(move),
+					0.3f);
+			}
+			
 		}
 		else
 		{
 			m_transform.rotation = Quaternion::Slerp(
 				m_transform.rotation,
 				Quaternion::LookRotation(GetShotForward()),
-				0.1f);
+				0.2f);
 		}
 
 		//移動アニメーションの設定

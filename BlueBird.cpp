@@ -16,6 +16,7 @@ BlueBird::BlueBird(Camera* camera, Stage* stage, const Vector3& position, int pl
 	m_bulletFiringRate = BulletFiringRate;
 }
 
+//更新
 void BlueBird::Update()
 {
 	//本来の更新
