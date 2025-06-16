@@ -75,9 +75,3 @@ bool InputSystem::SelectRight(InputSystem::ActionMap actionMap)
 {
 	return Input::GetInstance()->IsPadDown(PAD_INPUT_RIGHT, actionMap);
 }
-
-// タイトルのステージ選択
-bool InputSystem::StageSelectRight(InputSystem::ActionMap actionMap)
-{
-	return Input::GetInstance()->IsPadDown(PAD_INPUT_5, actionMap);
-}

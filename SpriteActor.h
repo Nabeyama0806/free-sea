@@ -19,7 +19,7 @@ public:
 	//コンストラクタ
 	SpriteActor(const char* name,
 		const char* textureName = nullptr,
-		const Vector3& position = Vector2()
+		const Vector2& position = Vector2()
 	);
 
 	//子ノードを含む更新

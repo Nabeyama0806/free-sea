@@ -215,7 +215,7 @@ void CharacterBase::Draw()
 	);
 	
 	//‘Ì—Í•\Ž¦
-	VECTOR scrPos = ConvWorldPosToScreenPos(m_transform.position + Vector3(0, 0, 50));
+	VECTOR scrPos = ConvWorldPosToScreenPos(Vector3(m_transform.position.x, 0, m_transform.position.z));
 	float offsetX = m_maxHealth / 2;
 	DrawBox(
 		scrPos.x - offsetX,

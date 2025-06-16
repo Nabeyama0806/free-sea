@@ -2,7 +2,7 @@
 #include "Sprite.h"
 
 //コンストラクタ
-SpriteActor::SpriteActor(const char* name, const char* textureName, const Vector3& position) :
+SpriteActor::SpriteActor(const char* name, const char* textureName, const Vector2& position) :
 	ActorBase(name, textureName, position),
 	m_sprite(nullptr)
 {

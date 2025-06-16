@@ -95,13 +95,13 @@ void Sprite::Draw(const Transform& transform)
 #ifdef _DEBUG
 
 	//グリッド枠の表示
-	/*DrawBox(
+	DrawBox(
 		static_cast<int>(transform.position.x - gridSize.x * transform.scale / 2),
 		static_cast<int>(transform.position.y - gridSize.y * transform.scale / 2),
 		static_cast<int>(transform.position.x + gridSize.x * transform.scale / 2),
 		static_cast<int>(transform.position.y + gridSize.y * transform.scale / 2),
 		GetColor(255, 0, 0), false
-	);*/
+	);
 #endif // _DEBUG2
 }
 
