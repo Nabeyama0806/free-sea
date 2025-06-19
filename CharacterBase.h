@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include "Vector2.h"
 
+class SpriteActor;
 class Camera;
 class Stage;
 
@@ -13,6 +14,7 @@ public:
 	{
 		BlueBird,
 		GreenBird,
+		RedBird,
 
 		Length,
 	};
@@ -48,6 +50,7 @@ protected:
 	};
 	static constexpr int HealthSlideHeight = 5;
 
+	SpriteActor* m_spriteActor;
 	Camera* m_camera;
 	Stage* m_stage;
 	Vector2 m_shotRotate;

@@ -21,7 +21,7 @@ void SceneTitle::Initialize()
 	m_padAmount = GetJoypadNum();
 
 	//接続されているパッドの数だけ配列の要素数を追加
-	for (int i = 0; i < GetJoypadNum(); ++i)
+	for (int i = 0; i < m_padAmount; ++i)
 	{
 		m_select.push_back(0);
 	}
@@ -55,7 +55,7 @@ SceneBase* SceneTitle::Update()
 
 	case SceneTitle::Phase::Select:
 		//プレイヤーごとのキャラ選択
-		for (int i = 0; i < GetJoypadNum(); ++i)
+		for (int i = 0; i < m_padAmount; ++i)
 		{
 			InputSystem::ActionMap actionMap = static_cast<InputSystem::ActionMap>(i);
 

@@ -4,6 +4,7 @@
 #include "CharacterBase.h"
 #include "BlueBird.h"
 #include "GreenBird.h"
+#include "RedBird.h"
 #include "Input.h"
 #include "Node.h"
 #include "Time.h"
@@ -57,6 +58,9 @@ void SceneGame::Initialize()
 		case CharacterBase::Type::GreenBird:
 			m_characters[i] = new GreenBird(m_mainCamera, m_stage, PlayerPosition[i], i);
 			break;
+
+		case CharacterBase::Type::RedBird:
+			m_characters[i] = new RedBird(m_mainCamera, m_stage, PlayerPosition[i], i);
 			
 		default:
 			break;

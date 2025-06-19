@@ -1,4 +1,5 @@
 #include "CharacterBase.h"
+#include "SpriteActor.h"
 #include "ReflectionBullet.h"
 #include "StraightBullet.h"
 #include "Model.h"
@@ -29,6 +30,7 @@ CharacterBase::CharacterBase(
 	m_maxHealth(health),
 	m_health(health),
 	m_playerIndex(playerIndex),
+	m_spriteActor(nullptr),
 	m_invincibleTime(0),
 	m_maxBulletAmount(0),
 	m_shotCoolTime(0),
@@ -44,7 +46,7 @@ CharacterBase::CharacterBase(
 	m_transform.scale = Scale;
 
 	//アニメーションの登録
-	m_model = new Model(modelFilePath);
+	m_model = new Model(modelFilePath, true);
 	for (int i = 0; i < static_cast<int>(Anime::Length); ++i)
 	{
 		//アニメーションのファイルパスを渡す
@@ -84,6 +86,19 @@ void CharacterBase::Update()
 	Vector2 input = InputSystem::GetInstance()->MoveValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
 	Vector3 move = Vector3(input.x, 0, input.y);
 
+	//射出方向の取得
+	if (!m_isShot)
+	{
+		float length = 80.0f;
+		m_shotRotate = InputSystem::GetInstance()->RotationValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
+		if (!m_shotRotate.IsZero()) m_shotRotate.Normalize() *= length;
+		else
+		{
+			Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
+			m_shotRotate = forward;
+		}
+	}
+
 	//カメラの正面ベクトルを作成
 	Vector3 cameraForward = Vector3::Scale(m_camera->GetForward(), Vector3(1, 0, 1)).Normalized();
 
@@ -118,10 +133,13 @@ void CharacterBase::Update()
 		}
 		else
 		{
-			m_transform.rotation = Quaternion::Slerp(
-				m_transform.rotation,
-				Quaternion::LookRotation(GetShotForward()),
-				0.2f);
+			if (!input.IsZero())
+			{
+				m_transform.rotation = Quaternion::Slerp(
+					m_transform.rotation,
+					Quaternion::LookRotation(GetShotForward()),
+					0.2f);
+			}
 		}
 
 		//移動アニメーションの設定
@@ -195,19 +213,6 @@ void CharacterBase::Update()
 			break;
 		}
 	}
-
-	//射出方向の取得
-	if (!m_isShot)
-	{
-		float length = 80.0f;
-		m_shotRotate = InputSystem::GetInstance()->RotationValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
-		if (!m_shotRotate.IsZero()) m_shotRotate.Normalize() *= length;
-		else
-		{
-			Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
-			m_shotRotate = forward;
-		}
-	}
 		
 	//アニメーションの再生
 	m_model->PlayAnime(static_cast<int>(anime));
@@ -228,8 +233,8 @@ void CharacterBase::Draw()
 	
 	//体力表示
 	VECTOR scrPos = ConvWorldPosToScreenPos(Vector3(m_transform.position.x, 0, m_transform.position.z));
-	float offsetX = m_maxHealth / 2;
-	DrawBox(
+	float offsetX = m_maxHealth / 2.0f;
+	DrawBoxAA(
 		scrPos.x - offsetX,
 		scrPos.y,
 		scrPos.x + m_maxHealth - offsetX,
@@ -249,7 +254,7 @@ void CharacterBase::Draw()
 	}
 
 	//体力表示
-	DrawBox(
+	DrawBoxAA(
 		scrPos.x - offsetX,
 		scrPos.y,
 		scrPos.x + m_health - offsetX,
