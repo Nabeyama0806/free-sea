@@ -58,7 +58,4 @@ public:
 	bool SelectLeft(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
 	bool SelectRight(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
-
-	// タイトルのステージ選択
-	bool StageSelectRight(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 };

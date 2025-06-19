@@ -34,16 +34,5 @@ public:
 	);
 
 	//衝突イベント
-	virtual void OnCollision(const ModelActor* other) 
-	{
-		if (other->GetName() == "Player")
-		{
-			//自分の親ならダメージを与えない
-			if (GetParent() == other) return;
-			
-			//他プレイヤーと衝突したらダメージを与える
-			dynamic_cast<CharacterBase*>(const_cast<ModelActor*>(other))->Damage(m_power);
-			Destroy();
-		}
-	}
+	virtual void OnCollision(const ModelActor* other);
 };
