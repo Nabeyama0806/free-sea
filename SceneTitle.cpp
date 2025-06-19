@@ -6,11 +6,15 @@
 #include "SoundManager.h"
 #include "Screen.h"
 #include "Input.h"
+#include "Debug.h"
 #include "DxLib.h"
 
 //初期化
 void SceneTitle::Initialize()
 {
+	m_transform.position = Screen::Center;
+	m_transform.scale = 0.2f;
+
 	//ノード
 	m_rootNode = new Node();
 
@@ -24,6 +28,18 @@ void SceneTitle::Initialize()
 	for (int i = 0; i < m_padAmount; ++i)
 	{
 		m_select.push_back(0);
+	}
+
+	//画像の読み込み
+	for (int i = 0; i < m_padAmount; ++i)
+	{
+		m_sprites[i] = new Sprite();
+		m_sprites[i]->gridSize = Vector2(1920, 1032);
+		for (int j = 0; j < static_cast<int>(CharacterBase::Type::Length); ++j)
+		{
+			m_sprites[i]->Register(TextureName[j], SpriteAnimation(CharacterImage[j]));
+			m_sprites[i]->Load();
+		}
 	}
 
 	//BGM
@@ -42,6 +58,19 @@ void SceneTitle::Finalize()
 //更新
 SceneBase* SceneTitle::Update()
 {
+	//ノードの更新
+	m_rootNode->TreeUpdate();
+
+	//画像の表示
+	for (int i = 0; i < m_padAmount; ++i)
+	{
+		m_sprites[i]->Update();
+	}
+	for (int i = 0; i < m_padAmount; ++i)
+	{
+		m_sprites[i]->Play(TextureName[m_select[i]]);
+	}
+
 	//いずれかのキーが押されたらゲームシーンへ移動
 	switch (m_phase)
 	{
@@ -84,9 +113,6 @@ SceneBase* SceneTitle::Update()
 		break;
 	}
 
-	//ノードの更新
-	m_rootNode->TreeUpdate();
-
 	return this;
 }
 
@@ -95,4 +121,14 @@ void SceneTitle::Draw()
 {
 	//ノードの描画
 	m_rootNode->TreeDraw();
+
+	//ホーム画面では何も描画しない
+	if (m_phase == SceneTitle::Phase::Home) return; 
+
+	//画像の描画
+	for (int i = 0; i < m_padAmount; ++i)
+	{
+		m_transform.position = Screen::Center + DrawPosOffset[i];
+		m_sprites[i]->Draw(m_transform);
+	}
 }

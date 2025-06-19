@@ -24,11 +24,33 @@ private:
 	Phase m_phase;
 
 private:
+	const char* CharacterImage[static_cast<int>(CharacterBase::Type::Length)] =
+	{
+		"Resource/Texture/bird_blue.png",
+		"Resource/Texture/bird_green.png",
+		"Resource/Texture/bird_red.png",
+	};
+
+	const char* TextureName[static_cast<int>(CharacterBase::Type::Length)] =
+	{
+		"BlurBird",
+		"GreenBird",
+		"RedBird",
+	};
+
+	const Vector2 DrawPosOffset[static_cast<int>(CharacterBase::Type::Length)] =
+	{
+		Vector2(-300.0f, -50.0f),
+		Vector2(300.0f, -50.0f),
+		Vector2(200.0f, 0.0f),
+	};
+
+
 	std::vector<int> m_select;	//選択されているキャラクター
 
 	Node* m_rootNode;
 	Transform m_transform;
-	Sprite* m_sprite;
+	Sprite* m_sprites[static_cast<int>(CharacterBase::Type::Length)];
 	int m_padAmount;
 	int m_bgm;
 
@@ -37,7 +59,7 @@ public:
 	SceneTitle() :
 		m_phase(Phase::Home),
 		m_rootNode(nullptr),
-		m_sprite(nullptr),
+		m_sprites{nullptr},
 		m_select(0) ,
 		m_padAmount(0),
 		m_bgm(0)
