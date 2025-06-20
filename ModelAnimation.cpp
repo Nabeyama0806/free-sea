@@ -48,7 +48,7 @@ void ModelAnimation::Load(const int modelHandle)
 void ModelAnimation::Release()
 {
     //アニメーションの削除
-    ModelLoader::GetInstance()->Delete(m_animeFileName);
+    ModelLoader::GetInstance()->Delete(m_animeHandle);
 }
 
 //更新

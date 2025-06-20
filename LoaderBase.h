@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <unordered_map>
 #include "LoadData.h"
 
 //メモ : 抽象クラスはオブジェクトを作れない(ポインタは作れる)
@@ -7,9 +7,9 @@
 //リソースの基底ローダークラス(抽象クラス)
 class LoaderBase
 {
-private:
+protected:
 	const char* RootPath = "Resource/";
-	std::map<const char*, LoadData> m_dataList;	//リソース一覧
+	std::unordered_map<const char*, LoadData> m_dataList;	//リソース一覧
 
 #ifdef _DEBUG
 	static const int FontSize = 10;
@@ -18,7 +18,6 @@ private:
 	int m_fontHandle;
 #endif
 
-protected:
 	LoaderBase();
 	virtual ~LoaderBase();
 
@@ -26,8 +25,8 @@ protected:
 	virtual void DeleteResource(int id) = 0;		//リソースの破棄
 
 public:
-	int Load(const char* path);		//リソースの読み込み
-	void Delete(const char* path);	//リソースの破棄
+	virtual int Load(const char* path);	//リソースの読み込み
+	virtual void Delete(const char* path);	//リソースの破棄
 
 #ifdef _DEBUG
 	void Draw();

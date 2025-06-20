@@ -12,7 +12,7 @@ Model::~Model()
 }
 
 //コンストラクタ
-Model::Model(const char* modelFileName) :
+Model::Model(const char* modelFileName, bool modelClone) :
 	m_modelHandle(0),
 	m_modelFileName(modelFileName),
 	m_prevAnime(nullptr),
@@ -35,7 +35,7 @@ void Model::Load()
 void Model::Release()
 {
 	//モデルデータの削除
-	ModelLoader::GetInstance()->Delete(m_modelFileName);
+	ModelLoader::GetInstance()->Delete(m_modelHandle);
 
 	//アニメーションの削除
 	for (auto anime : m_animeList)
