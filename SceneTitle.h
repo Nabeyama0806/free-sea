@@ -29,6 +29,7 @@ private:
 		"Resource/Texture/bird_blue.png",
 		"Resource/Texture/bird_green.png",
 		"Resource/Texture/bird_red.png",
+		"Resource/Texture/bird_pink.png",
 	};
 
 	const char* TextureName[static_cast<int>(CharacterBase::Type::Length)] =
@@ -36,15 +37,15 @@ private:
 		"BlurBird",
 		"GreenBird",
 		"RedBird",
+		"PinkBird",
 	};
 
 	const Vector2 DrawPosOffset[static_cast<int>(CharacterBase::Type::Length)] =
 	{
 		Vector2(-300.0f, -50.0f),
 		Vector2(300.0f, -50.0f),
-		Vector2(200.0f, 0.0f),
+		Vector2(-300.0f, 180.0f),
 	};
-
 
 	std::vector<int> m_select;	//選択されているキャラクター
 

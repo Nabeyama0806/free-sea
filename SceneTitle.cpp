@@ -12,6 +12,7 @@
 //初期化
 void SceneTitle::Initialize()
 {
+	//姿勢情報
 	m_transform.position = Screen::Center;
 	m_transform.scale = 0.2f;
 
@@ -77,6 +78,7 @@ SceneBase* SceneTitle::Update()
 	case SceneTitle::Phase::Home:
 		if (Input::GetInstance()->IsAnyKeyDown())
 		{
+			SoundManager::Play("Resource/Sound/se_next.mp3");
 			m_rootNode->AddChild(new SpriteActor("Title", "Resource/Texture/title_select.png", Screen::Center));
 			m_phase = Phase::Select;
 		}
@@ -89,12 +91,21 @@ SceneBase* SceneTitle::Update()
 			InputSystem::ActionMap actionMap = static_cast<InputSystem::ActionMap>(i);
 
 			//キャラ選択
-			if (InputSystem::GetInstance()->SelectLeft(actionMap))	m_select[i]--;
-			if (InputSystem::GetInstance()->SelectRight(actionMap)) m_select[i]++;
+			if (InputSystem::GetInstance()->SelectLeft(actionMap))
+			{
+				m_select[i]--;
+				SoundManager::Play("Resource/Sound/se_next.mp3");
+			}
+
+			if (InputSystem::GetInstance()->SelectRight(actionMap))
+			{
+				m_select[i]++;
+				SoundManager::Play("Resource/Sound/se_next.mp3");
+			}
 
 			//範囲内に調整
-			if (m_select[i] <= 0) m_select[i] = static_cast<int>(CharacterBase::Type::Length);
-			if (m_select[i] >= static_cast<int>(CharacterBase::Type::Length)) m_select[i] = 0;
+			if (m_select[i] < 0) m_select[i] = static_cast<int>(CharacterBase::Type::PinkBird);
+			if (m_select[i] > static_cast<int>(CharacterBase::Type::PinkBird)) m_select[i] = 0;
 
 			//決定ボタンが押されたらゲーム開始
 			if (InputSystem::GetInstance()->IsDecision(actionMap))
@@ -122,12 +133,11 @@ void SceneTitle::Draw()
 	//ノードの描画
 	m_rootNode->TreeDraw();
 
-	//ホーム画面では何も描画しない
+	//ホーム画面では描画しない	
 	if (m_phase == SceneTitle::Phase::Home) return; 
-
-	//画像の描画
 	for (int i = 0; i < m_padAmount; ++i)
 	{
+		//画像の描画
 		m_transform.position = Screen::Center + DrawPosOffset[i];
 		m_sprites[i]->Draw(m_transform);
 	}

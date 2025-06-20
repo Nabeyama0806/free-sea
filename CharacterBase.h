@@ -15,6 +15,7 @@ public:
 		BlueBird,
 		GreenBird,
 		RedBird,
+		PinkBird,
 
 		Length,
 	};

@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "Stage.h"
 #include "Effect.h"
+#include "SoundManager.h"
 #include "CircleCollider.h"
 #include "Time.h"
 #include "Lerp.h"
@@ -104,8 +105,20 @@ void Bullet::Update()
 				m_forward = -m_forward;
 			}
 
-			//X軸が等しいなら横軸に接触しているため、X軸を反転
-			crossPos.x == x.x ? m_forward.x *= -1 : m_forward.z *= -1;
+			//接触した面を算出し、反転させる
+			if(crossPos == x) m_forward *= -1;
+			else if (crossPos.x == x.x) m_forward.x *= -1;
+			else m_forward.z *= -1;
+
+			// 調整後の座標でも床に乗れない場合は移動をなかったことにする
+			if (!MV1CollCheck_Line(
+				m_stage->GetModelHandle(),
+				m_stage->GetFrameIndex(),
+				m_transform.position + Vector3(0, 100, 0),
+				m_transform.position - Vector3(0, 100, 0)).HitFlag)
+			{
+				m_transform.position = prevPos;
+			}
 
 			//反射後はサイズを小さくする
 			m_transform.scale -= 4;
@@ -126,6 +139,9 @@ void Bullet::OnCollision(const ModelActor* other)
 	{
 		//自分の親ならダメージを与えない
 		if (GetParent() == other) return;
+
+		//効果音再生
+		SoundManager::Play("Resource/Sound/se_damage.mp3");
 
 		//他プレイヤーと衝突したらダメージを与える
 		dynamic_cast<CharacterBase*>(const_cast<ModelActor*>(other))->Damage(m_power);

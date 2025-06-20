@@ -5,7 +5,7 @@
 class Camera : public Node
 {
 private:
-	static constexpr Vector3 CameraPos = Vector3(0, 1350, -450);
+	static constexpr Vector3 CameraPos = Vector3(0, 1400, -250);
 	static constexpr float CameraNear = 5.0f;
 	static constexpr float CameraFar = 1000000.0f;
 

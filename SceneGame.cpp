@@ -1,10 +1,12 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
 #include "SoundManager.h"
+#include "SpriteActor.h"
 #include "CharacterBase.h"
 #include "BlueBird.h"
 #include "GreenBird.h"
 #include "RedBird.h"
+#include "PinkBird.h"
 #include "Input.h"
 #include "Node.h"
 #include "Time.h"
@@ -34,6 +36,9 @@ void SceneGame::Initialize()
 	skybox->ChangeScale(10000);
 	actorLayer->AddChild(skybox);
 
+	//”wŒi
+	//actorLayer->AddChild(new SpriteActor("BackGround", "Resource/Texture/background.png", Screen::Center));
+
 	//ƒXƒe[ƒW
 	m_stage = new Stage();
 	MV1SetupCollInfo(m_stage->GetModelHandle(), m_stage->GetFrameIndex());
@@ -61,7 +66,12 @@ void SceneGame::Initialize()
 
 		case CharacterBase::Type::RedBird:
 			m_characters[i] = new RedBird(m_mainCamera, m_stage, PlayerPosition[i], i);
-			
+			break;
+
+		case CharacterBase::Type::PinkBird:
+			m_characters[i] = new PinkBird(m_mainCamera, m_stage, PlayerPosition[i], i);
+			break;
+
 		default:
 			break;
 		}

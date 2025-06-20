@@ -25,8 +25,8 @@ private:
 
 	const Vector3 PlayerPosition[MaxControllerNum] =
 	{
-		Vector3(620, 0, 0),
 		Vector3(-620, 0, 0),
+		Vector3(620, 0, 0),
 		Vector3(0, 0, 450),
 		Vector3(0, 0, -450),
 	};
