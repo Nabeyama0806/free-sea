@@ -9,14 +9,14 @@ private:
 	static constexpr float ShotCoolTime = 1.0f;			//”­ËŠÔŠu
 	static constexpr float BulletFiringRate = 0.3f;		//’eŠÔ‚Ì”­ËŠÔŠu
 
-	void BulletShot();		//”­Ë
-	bool BulletInstance();	//’e‚Ì¶¬
-
-protected:
-	virtual void Update() override;			//XV
-	virtual void Draw() override;
-
 public:
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	GreenBird(Camera* camera, Stage* stage, const Vector3& position, int playerIndex);
+	GreenBird(Camera* camera, Stage* stage, const Vector3& position, int playerIndex) :
+		CharacterBase("Man/Man4.mv1", camera, stage, position, Health, playerIndex)
+	{
+		//’e
+		m_maxBulletAmount = BulletAmount;
+		m_shotCoolTime = ShotCoolTime;
+		m_bulletFiringRate = BulletFiringRate;
+	}
 };

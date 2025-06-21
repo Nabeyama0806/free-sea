@@ -204,6 +204,12 @@
     <ClInclude Include="GreenBird.h">
       <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
+    <ClInclude Include="Redbird.h">
+      <Filter>ヘッダー ファイル\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="PinkBird.h">
+      <Filter>ヘッダー ファイル\Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMain.cpp">
@@ -299,17 +305,11 @@
     <ClCompile Include="CharacterBase.cpp">
       <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
-    <ClCompile Include="BlueBird.cpp">
-      <Filter>ソース ファイル\Character</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>ソース ファイル\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="ModelAnimation.cpp">
       <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="GreenBird.cpp">
-      <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

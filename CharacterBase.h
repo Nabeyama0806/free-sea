@@ -73,6 +73,9 @@ protected:
 	virtual void Update() override;	//更新
 	virtual void Draw() override;	//描画
 
+	virtual void BulletShot();		//弾の発射
+	virtual bool CreateBullet();	//弾の生成
+
 public:
 	//コンストラクタ
 	CharacterBase(

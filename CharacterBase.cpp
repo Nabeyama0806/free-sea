@@ -63,6 +63,9 @@ void CharacterBase::Update()
 	//本来の更新
 	ModelActor::Update();
 
+	//弾の発射
+	BulletShot();
+
 	//無敵時間のカウントダウン
 	if (m_invincibleTime > 0)
 	{
@@ -86,12 +89,15 @@ void CharacterBase::Update()
 	Vector2 input = InputSystem::GetInstance()->MoveValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
 	Vector3 move = Vector3(input.x, 0, input.y);
 
-	//射出方向の取得
+	//発射中は何もしない
 	if (!m_isShot)
 	{
 		float length = 80.0f;
 		m_shotRotate = InputSystem::GetInstance()->RotationValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
-		if (!m_shotRotate.IsZero()) m_shotRotate.Normalize() *= length;
+		if (!m_shotRotate.IsZero())
+		{
+			m_shotRotate.Normalize() *= length;
+		}
 		else
 		{
 			Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
@@ -262,6 +268,58 @@ void CharacterBase::Draw()
 		GetColor(40, 255, 30),
 		true
 	);
+}
+
+//弾の発射処理
+void CharacterBase::BulletShot()
+{
+	//既に発射済み
+	if (m_isShot)
+	{
+		//弾の発射間隔の経過時間
+		m_bulletElapsedTime += Time::GetInstance()->GetDeltaTime();
+
+		//生成した弾の数を加算
+		if (CreateBullet()) m_bulletInstanceAmount++;
+
+		//最大数まで生成したらフラグを折る
+		if (m_bulletInstanceAmount == m_maxBulletAmount)
+		{
+			m_isShot = false;
+			m_bulletInstanceAmount = 0;
+		}
+	}
+
+	//発射の入力受付の経過時間
+	m_shotElapsedTime += Time::GetInstance()->GetDeltaTime();
+	if (m_shotElapsedTime < m_shotCoolTime) return;
+
+	//発射ボタンが押されたら弾を生成
+	if (InputSystem::GetInstance()->BulletShot(static_cast<InputSystem::ActionMap>(m_playerIndex)))
+	{
+		m_isShot = true;
+		m_shotElapsedTime = 0;
+	}
+}
+
+//弾の生成
+bool CharacterBase::CreateBullet()
+{
+	//弾間の経過時間が発射レートを超えていれば弾を発射
+	if (m_bulletElapsedTime > m_bulletFiringRate)
+	{
+		//経過時間のリセット
+		m_bulletElapsedTime = 0;
+
+		//正面から弾を発射する
+		AddChild(new ReflectionBullet(m_transform.position, GetShotForward(), m_stage));
+
+		//効果音の再生
+		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");
+
+		return true;
+	}
+	return false;
 }
 
 //被弾

@@ -26,6 +26,8 @@
     <ClInclude Include="ModelActorCollision.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="CharacterBase.h" />
+    <ClInclude Include="PinkBird.h" />
+    <ClInclude Include="Redbird.h" />
     <ClInclude Include="ReflectionBullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
@@ -71,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="GreenBird.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="ModelActorCollision.cpp" />
     <ClCompile Include="CharacterBase.cpp" />
@@ -92,7 +93,6 @@
     <ClCompile Include="ModelAnimation.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="BlueBird.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="SceneGame.cpp" />
     <ClCompile Include="SceneManager.cpp" />
