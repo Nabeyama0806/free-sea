@@ -24,6 +24,8 @@ private:
 	int m_mouseButtonPost;		//前フレームのマウスボタン入力状態
 
 	// パッド
+	static constexpr float PadStickDeadZone = 32767 * 0.2f;	// スティックのデッドゾーン
+
 	int m_padButton[static_cast<int>(InputSystem::ActionMap::Length)];
 	int m_padButtonPost[static_cast<int>(InputSystem::ActionMap::Length)];
 
@@ -151,10 +153,26 @@ public:
 	//スティックの入力値
 	Vector2 GetPadLeftStick(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
+		Vector2 input = m_padLeftStick[static_cast<int>(actionMap)];
+
+		// デッドゾーンを適用
+		if (input.SqrMagnitude() < PadStickDeadZone * PadStickDeadZone)
+		{
+			m_padLeftStick[static_cast<int>(actionMap)] = Vector2(0, 0);
+		}
+
 		return m_padLeftStick[static_cast<int>(actionMap)];
 	}
 	Vector2 GetPadRightStick(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)
 	{
+		Vector2 input = m_padRightStick[static_cast<int>(actionMap)];
+
+		// デッドゾーンを適用
+		if (input.SqrMagnitude() < PadStickDeadZone * PadStickDeadZone)
+		{
+			m_padRightStick[static_cast<int>(actionMap)] = Vector2(0, 0);
+		}
+
 		return m_padRightStick[static_cast<int>(actionMap)];
 	}
 
