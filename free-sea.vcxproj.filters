@@ -49,9 +49,6 @@
     <Filter Include="ソース ファイル\Bullet">
       <UniqueIdentifier>{0190676c-0cab-4277-b2b3-729616b6095c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Character">
-      <UniqueIdentifier>{0f414d7e-9c34-4044-aa94-e01166dcc86f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Character">
       <UniqueIdentifier>{5e666ec4-9e65-4fdc-a5eb-f37a6ab25bde}</UniqueIdentifier>
     </Filter>
@@ -302,14 +299,14 @@
     <ClCompile Include="InputSystem.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterBase.cpp">
-      <Filter>ソース ファイル\Character</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>ソース ファイル\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="ModelAnimation.cpp">
       <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBase.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
