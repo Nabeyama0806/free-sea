@@ -27,7 +27,7 @@ private:
 	static constexpr int MaxHealth = 3;
 	static constexpr int Power = 15;
 	static constexpr float AddForce = 500.0f;
-	static constexpr float Size = 25.0f;	
+	static constexpr float Size = 2.0f;	
 	static constexpr float EraseTime = 2.0f;	
 
 	Stage* m_stage;

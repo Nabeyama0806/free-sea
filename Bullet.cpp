@@ -14,8 +14,8 @@ Bullet::Bullet(const char* filePath, const Vector3& position, const Vector3& for
 	m_forward(forward),
 	m_health(MaxHealth),
 	m_power(Power),
-	m_addForce(AddForce),
 	m_size(size),
+	m_addForce(AddForce),
 	m_eraseTime(EraseTime),
 	m_elapsedTime(0)
 {
@@ -23,11 +23,10 @@ Bullet::Bullet(const char* filePath, const Vector3& position, const Vector3& for
 	m_model = new Model(filePath);
 
 	//衝突判定
-	m_collider = new CircleCollider(m_size, Vector3(1, 8, -7));
+	m_collider = new CircleCollider(m_size);
 
 	//姿勢情報
-	m_transform.scale = m_size;
-	m_effectOffset = Vector3(0, -25, -10);
+	m_transform.scale = Size;	//サイズを設定
 
 	//エフェクト
 	m_effect = new Effect("Resource/Effect/bullet.efk", 10, 700);

@@ -317,11 +317,11 @@ bool CharacterBase::CreateBullet()
 		switch (m_bulletType)
 		{
 		case Bullet::Type::Reflection:
-			AddChild(new ReflectionBullet("弾のファイルパス", m_transform.position, GetShotForward(), m_stage));
+			AddChild(new ReflectionBullet(BulletFilePath, m_transform.position, GetShotForward(), m_stage));
 			break;
 
 		case Bullet::Type::Straight:
-			AddChild(new StraightBullet("弾のファイルパス", m_transform.position, GetShotForward(), m_stage));
+			AddChild(new StraightBullet(BulletFilePath, m_transform.position, GetShotForward(), m_stage));
 			break;
 
 		case Bullet::Type::Diffusion:
@@ -330,7 +330,7 @@ bool CharacterBase::CreateBullet()
 			{
 				float angle = (i - (DiffusionBullet::BulletAmount - 1) / 2.0f) * DiffusionBullet::AngleRate;
 				Vector3 forward = Quaternion::AngleAxis(angle, Vector3(0, 1, 0)) * GetShotForward();
-				AddChild(new DiffusionBullet("弾のファイルパス", m_transform.position, forward, m_stage));
+				AddChild(new DiffusionBullet(BulletFilePath, m_transform.position, forward, m_stage));
 			}
 
 		default:

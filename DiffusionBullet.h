@@ -8,9 +8,9 @@ class DiffusionBullet : public Bullet
 private:
 	static constexpr int MaxHealth = 1;			//反射できる回数(体力)
 	static constexpr int Power = 15;			//攻撃力
-	static constexpr float AddForce = 500.0f;	//投げる力
+	static constexpr float AddForce = 550.0f;	//投げる力
 	static constexpr float Size = 20.0f;		//大きさの調整
-	static constexpr float EraseTime = 0.7f;	//生存時間(秒)
+	static constexpr float EraseTime = 0.8f;	//生存時間(秒)
 
 public:
 	//コンストラクタ
