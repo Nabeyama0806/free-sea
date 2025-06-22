@@ -12,7 +12,7 @@ Model::~Model()
 }
 
 //コンストラクタ
-Model::Model(const char* modelFileName, bool modelClone) :
+Model::Model(const char* modelFileName) :
 	m_modelHandle(0),
 	m_modelFileName(modelFileName),
 	m_prevAnime(nullptr),

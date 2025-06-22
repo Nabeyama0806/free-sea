@@ -7,19 +7,18 @@ class Transform;
 class Model
 {
 private:
-	const char* m_modelFileName;			//モデルのファイルパス
+	const char* m_modelFileName;	//モデルのファイルパス
 
 	std::vector<ModelAnimation*> m_animeList;	//アニメーション配列
 	ModelAnimation* m_prevAnime;				//以前のアニメ
 	ModelAnimation* m_nowAnime;					//現在のアニメ
 
-
-	float m_elapsedTime;					//経過時間(秒)
-	int m_modelHandle;						//モデルのID
+	float m_elapsedTime;	//経過時間(秒)
+	int m_modelHandle;		//モデルのID
 
 public:
 	//コンストラクタ
-	Model(const char* modelFileName, bool modelClone = false);
+	Model(const char* modelFileName);
 
 	//デストラクタ
 	virtual ~Model();
