@@ -37,22 +37,20 @@ private:
 	Stage* m_stage;
 
 	Vector3 cameraPos = Vector3(0, 0, -700);
-	std::vector<int> m_playerChara;
+	std::vector<int> m_playerBullets;
 
 	float m_resultTransitionTime;
-	int m_playerIndex;
 	int m_bgm;
 
 public:
 	//コンストラクタ
-	SceneGame(std::vector<int>& playerChara) :
+	SceneGame(std::vector<int>& playerBullets) :
 		m_rootNode(nullptr),
 		m_stage(nullptr),
 		m_mainCamera(nullptr),
 		m_characters{nullptr},
 		m_resultTransitionTime(ResultTransitionTime),
-		m_playerChara(playerChara),
-		m_playerIndex(0),
+		m_playerBullets(playerBullets),
 		m_bgm(0)
 	{
 	}

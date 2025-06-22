@@ -6,13 +6,17 @@ class StraightBullet : public Bullet
 {
 private:
 	static constexpr int MaxHealth = 1;			//反射できる回数(体力)
-	static constexpr int Power = 30;
+	static constexpr int Power = 30;			//攻撃力
 	static constexpr float AddForce = 950.0f;	//投げる力
 
 public:
 	//コンストラクタ
-	StraightBullet(const Vector3& position, const Vector3& forward, Stage* stage) :
-		Bullet(position, forward, stage, MaxHealth, Power, AddForce)
+	StraightBullet(const char* modelFilePath, const Vector3& position, const Vector3& forward, Stage* stage) :
+		Bullet(modelFilePath, position, forward, stage)
 	{
+		//弾のステータスを設定
+		m_health = MaxHealth;
+		m_power = Power;
+		m_addForce = AddForce;
 	}
 };

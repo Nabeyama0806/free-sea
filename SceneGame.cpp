@@ -2,7 +2,7 @@
 #include "SceneResult.h"
 #include "SoundManager.h"
 #include "SpriteActor.h"
-#include "CharacterBase.h"
+#include "Bullet.h"
 #include "BlueBird.h"
 #include "GreenBird.h"
 #include "RedBird.h"
@@ -49,30 +49,30 @@ void SceneGame::Initialize()
 	Node* uiLayer = new Node();
 	m_rootNode->AddChild(uiLayer);
 
-	//プレイヤーが選択したキャラ番号に応じて生成するキャラを変更
-	for (int i = 0; i < GetJoypadNum(); ++i)
+	//生成するキャラを変更
+	for (int i = 0; i < m_playerBullets.size(); ++i)
 	{
-		CharacterBase::Type chara = static_cast<CharacterBase::Type>(m_playerChara[i]);
+		Bullet::Type bullet = static_cast<Bullet::Type>(m_playerBullets[i]);
 
-		switch (chara)
+		switch (i)
 		{
-		case CharacterBase::Type::BlueBird:
-			m_characters[i] = new BlueBird(m_mainCamera, m_stage, PlayerPosition[i], i);
+		case 0:	//プレイヤー1
+			m_characters[i] = new BlueBird(m_mainCamera, m_stage, PlayerPosition[i], bullet);
 			break;
 
-		case CharacterBase::Type::GreenBird:
-			m_characters[i] = new GreenBird(m_mainCamera, m_stage, PlayerPosition[i], i);
+		case 1:	//プレイヤー2
+			m_characters[i] = new GreenBird(m_mainCamera, m_stage, PlayerPosition[i], bullet);
 			break;
 
-		case CharacterBase::Type::RedBird:
-			m_characters[i] = new RedBird(m_mainCamera, m_stage, PlayerPosition[i], i);
+		case 2:	//プレイヤー3
+			m_characters[i] = new RedBird(m_mainCamera, m_stage, PlayerPosition[i], bullet);
 			break;
 
-		case CharacterBase::Type::PinkBird:
-			m_characters[i] = new PinkBird(m_mainCamera, m_stage, PlayerPosition[i], i);
+		case 3: //プレイヤー4
+			m_characters[i] = new PinkBird(m_mainCamera, m_stage, PlayerPosition[i], bullet);
 			break;
 
-		default:
+		default: //それ以外は何もしない
 			break;
 		}
 		actorLayer->AddChild(m_characters[i]);

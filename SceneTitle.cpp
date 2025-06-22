@@ -1,6 +1,6 @@
 #include "SceneTitle.h"
 #include "SceneGame.h"
-#include "CharacterBase.h"
+#include "Bullet.h"
 #include "SpriteActor.h"
 #include "SpriteAnimation.h"
 #include "SoundManager.h"
@@ -36,7 +36,7 @@ void SceneTitle::Initialize()
 	{
 		m_sprites[i] = new Sprite();
 		m_sprites[i]->gridSize = Vector2(1920, 1032);
-		for (int j = 0; j < static_cast<int>(CharacterBase::Type::Length); ++j)
+		for (int j = 0; j < static_cast<int>(Bullet::Type::Length); ++j)
 		{
 			m_sprites[i]->Register(TextureName[j], SpriteAnimation(CharacterImage[j]));
 			m_sprites[i]->Load();
@@ -85,12 +85,10 @@ SceneBase* SceneTitle::Update()
 		break;
 
 	case SceneTitle::Phase::Select:
-		//プレイヤーごとのキャラ選択
+		//各プレイヤーの弾選択
 		for (int i = 0; i < m_padAmount; ++i)
 		{
 			InputSystem::ActionMap actionMap = static_cast<InputSystem::ActionMap>(i);
-
-			//キャラ選択
 			if (InputSystem::GetInstance()->SelectLeft(actionMap))
 			{
 				m_select[i]--;
@@ -104,8 +102,8 @@ SceneBase* SceneTitle::Update()
 			}
 
 			//範囲内に調整
-			if (m_select[i] < 0) m_select[i] = static_cast<int>(CharacterBase::Type::PinkBird);
-			if (m_select[i] > static_cast<int>(CharacterBase::Type::PinkBird)) m_select[i] = 0;
+			if (m_select[i] < 0) m_select[i] = static_cast<int>(Bullet::Type::Diffusion);
+			if (m_select[i] > static_cast<int>(Bullet::Type::Diffusion)) m_select[i] = 0;
 
 			//決定ボタンが押されたらゲーム開始
 			if (InputSystem::GetInstance()->IsDecision(actionMap))

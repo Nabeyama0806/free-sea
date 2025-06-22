@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "Stage.h"
+#include "characterBase.h"
 #include "Effect.h"
 #include "SoundManager.h"
 #include "CircleCollider.h"
@@ -7,23 +8,25 @@
 #include "Lerp.h"
 
 //コンストラクタ
-Bullet::Bullet(const Vector3& position, const Vector3& forward, Stage* stage, int maxHelath, int power, float addForce, float size) :
+Bullet::Bullet(const char* filePath, const Vector3& position, const Vector3& forward, Stage* stage, const float size) :
 	ModelActor("Bullet", nullptr, position),
 	m_stage(stage),
 	m_forward(forward),
-	m_health(maxHelath),
-	m_power(power),
-	m_addForce(addForce),
+	m_health(MaxHealth),
+	m_power(Power),
+	m_addForce(AddForce),
+	m_size(size),
+	m_eraseTime(EraseTime),
 	m_elapsedTime(0)
 {
 	//モデル
-	m_model = new Model("Resource/Model/Bullet.mv1");
+	m_model = new Model(filePath);
 
 	//衝突判定
-	m_collider = new CircleCollider(Scale, Vector3(1, 8, -7));
+	m_collider = new CircleCollider(m_size, Vector3(1, 8, -7));
 
 	//姿勢情報
-	m_transform.scale = size;
+	m_transform.scale = m_size;
 	m_effectOffset = Vector3(0, -25, -10);
 
 	//エフェクト
@@ -44,7 +47,7 @@ void Bullet::Update()
 
 	//生存時間を過ぎていたら削除
 	m_elapsedTime += Time::GetInstance()->GetDeltaTime();
-	if (m_elapsedTime >= EraseTime) Destroy();
+	if (m_elapsedTime >= m_eraseTime) Destroy();
 
 	//移動前の床情報を取得
 	MV1_COLL_RESULT_POLY prevPoly = MV1CollCheck_Line(

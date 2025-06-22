@@ -1,18 +1,20 @@
 #pragma once
 #include "CharacterBase.h"
+#include "Bullet.h"
 
 class BlueBird : public CharacterBase
 {
 private:
-	static constexpr int Health = 230;
-	static constexpr int BulletAmount = 5;				//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
-	static constexpr float ShotCoolTime = 1.7f;			//”­ËŠÔŠu
-	static constexpr float BulletFiringRate = 0.24f;	//’eŠÔ‚Ì”­ËŠÔŠu
+	static constexpr int BulletAmount = 2;				//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
+	static constexpr float ShotCoolTime = 0.8f;			//”­ËŠÔŠu
+	static constexpr float BulletFiringRate = 0.2f;		//’eŠÔ‚Ì”­ËŠÔŠu
+
+	const char* BulletFilePath = "Resource/Model/Bullet.mv1";	//’e‚Ìƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹ƒpƒX
 
 public:
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	BlueBird(Camera* camera, Stage* stage, const Vector3& position, int playerIndex) :
-		CharacterBase("Man/Man.mv1", camera, stage, position, Health, playerIndex)
+	BlueBird(Camera* camera, Stage* stage, const Vector3& position, Bullet::Type bulletType) :
+		CharacterBase("Man/Man.mv1", BulletFilePath, camera, stage, position, bulletType)
 	{
 		//’e
 		m_maxBulletAmount = BulletAmount;

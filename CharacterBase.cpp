@@ -1,37 +1,39 @@
 #include "CharacterBase.h"
-#include "SpriteActor.h"
+#include "Camera.h"
+#include "Stage.h"
 #include "ReflectionBullet.h"
 #include "StraightBullet.h"
+#include "DiffusionBullet.h"
 #include "Model.h"
 #include "ModelAnimation.h"
 #include "ModelLoader.h"
-#include "Camera.h"
-#include "Stage.h"
+#include "SpriteActor.h"
 #include "CircleCollider.h"
 #include "SoundManager.h"
 #include "InputSystem.h"
 #include "Quaternion.h"
-#include "Vector2.h"
 #include "Time.h"
 #include "Lerp.h"
 
 //コンストラクタ
 CharacterBase::CharacterBase(
 	const char* modelFilePath,
+	const char* bulletFilePath,
 	Camera* camera,
 	Stage* stage,
 	const Vector3& position,
-	int health,
-	int playerIndex
+	Bullet::Type bulletType
 ) :
 	ModelActor("Player"),
+	BulletFilePath(bulletFilePath),
 	m_camera(camera),
-	m_stage(stage),
-	m_maxHealth(health),
-	m_health(health),
-	m_playerIndex(playerIndex),
+	m_stage(stage), 
+	m_bulletType(bulletType),
+	m_maxHealth(MaxHealth),
+	m_health(MaxHealth),
+	m_playerIndex(0),
 	m_spriteActor(nullptr),
-	m_invincibleTime(0),
+	m_flashTime(0),
 	m_maxBulletAmount(0),
 	m_shotCoolTime(0),
 	m_bulletFiringRate(0),
@@ -46,7 +48,7 @@ CharacterBase::CharacterBase(
 	m_transform.scale = Scale;
 
 	//アニメーションの登録
-	m_model = new Model(modelFilePath, true);
+	m_model = new Model(modelFilePath);
 	for (int i = 0; i < static_cast<int>(Anime::Length); ++i)
 	{
 		//アニメーションのファイルパスを渡す
@@ -67,9 +69,9 @@ void CharacterBase::Update()
 	BulletShot();
 
 	//無敵時間のカウントダウン
-	if (m_invincibleTime > 0)
+	if (m_flashTime > 0)
 	{
-		m_invincibleTime -= Time::GetInstance()->GetDeltaTime();
+		m_flashTime -= Time::GetInstance()->GetDeltaTime();
 	}
 
 	//アニメーション
@@ -250,10 +252,10 @@ void CharacterBase::Draw()
 	);
 
 	//無敵時間中は表示/非表示を繰り返して点滅させる
-	if (m_invincibleTime > 0)
+	if (m_flashTime > 0)
 	{
 		//無敵時間中の小数点第一位が奇数なら非表示
-		if (static_cast<int>(m_invincibleTime * 10) % 2)
+		if (static_cast<int>(m_flashTime * 10) % 2)
 		{
 			return;
 		}
@@ -312,7 +314,28 @@ bool CharacterBase::CreateBullet()
 		m_bulletElapsedTime = 0;
 
 		//正面から弾を発射する
-		AddChild(new ReflectionBullet(m_transform.position, GetShotForward(), m_stage));
+		switch (m_bulletType)
+		{
+		case Bullet::Type::Reflection:
+			AddChild(new ReflectionBullet("弾のファイルパス", m_transform.position, GetShotForward(), m_stage));
+			break;
+
+		case Bullet::Type::Straight:
+			AddChild(new StraightBullet("弾のファイルパス", m_transform.position, GetShotForward(), m_stage));
+			break;
+
+		case Bullet::Type::Diffusion:
+			//拡散弾の生成
+			for (int i = 0; i < DiffusionBullet::BulletAmount; ++i)
+			{
+				float angle = (i - (DiffusionBullet::BulletAmount - 1) / 2.0f) * DiffusionBullet::AngleRate;
+				Vector3 forward = Quaternion::AngleAxis(angle, Vector3(0, 1, 0)) * GetShotForward();
+				AddChild(new DiffusionBullet("弾のファイルパス", m_transform.position, forward, m_stage));
+			}
+
+		default:
+			break;
+		}
 
 		//効果音の再生
 		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");
@@ -326,7 +349,7 @@ bool CharacterBase::CreateBullet()
 void CharacterBase::Damage(int damage)
 {
 	//無敵時間をセット
-	m_invincibleTime = InvincibleTime;
+	m_flashTime = FlashTime;
 
 	//体力を減らす
 	m_health -= damage;

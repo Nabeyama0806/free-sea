@@ -1,6 +1,6 @@
 #pragma once
 #include "SceneBase.h"
-#include "CharacterBase.h"
+#include "Bullet.h"
 #include "Sprite.h"
 #include "SpriteAnimation.h"
 #include "Node.h"
@@ -24,34 +24,34 @@ private:
 	Phase m_phase;
 
 private:
-	const char* CharacterImage[static_cast<int>(CharacterBase::Type::Length)] =
+	const char* CharacterImage[static_cast<int>(Bullet::Type::Length)] =
 	{
 		"Resource/Texture/bird_blue.png",
 		"Resource/Texture/bird_green.png",
 		"Resource/Texture/bird_red.png",
-		"Resource/Texture/bird_pink.png",
+		//"Resource/Texture/bird_pink.png",
 	};
 
-	const char* TextureName[static_cast<int>(CharacterBase::Type::Length)] =
+	const char* TextureName[static_cast<int>(Bullet::Type::Length)] =
 	{
 		"BlurBird",
 		"GreenBird",
 		"RedBird",
-		"PinkBird",
+		//"PinkBird",
 	};
 
-	const Vector2 DrawPosOffset[static_cast<int>(CharacterBase::Type::Length)] =
+	const Vector2 DrawPosOffset[static_cast<int>(Bullet::Type::Length)] =
 	{
 		Vector2(-300.0f, -50.0f),
 		Vector2(300.0f, -50.0f),
 		Vector2(-300.0f, 180.0f),
 	};
 
-	std::vector<int> m_select;	//選択されているキャラクター
+	std::vector<int> m_select;	//選択されている弾
 
 	Node* m_rootNode;
 	Transform m_transform;
-	Sprite* m_sprites[static_cast<int>(CharacterBase::Type::Length)];
+	Sprite* m_sprites[static_cast<int>(Bullet::Type::Length)];
 	int m_padAmount;
 	int m_bgm;
 

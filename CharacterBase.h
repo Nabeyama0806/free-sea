@@ -1,5 +1,6 @@
 #pragma once
 #include "ModelActor.h"
+#include "Bullet.h"
 #include "Vector3.h"
 #include "Vector2.h"
 
@@ -9,22 +10,12 @@ class Stage;
 
 class CharacterBase : public ModelActor
 {
-public:
-	enum class Type
-	{
-		BlueBird,
-		GreenBird,
-		RedBird,
-		PinkBird,
-
-		Length,
-	};
-
 private:
+	static constexpr int MaxHealth = 220;			//体力
 	static constexpr float Scale = 3.0f;			//自身のサイズ
 	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
 	static constexpr float Radius = 20.0f;			//衝突判定の半径
-	static constexpr float InvincibleTime = 0.8f;	//無敵時間
+	static constexpr float FlashTime = 0.8f;		//点滅時間
 
 	//アニメーションパターン
 	enum class Anime
@@ -51,12 +42,16 @@ protected:
 	};
 	static constexpr int HealthSlideHeight = 5;
 
+	const char* BulletFilePath;
+
 	SpriteActor* m_spriteActor;
 	Camera* m_camera;
 	Stage* m_stage;
 	Vector2 m_shotRotate;
+	Bullet::Type m_bulletType;	//弾の種類
+
 	int m_playerIndex;			//自身のプレイヤー番号
-	float m_invincibleTime;		//残りの無敵時間
+	float m_flashTime;			//残りの点滅時間
 	bool m_isGrounded;			//床との接触判定
 	bool m_isShot;				//発射中
 
@@ -80,11 +75,11 @@ public:
 	//コンストラクタ
 	CharacterBase(
 		const char* modelFilepath,
+		const char* bulletFilePath,
 		Camera* camera,
 		Stage* stage,
 		const Vector3& position,
-		int health,
-		int playerIndex
+		Bullet::Type bulletType
 	);
 
 	//被弾

@@ -46,9 +46,6 @@
     <Filter Include="ヘッダー ファイル\Bullet">
       <UniqueIdentifier>{4b86f185-b604-4ddb-8dff-be89ec876622}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Bullet">
-      <UniqueIdentifier>{0190676c-0cab-4277-b2b3-729616b6095c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Character">
       <UniqueIdentifier>{5e666ec4-9e65-4fdc-a5eb-f37a6ab25bde}</UniqueIdentifier>
     </Filter>
@@ -207,6 +204,9 @@
     <ClInclude Include="PinkBird.h">
       <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
+    <ClInclude Include="DiffusionBullet.h">
+      <Filter>ヘッダー ファイル\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMain.cpp">
@@ -299,13 +299,13 @@
     <ClCompile Include="InputSystem.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>ソース ファイル\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="ModelAnimation.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
     <ClCompile Include="CharacterBase.cpp">
+      <Filter>ソース ファイル\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
       <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
   </ItemGroup>

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="ActorBase.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="DiffusionBullet.h" />
     <ClInclude Include="GreenBird.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="ModelActorCollision.h" />
