@@ -113,25 +113,18 @@ void CharacterBase::Update()
 		prevPos + Vector3(0, 100, 0),
 		prevPos - Vector3(0, 100, 0));
 
-	//入力方向の取得
-	Vector2 input = InputSystem::GetInstance()->MoveValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
-	Vector3 move = Vector3(input.x, 0, input.y);
+	//前フレームの入力値を保存
+	Vector2 prevInput = m_inputValue;
+	
+	//入力値の取得
+	m_inputValue = InputSystem::GetInstance()->MoveValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
+	Vector3 move = Vector3(m_inputValue.x, 0, m_inputValue.y);
 
-	//発射中は何もしない
-	if (!m_isShot)
-	{
-		float length = 80.0f;
-		m_shotRotate = InputSystem::GetInstance()->RotationValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
-		if (!m_shotRotate.IsZero())
-		{
-			m_shotRotate.Normalize() *= length;
-		}
-		else
-		{
-			Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
-			m_shotRotate = forward;
-		}
-	}
+	//入力値がゼロの場合は前フレームの入力値を使用
+	if (m_inputValue.IsZero()) m_inputValue = prevInput;
+
+	//発射中は射出方向を更新しない
+	if (!m_isShot) m_shotRotate = InputSystem::GetInstance()->RotationValue(static_cast<InputSystem::ActionMap>(m_playerIndex));
 
 	//カメラの正面ベクトルを作成
 	Vector3 cameraForward = Vector3::Scale(m_camera->GetForward(), Vector3(1, 0, 1)).Normalized();
@@ -142,42 +135,26 @@ void CharacterBase::Update()
 	//移動しているとき
 	if (!move.IsZero())
 	{
+		//移動
 		move.Normalize();
 		m_transform.position += move * Speed;
 
-		//発射中は回転しない
-		if (!m_isShot)
-		{
-			//射出方向を定めているとき
-			if (input.IsZero())
-			{
-				m_transform.rotation = Quaternion::Slerp(
-					m_transform.rotation,
-					Quaternion::LookRotation(GetShotForward()),
-					0.2f);
-			}
-			else
-			{
-				m_transform.rotation = Quaternion::Slerp(
-					m_transform.rotation,
-					Quaternion::LookRotation(move),
-					0.3f);
-			}
-			
-		}
-		else
-		{
-			if (!input.IsZero())
-			{
-				m_transform.rotation = Quaternion::Slerp(
-					m_transform.rotation,
-					Quaternion::LookRotation(GetShotForward()),
-					0.2f);
-			}
-		}
+		//回転
+		m_transform.rotation = Quaternion::Slerp(
+			m_transform.rotation,
+			Quaternion::LookRotation(!m_isShot ? move : GetShotForward()),
+			0.25f);
 
 		//移動アニメーションの設定
 		anime = Anime::Run;
+	}
+	else
+	{
+		//回転
+		m_transform.rotation = Quaternion::Slerp(
+			m_transform.rotation,
+			Quaternion::LookRotation(m_shotRotate.IsZero() ? Vector3(m_inputValue.x, 0, m_inputValue.y) : GetShotForward()),
+			0.25f);
 	}
 
 	// 移動後の床情報を取得
@@ -259,9 +236,10 @@ void CharacterBase::Draw()
 	ModelActor::Draw();
 
 	//射出方向の描画
+	float length = 80.0f;
 	DrawLine3D(
 		m_transform.position,
-		m_transform.position + Vector3(m_shotRotate.x, 0, m_shotRotate.y),
+		m_transform.position + Vector3(m_shotRotate.x * length, 0, m_shotRotate.y * length),
 		GetColor(255, 0, 0)
 	);
 	

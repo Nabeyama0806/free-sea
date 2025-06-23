@@ -3,7 +3,7 @@
 #include "Bullet.h"
 #include "Vector3.h"
 #include "Vector2.h"
-
+ 
 class SpriteActor;
 class Camera;
 class Stage;
@@ -43,6 +43,7 @@ protected:
 	Camera* m_camera;
 	Stage* m_stage;				
 	Vector2 m_shotRotate;		//射出方向の回転
+	Vector2 m_inputValue;		//入力値	
 	Bullet::Type m_bulletType;	//弾の種類
 
 	//自身に関する変数
@@ -85,8 +86,15 @@ public:
 	//射出方向の取得
 	Vector3 GetShotForward()
 	{
+		float length = 80.0f;	//射出方向の長さ
 		Vector3 tmp = Vector3(m_shotRotate.x, 0, m_shotRotate.y);
-		if (!tmp.IsZero()) tmp.Normalize();
+		if (!tmp.IsZero()) m_shotRotate.Normalize();
+		else
+		{
+			Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
+			m_shotRotate = forward;
+			tmp = forward;
+		}
 		return tmp;
 	}
 
