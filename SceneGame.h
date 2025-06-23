@@ -19,14 +19,6 @@ private:
 	static constexpr int MaxControllerNum = 4;
 	static constexpr float ResultTransitionTime = 2.0f;		//プレイヤーが死んでからリザルト画面に遷移するまでの時間
 
-	const std::list<const char*> ModelPreload =
-	{
-		"Resource/Model/bullet_red.mv1",
-		"Resource/Model/bullet_green.mv1",
-		"Resource/Model/bullet_red.mv1",
-		"Resource/Model/bullet_pink.mv1",
-	};
-
 	const Vector3 PlayerPosition[MaxControllerNum] =
 	{
 		Vector3(-620, 0, 0),
@@ -57,11 +49,6 @@ public:
 		m_playerBullets(playerBullets),
 		m_bgm(0)
 	{
-		//モデルのプリロード
-		for (const char* modelPath : ModelPreload)
-		{
-			ModelLoader::GetInstance()->Load(modelPath);
-		}
 	}
 
 	virtual void Initialize() override;		//初期化

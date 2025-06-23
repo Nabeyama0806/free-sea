@@ -35,7 +35,7 @@ void SceneTitle::Initialize()
 	for (int i = 0; i < m_padAmount; ++i)
 	{
 		m_sprites[i] = new Sprite();
-		m_sprites[i]->gridSize = Vector2(1920, 1032);
+		m_sprites[i]->gridSize = Vector2(1080, 1080);
 		for (int j = 0; j < static_cast<int>(Bullet::Type::Length); ++j)
 		{
 			m_sprites[i]->Register(TextureName[j], SpriteAnimation(CharacterImage[j]));

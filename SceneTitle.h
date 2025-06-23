@@ -1,10 +1,11 @@
 #pragma once
 #include "SceneBase.h"
-#include "Bullet.h"
-#include "Sprite.h"
-#include "SpriteAnimation.h"
 #include "Node.h"
 #include "Transform.h"
+#include "Sprite.h"
+#include "SpriteAnimation.h"
+#include "Bullet.h"
+#include "ModelLoader.h"
 #include <vector>
 
 class Node;
@@ -24,11 +25,19 @@ private:
 	Phase m_phase;
 
 private:
+	const std::list<const char*> ModelPreload =
+	{
+		"Resource/Model/bullet_blue.mv1",
+		"Resource/Model/bullet_green.mv1",
+		"Resource/Model/bullet_red.mv1",
+		"Resource/Model/bullet_pink.mv1",
+	};
+
 	const char* CharacterImage[static_cast<int>(Bullet::Type::Length)] =
 	{
-		"Resource/Texture/bird_blue.png",
-		"Resource/Texture/bird_green.png",
-		"Resource/Texture/bird_red.png",
+		"Resource/Texture/reflection.png",
+		"Resource/Texture/straight.png",
+		"Resource/Texture/diffusion.png",
 		//"Resource/Texture/bird_pink.png",
 	};
 
@@ -65,6 +74,11 @@ public:
 		m_padAmount(0),
 		m_bgm(0)
 	{
+		//モデルのプリロード
+		for (const char* modelPath : ModelPreload)
+		{
+			ModelLoader::GetInstance()->Load(modelPath);
+		}
 	}
 
 	virtual void Initialize() override;				//初期化
