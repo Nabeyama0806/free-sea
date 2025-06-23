@@ -5,7 +5,7 @@
 class ReflectionBullet : public Bullet
 {
 private:
-	static constexpr int Power = 13;			//UŒ‚—Í
+	static constexpr int Power = 20;			//UŒ‚—Í
 	static constexpr float AddForce = 500.0f;	//“Š‚°‚é—Í
 
 public:
