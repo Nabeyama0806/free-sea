@@ -9,8 +9,8 @@ class Bullet : public ModelActor
 public:
 	enum class Type
 	{
-		Straight,		//íºêiíe
 		Reflection,		//îΩéÀíe
+		Straight,		//íºêiíe
 		Diffusion,		//ägéUíe
 
 		Length,		

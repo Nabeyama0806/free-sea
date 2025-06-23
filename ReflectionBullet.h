@@ -17,4 +17,8 @@ public:
 		m_power = Power;
 		m_addForce = AddForce;
 	}
+
+	static constexpr int BulletAmount = 5;				//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
+	static constexpr float ShotCoolTime = 1.4f;			//”­ËŠÔŠu
+	static constexpr float BulletFiringRate = 0.25f;	//’eŠÔ‚Ì”­ËŠÔŠu
 };

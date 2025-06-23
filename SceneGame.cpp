@@ -57,19 +57,19 @@ void SceneGame::Initialize()
 		switch (i)
 		{
 		case 0:	//プレイヤー1
-			m_characters[i] = new BlueBird(m_mainCamera, m_stage, PlayerPosition[i], bullet);
+			m_characters[i] = new BlueBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
 			break;
 
 		case 1:	//プレイヤー2
-			m_characters[i] = new GreenBird(m_mainCamera, m_stage, PlayerPosition[i], bullet);
+			m_characters[i] = new GreenBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
 			break;
 
 		case 2:	//プレイヤー3
-			m_characters[i] = new RedBird(m_mainCamera, m_stage, PlayerPosition[i], bullet);
+			m_characters[i] = new RedBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
 			break;
 
 		case 3: //プレイヤー4
-			m_characters[i] = new PinkBird(m_mainCamera, m_stage, PlayerPosition[i], bullet);
+			m_characters[i] = new PinkBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
 			break;
 
 		default: //それ以外は何もしない

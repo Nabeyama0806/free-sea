@@ -35,35 +35,31 @@ private:
 
 protected:
 	static constexpr Vector3 BulletOffset = Vector3(0, 50, 0);
-	static constexpr Vector2 HealthSlidePos[2] =
-	{
-		Vector2(350, 100),
-		Vector2(1400, 100),
-	};
 	static constexpr int HealthSlideHeight = 5;
 
 	const char* BulletFilePath;
 
 	SpriteActor* m_spriteActor;
 	Camera* m_camera;
-	Stage* m_stage;
-	Vector2 m_shotRotate;
+	Stage* m_stage;				
+	Vector2 m_shotRotate;		//Ëo•ûŒü‚Ì‰ñ“]
 	Bullet::Type m_bulletType;	//’e‚Ìí—Ş
 
+	//©g‚ÉŠÖ‚·‚é•Ï”
+	int m_maxHealth;			//Å‘å‘Ì—Í
+	int m_health;				//‘Ì—Í
 	int m_playerIndex;			//©g‚ÌƒvƒŒƒCƒ„[”Ô†
 	float m_flashTime;			//c‚è‚Ì“_–ÅŠÔ
 	bool m_isGrounded;			//°‚Æ‚ÌÚG”»’è
-	bool m_isShot;				//”­Ë’†
 
+	//’e‚Ì¶¬‚É•K—v‚È•Ï”
 	int m_bulletInstanceAmount;	//¶¬‚³‚ê‚½’e‚Ì”
 	float m_shotElapsedTime;	//”­ËŠÔŠu‚ÌŒo‰ßŠÔ
 	float m_bulletElapsedTime;	//’eŠÔ‚ÌŒo‰ßŠÔ
-
-	int m_maxHealth;			//Å‘å‘Ì—Í
-	int m_health;				//‘Ì—Í
 	int	m_maxBulletAmount;		//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
 	float m_shotCoolTime;		//”­ËŠÔŠu
 	float m_bulletFiringRate;	//’eŠÔ‚Ì”­ËŠÔŠu
+	bool m_isShot;				//”­Ë’†
 
 	virtual void Update() override;	//XV
 	virtual void Draw() override;	//•`‰æ
@@ -79,7 +75,8 @@ public:
 		Camera* camera,
 		Stage* stage,
 		const Vector3& position,
-		Bullet::Type bulletType
+		Bullet::Type bulletType,
+		int playerIndex
 	);
 
 	//”í’e

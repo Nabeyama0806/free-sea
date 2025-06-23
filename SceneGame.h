@@ -58,10 +58,10 @@ public:
 		m_bgm(0)
 	{
 		//モデルのプリロード
-		/*for (const char* modelPath : ModelPreload)
+		for (const char* modelPath : ModelPreload)
 		{
 			ModelLoader::GetInstance()->Load(modelPath);
-		}*/
+		}
 	}
 
 	virtual void Initialize() override;		//初期化

@@ -92,7 +92,15 @@ void Bullet::Update()
 			//線分同士の交差点を計算
 			//tが0～1の間であれば線分同士が交差している
 			float t = Vector2::Cross(-cd, ca) / Vector2::Cross(cd, ab);
-			if (t < 0 || 1 < t) continue;
+			if (t < 0 || 1 < t)
+			{
+				continue;
+			}
+			else
+			{
+				//体力が無ければ削除
+				if (m_health <= 0) Destroy();
+			}
 
 			//交差座標を計算
 			Vector2 crossPos = Lerp::Exec(a, b, t);
@@ -121,9 +129,6 @@ void Bullet::Update()
 			{
 				m_transform.position = prevPos;
 			}
-
-			//反射後はサイズを小さくする
-			m_transform.scale -= 4;
 
 			//反射可能回数の減算
 			m_health--;

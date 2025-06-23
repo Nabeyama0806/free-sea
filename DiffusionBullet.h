@@ -24,6 +24,10 @@ public:
 		m_eraseTime = EraseTime;
 	}
 
-	static constexpr int BulletAmount = 3;		//ŠgU’e‚Ì”
-	static constexpr float AngleRate = 6.0f;	//ŠgU’e‚ÌŠp“x
+	static constexpr int BulletAmount = 2;				//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
+	static constexpr float ShotCoolTime = 0.8f;			//”­ËŠÔŠu
+	static constexpr float BulletFiringRate = 0.2f;		//’eŠÔ‚Ì”­ËŠÔŠu
+
+	static constexpr int DiffusionBulletAmount = 3;		//ŠgU’e‚Ì”
+	static constexpr float AngleRate = 6.0f;			//ŠgU’e‚ÌŠp“x
 };

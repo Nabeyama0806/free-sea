@@ -22,7 +22,8 @@ CharacterBase::CharacterBase(
 	Camera* camera,
 	Stage* stage,
 	const Vector3& position,
-	Bullet::Type bulletType
+	Bullet::Type bulletType,
+	int playerIndex
 ) :
 	ModelActor("Player"),
 	BulletFilePath(bulletFilePath),
@@ -31,7 +32,7 @@ CharacterBase::CharacterBase(
 	m_bulletType(bulletType),
 	m_maxHealth(MaxHealth),
 	m_health(MaxHealth),
-	m_playerIndex(0),
+	m_playerIndex(playerIndex),
 	m_spriteActor(nullptr),
 	m_flashTime(0),
 	m_maxBulletAmount(0),
@@ -57,6 +58,31 @@ CharacterBase::CharacterBase(
 
 	//è’ìÀîªíË
 	m_collider = new CircleCollider(Radius, Vector3(0, 50, 0));
+
+	//íe
+	switch (bulletType)
+	{
+	case Bullet::Type::Reflection:
+		m_maxBulletAmount = ReflectionBullet::BulletAmount;
+		m_shotCoolTime = ReflectionBullet::ShotCoolTime;
+		m_bulletFiringRate = ReflectionBullet::BulletFiringRate;
+		break;
+
+	case Bullet::Type::Straight:
+		m_maxBulletAmount = StraightBullet::BulletAmount;
+		m_shotCoolTime = StraightBullet::ShotCoolTime;
+		m_bulletFiringRate = StraightBullet::BulletFiringRate;
+		break;
+
+	case Bullet::Type::Diffusion:
+		m_maxBulletAmount = DiffusionBullet::BulletAmount;
+		m_shotCoolTime = DiffusionBullet::ShotCoolTime;
+		m_bulletFiringRate = DiffusionBullet::BulletFiringRate;
+		break;
+
+	default:
+		break;
+	}
 }
 
 //çXêV
@@ -326,12 +352,13 @@ bool CharacterBase::CreateBullet()
 
 		case Bullet::Type::Diffusion:
 			//ägéUíeÇÃê∂ê¨
-			for (int i = 0; i < DiffusionBullet::BulletAmount; ++i)
+			for (int i = 0; i < DiffusionBullet::DiffusionBulletAmount; ++i)
 			{
-				float angle = (i - (DiffusionBullet::BulletAmount - 1) / 2.0f) * DiffusionBullet::AngleRate;
+				float angle = (i - (DiffusionBullet::DiffusionBulletAmount - 1) / 2.0f) * DiffusionBullet::AngleRate;
 				Vector3 forward = Quaternion::AngleAxis(angle, Vector3(0, 1, 0)) * GetShotForward();
 				AddChild(new DiffusionBullet(BulletFilePath, m_transform.position, forward, m_stage));
 			}
+			break;
 
 		default:
 			break;
