@@ -14,7 +14,7 @@ void SceneTitle::Initialize()
 {
 	//姿勢情報
 	m_transform.position = Screen::Center;
-	m_transform.scale = 0.2f;
+	m_transform.scale = 0.33f;
 
 	//ノード
 	m_rootNode = new Node();
@@ -22,11 +22,14 @@ void SceneTitle::Initialize()
 	//背景
 	m_rootNode->AddChild(new SpriteActor("Title", "Resource/Texture/title.png", Screen::Center));
 
+	//タイトルロゴ
+	m_rootNode->AddChild(new SpriteActor("TitleLogo", "Resource/Texture/title_logo.png", Screen::Center));
+
 	//接続されているパッド数を取得
 	m_padAmount = GetJoypadNum();
 
 	//接続されているパッドの数だけ配列の要素数を追加
-	for (int i = 0; i < m_padAmount; ++i)
+	for (int i = 0; i < MaxPadAmount; ++i)
 	{
 		m_select.push_back(0);
 	}
@@ -102,8 +105,8 @@ SceneBase* SceneTitle::Update()
 			}
 
 			//範囲内に調整
-			if (m_select[i] < 0) m_select[i] = static_cast<int>(Bullet::Type::Diffusion);
-			if (m_select[i] > static_cast<int>(Bullet::Type::Diffusion)) m_select[i] = 0;
+			if (m_select[i] < 0) m_select[i] = static_cast<int>(Bullet::Type::Length) - 1;
+			if (m_select[i] > static_cast<int>(Bullet::Type::Length) - 1) m_select[i] = 0;
 
 			//決定ボタンが押されたらゲーム開始
 			if (InputSystem::GetInstance()->IsDecision(actionMap))

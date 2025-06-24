@@ -9,6 +9,7 @@
 #include <vector>
 
 class Node;
+class SpriteActor;
 
 //タイトルシーン
 class SceneTitle : public SceneBase
@@ -25,6 +26,8 @@ private:
 	Phase m_phase;
 
 private:
+	static constexpr int MaxPadAmount = 4;	//パッドの数
+
 	const std::list<const char*> ModelPreload =
 	{
 		"Resource/Model/bullet_blue.mv1",
@@ -38,7 +41,7 @@ private:
 		"Resource/Texture/reflection.png",
 		"Resource/Texture/straight.png",
 		"Resource/Texture/diffusion.png",
-		//"Resource/Texture/bird_pink.png",
+		"Resource/Texture/reflection.png",
 	};
 
 	const char* TextureName[static_cast<int>(Bullet::Type::Length)] =
@@ -46,14 +49,15 @@ private:
 		"BlurBird",
 		"GreenBird",
 		"RedBird",
-		//"PinkBird",
+		"PinkBird",
 	};
 
 	const Vector2 DrawPosOffset[static_cast<int>(Bullet::Type::Length)] =
 	{
-		Vector2(-300.0f, -50.0f),
-		Vector2(300.0f, -50.0f),
-		Vector2(-300.0f, 180.0f),
+		Vector2(-430.0f, -110.0f),
+		Vector2(630.0f, -110.0f),
+		Vector2(-430.0f, 325.0f),
+		Vector2(630.0f, 325.0f),
 	};
 
 	std::vector<int> m_select;	//選択されている弾
@@ -77,7 +81,7 @@ public:
 		//モデルのプリロード
 		for (const char* modelPath : ModelPreload)
 		{
-			ModelLoader::GetInstance()->Load(modelPath);
+			//ModelLoader::GetInstance()->Load(modelPath);
 		}
 	}
 

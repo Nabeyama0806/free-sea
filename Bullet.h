@@ -12,6 +12,7 @@ public:
 		Reflection,		//”½Ë’e
 		Straight,		//’¼i’e
 		Diffusion,		//ŠgU’e
+		Emission,		//•úo’e
 
 		Length,		
 	};

@@ -32,7 +32,8 @@ void Input::Update()
 	m_mouseWheel = DxLib::GetMouseWheelRotVol();
 
 	// パッド
-	for (int i = 0; i < static_cast<int>(InputSystem::ActionMap::Length); ++i)
+	int padAmount = GetJoypadNum();
+	for (int i = 0; i < padAmount; ++i)
 	{
 		//ボタン
 		m_padButtonPost[i] = m_padButton[i];
@@ -40,7 +41,7 @@ void Input::Update()
 	}
 
 	// パッドのトリガーの状態を取得
-	for (int i = 0; i < static_cast<int>(InputSystem::ActionMap::Length); ++i)
+	for (int i = 0; i < padAmount; ++i)
 	{
 		XINPUT_STATE state;
 		GetJoypadXInputState(DX_INPUT_PAD1 + i, &state);
