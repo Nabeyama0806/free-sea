@@ -49,7 +49,7 @@ void SceneGame::Initialize()
 	Node* uiLayer = new Node();
 	m_rootNode->AddChild(uiLayer);
 
-	//¶¬‚·‚éƒLƒƒƒ‰‚ğ•ÏX
+	//¶¬‚·‚éƒLƒƒƒ‰‚Ì•ªŠò
 	for (int i = 0; i < m_playerBullets.size(); ++i)
 	{
 		Bullet::Type bullet = static_cast<Bullet::Type>(m_playerBullets[i]);

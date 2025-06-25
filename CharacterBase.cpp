@@ -4,6 +4,7 @@
 #include "ReflectionBullet.h"
 #include "StraightBullet.h"
 #include "DiffusionBullet.h"
+#include "LaserBullet.h"
 #include "Model.h"
 #include "ModelAnimation.h"
 #include "ModelLoader.h"
@@ -79,6 +80,11 @@ CharacterBase::CharacterBase(
 		m_shotCoolTime = DiffusionBullet::ShotCoolTime;
 		m_bulletFiringRate = DiffusionBullet::BulletFiringRate;
 		break;
+
+	case Bullet::Type::Laser:
+		m_maxBulletAmount = LaserBullet::BulletAmount;
+		m_shotCoolTime = LaserBullet::ShotCoolTime;
+		m_bulletFiringRate = LaserBullet::BulletFiringRate;
 
 	default:
 		break;
@@ -251,7 +257,7 @@ void CharacterBase::Draw()
 		scrPos.y,
 		scrPos.x + m_maxHealth - offsetX,
 		scrPos.y + HealthSlideHeight,
-		GetColor(50, 50, 55),
+		GetColor(255, 255, 255),
 		false
 	);
 
@@ -336,6 +342,10 @@ bool CharacterBase::CreateBullet()
 				Vector3 forward = Quaternion::AngleAxis(angle, Vector3(0, 1, 0)) * GetShotForward();
 				AddChild(new DiffusionBullet(BulletFilePath, m_transform.position, forward, m_stage));
 			}
+			break;
+
+		case Bullet::Type::Laser:
+			AddChild(new LaserBullet(BulletFilePath, m_transform.position, GetShotForward(), m_stage));
 			break;
 
 		default:

@@ -29,7 +29,7 @@ void SceneTitle::Initialize()
 	m_padAmount = GetJoypadNum();
 
 	//接続されているパッドの数だけ配列の要素数を追加
-	for (int i = 0; i < MaxPadAmount; ++i)
+	for (int i = 0; i < m_padAmount; ++i)
 	{
 		m_select.push_back(0);
 	}

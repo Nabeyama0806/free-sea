@@ -6,7 +6,7 @@ class StraightBullet : public Bullet
 {
 private:
 	static constexpr int MaxHealth = 1;			//”½Ë‚Å‚«‚é‰ñ”(‘Ì—Í)
-	static constexpr int Power = 70;			//UŒ‚—Í
+	static constexpr int Power = 50;			//UŒ‚—Í
 	static constexpr float AddForce = 950.0f;	//“Š‚°‚é—Í
 
 public:

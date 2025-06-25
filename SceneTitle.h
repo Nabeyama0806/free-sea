@@ -41,7 +41,7 @@ private:
 		"Resource/Texture/reflection.png",
 		"Resource/Texture/straight.png",
 		"Resource/Texture/diffusion.png",
-		"Resource/Texture/reflection.png",
+		"Resource/Texture/laser.png",
 	};
 
 	const char* TextureName[static_cast<int>(Bullet::Type::Length)] =
@@ -81,7 +81,7 @@ public:
 		//モデルのプリロード
 		for (const char* modelPath : ModelPreload)
 		{
-			//ModelLoader::GetInstance()->Load(modelPath);
+			ModelLoader::GetInstance()->Load(modelPath);
 		}
 	}
 

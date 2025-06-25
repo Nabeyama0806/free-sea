@@ -7,10 +7,10 @@ class DiffusionBullet : public Bullet
 {
 private:
 	static constexpr int MaxHealth = 1;			//”½Ë‚Å‚«‚é‰ñ”(‘Ì—Í)
-	static constexpr int Power = 2;				//UŒ‚—Í
-	static constexpr float AddForce = 500.0f;	//“Š‚°‚é—Í
-	static constexpr float EraseTime = 0.5f;	//¶‘¶ŠÔ(•b)
-
+	static constexpr int Power = 15;			//UŒ‚—Í
+	static constexpr float AddForce = 550.0f;	//“Š‚°‚é—Í
+	static constexpr float EraseTime = 0.6f;	//¶‘¶ŠÔ(•b)
+	
 public:
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	DiffusionBullet(const char* modelFilePath, const Vector3& position, const Vector3& forward, Stage* stage) :
