@@ -11,7 +11,9 @@ class Stage;
 class CharacterBase : public ModelActor
 {
 private:
-	static constexpr int MaxHealth = 220;			//体力
+	static constexpr int MaxPlayerAmount = 4;
+
+	static constexpr int MaxHealth = 160;			//体力
 	static constexpr float Scale = 3.0f;			//自身のサイズ
 	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
 	static constexpr float Radius = 20.0f;			//衝突判定の半径
@@ -33,9 +35,17 @@ private:
 		"Man/Walking.mv1"	//移動
 	};
 
+	const Vector2 HealthDrawPos[MaxPlayerAmount] =
+	{
+		Vector2(250, 140),
+		Vector2(250, 290),
+		Vector2(250, 440),
+		Vector2(250, 590),
+	};
+ 
 protected:
 	static constexpr Vector3 BulletOffset = Vector3(0, 50, 0);
-	static constexpr int HealthSlideHeight = 5;
+	static constexpr int HealthSlideHeight = 40;
 
 	const char* BulletFilePath;
 

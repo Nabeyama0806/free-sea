@@ -250,13 +250,12 @@ void CharacterBase::Draw()
 	);
 	
 	//‘Ì—Í•\Ž¦
-	VECTOR scrPos = ConvWorldPosToScreenPos(Vector3(m_transform.position.x, 0, m_transform.position.z));
 	float offsetX = m_maxHealth / 2.0f;
 	DrawBoxAA(
-		scrPos.x - offsetX,
-		scrPos.y,
-		scrPos.x + m_maxHealth - offsetX,
-		scrPos.y + HealthSlideHeight,
+		HealthDrawPos[m_playerIndex].x - offsetX,
+		HealthDrawPos[m_playerIndex].y,
+		HealthDrawPos[m_playerIndex].x + m_maxHealth - offsetX,
+		HealthDrawPos[m_playerIndex].y + HealthSlideHeight,
 		GetColor(255, 255, 255),
 		false
 	);
@@ -273,10 +272,10 @@ void CharacterBase::Draw()
 
 	//‘Ì—Í•\Ž¦
 	DrawBoxAA(
-		scrPos.x - offsetX,
-		scrPos.y,
-		scrPos.x + m_health - offsetX,
-		scrPos.y + HealthSlideHeight,
+		HealthDrawPos[m_playerIndex].x - offsetX,
+		HealthDrawPos[m_playerIndex].y,
+		HealthDrawPos[m_playerIndex].x + m_health - offsetX,
+		HealthDrawPos[m_playerIndex].y + HealthSlideHeight,
 		GetColor(40, 255, 30),
 		true
 	);

@@ -2,6 +2,8 @@
 #include "SceneResult.h"
 #include "SoundManager.h"
 #include "SpriteActor.h"
+#include "Sprite.h"
+#include "SpriteAnimation.h"
 #include "Bullet.h"
 #include "BlueBird.h"
 #include "GreenBird.h"
@@ -10,6 +12,7 @@
 #include "Input.h"
 #include "Node.h"
 #include "Time.h"
+#include "Transform.h"
 #include "Camera.h"
 #include "Stage.h"
 #include "DxLib.h"
@@ -77,6 +80,15 @@ void SceneGame::Initialize()
 		}
 		actorLayer->AddChild(m_characters[i]);
 	}
+
+	//キャラクターアイコンの読み込み
+	m_sprite = new Sprite();
+	for (int i = 0; i < GetJoypadNum(); ++i)
+	{
+		m_sprite->Register(CharacterIconName[i], SpriteAnimation(CharacterIconFilePath[i]));
+		m_sprite->Load();
+	}
+	m_transform.scale = 0.6f;
 	
 	//BGM
 	m_bgm = SoundManager::Load("Resource/Sound/bgm_game.mp3");
@@ -100,6 +112,7 @@ SceneBase* SceneGame::Update()
 {
 	//ノードの更新
 	m_rootNode->TreeUpdate();
+	m_sprite->Update();
 
 	return this;
 }
@@ -109,4 +122,12 @@ void SceneGame::Draw()
 {
 	//ノードの描画
 	m_rootNode->TreeDraw();
+
+	//キャラクターアイコンの描画
+	for (int i = 0; i < GetJoypadNum(); ++i)
+	{
+		m_transform.position = CharacterIconPosition[i];
+		m_sprite->Play(CharacterIconName[i]);
+		m_sprite->Draw(m_transform);
+	}
 }
