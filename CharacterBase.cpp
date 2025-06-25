@@ -256,8 +256,8 @@ void CharacterBase::Draw()
 		HealthDrawPos[m_playerIndex].y,
 		HealthDrawPos[m_playerIndex].x + m_maxHealth - offsetX,
 		HealthDrawPos[m_playerIndex].y + HealthSlideHeight,
-		GetColor(255, 255, 255),
-		false
+		GetColor(255, 0, 0),
+		true
 	);
 
 	//–³“GŽžŠÔ’†‚Í•\Ž¦/”ñ•\Ž¦‚ðŒJ‚è•Ô‚µ‚Ä“_–Å‚³‚¹‚é

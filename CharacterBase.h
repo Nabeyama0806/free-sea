@@ -17,7 +17,7 @@ private:
 	static constexpr float Scale = 3.0f;			//自身のサイズ
 	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
 	static constexpr float Radius = 20.0f;			//衝突判定の半径
-	static constexpr float FlashTime = 0.8f;		//点滅時間
+	static constexpr float FlashTime = 0.5f;		//点滅時間
 
 	//アニメーションパターン
 	enum class Anime

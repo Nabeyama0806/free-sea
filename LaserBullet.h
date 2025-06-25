@@ -23,7 +23,7 @@ public:
 		m_eraseTime = EraseTime;
 	}
 
-	static constexpr int BulletAmount = 1;			//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
-	static constexpr float ShotCoolTime = 0.1f;		//”­ËŠÔŠu
+	static constexpr int BulletAmount = 7;			//ˆê‰ñ‚Å”­Ë‚³‚ê‚é’e‚Ì”
+	static constexpr float ShotCoolTime = 2.4f;		//”­ËŠÔŠu
 	static constexpr float BulletFiringRate = 0.1f;	//’eŠÔ‚Ì”­ËŠÔŠu
 };
