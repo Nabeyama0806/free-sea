@@ -92,7 +92,7 @@ Quaternion Quaternion::FromToRotation(const Vector3& from, const Vector3& to)
 		if (Vector3::Dot(from, to) < 0)
 		{
 			// Y軸で真反対を向く
-			return AngleAxis(Math::DegToRad(180.0f), Vector3(0, 1, 0));
+			return AngleAxis(static_cast<float>(Math::DegToRad(180.0f)), Vector3(0, 1, 0));
 		}
 		else
 		{
@@ -123,8 +123,10 @@ Quaternion Quaternion::LookRotation(const Vector3& forward)
 {
 	// オブジェクトの正面からforwardに向ける回転を取得
 	Quaternion lookRotation = FromToRotation(Vector3(0, 0, -1), forward);
+
 	// 外積を用いてupwardsとforwardに垂直なベクトル(赤軸)を得る
 	Vector3 xAxisHorizontal = Vector3::Cross(Vector3(0, 1, 0), forward);
+
 	// 回転後のy軸(緑軸)を求める
 	Vector3 yAxisAfterRotate = Vector3::Cross(forward, xAxisHorizontal);
 
