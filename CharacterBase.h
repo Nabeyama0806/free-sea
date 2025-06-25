@@ -93,6 +93,12 @@ public:
 	//”í’e
 	void Damage(int damage);
 
+	//¶‘¶Šm”F
+	bool IsAlive() const
+	{
+		return m_health >= 0;
+	}
+
 	//Ëo•ûŒü‚Ìæ“¾
 	Vector3 GetShotForward()
 	{

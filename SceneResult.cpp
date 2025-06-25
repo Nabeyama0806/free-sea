@@ -7,7 +7,7 @@
 //‰Šú‰»
 void SceneResult::Initialize()
 {
-
+	m_rootNode = new Node();
 }
 
 //I—¹ˆ—

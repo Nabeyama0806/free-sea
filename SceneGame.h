@@ -69,6 +69,9 @@ private:
 	float m_resultTransitionTime;
 	int m_bgm;
 
+	//最後のプレイヤーか判定
+	bool IsLastCharacter() const;
+
 public:
 	//コンストラクタ
 	SceneGame(std::vector<int>& playerBullets) :

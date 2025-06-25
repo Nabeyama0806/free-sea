@@ -104,16 +104,20 @@ void SceneGame::Finalize()
 	m_rootNode = nullptr;
 
 	//BGM
-	//SoundLoader::GetInstance()->Delete("Resource/Sound/bgm_game.mp3");
+	SoundManager::SoundStop(m_bgm);
 }
 
 //更新
 SceneBase* SceneGame::Update()
 {
+	//キャラクターが残り1人ならリザルトへ遷移
+	if (IsLastCharacter()) return new SceneResult(0);
+
 	//ノードの更新
 	m_rootNode->TreeUpdate();
 	m_sprite->Update();
 
+	//ゲーム続行
 	return this;
 }
 
@@ -130,4 +134,25 @@ void SceneGame::Draw()
 		m_sprite->Play(CharacterIconName[i]);
 		m_sprite->Draw(m_transform);
 	}
+}
+
+//最後のキャラクターかどうかを判定
+bool SceneGame::IsLastCharacter() const 
+{
+	//キャラクターの生存数をカウント
+	int aliveCount = 0;
+	for (const auto& character : m_characters) 
+	{ 
+		//キャラクターが存在しない場合はスキップ
+		if (!character) continue;
+
+		//2人以上生存
+		if (aliveCount >= 2) return false; 
+
+		//最後の生存キャラクター候補を保存
+		if (character->IsAlive()) aliveCount++;
+	}
+
+	//最後のキャラクター
+	return aliveCount == 1;
 }
