@@ -38,7 +38,7 @@ void GameMain::Run()
 	SetMainWindowText(GameConfig::Title); //ウィンドウタイトル
 	SetAlwaysRunFlag(GameConfig::AlwayRunFlag); //非アクティブ時に動作する
 	ChangeWindowMode(GameConfig::WindowMode); //ウィンドウモードで起動
-	SetGraphMode(Screen::Width, Screen::Heigth, GameConfig::ColorBit); //ウィンドウサイズ
+	SetGraphMode(Screen::Width, Screen::Height, GameConfig::ColorBit); //ウィンドウサイズ
 	SetBackgroundColor(0, 0, 0);
 
 	//DXライブラリの初期化
@@ -54,7 +54,7 @@ void GameMain::Run()
 	m_sceneManager = new SceneManager(new SceneTitle());
 
 	//スクリーンの作成
-	m_screen = MakeScreen(Screen::Width, Screen::Heigth);
+	m_screen = MakeScreen(Screen::Width, Screen::Height);
 
 	//ゲームループ
 	while (ProcessMessage() == 0)

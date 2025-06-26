@@ -5,7 +5,6 @@
 #include "SpriteAnimation.h"
 #include "SoundManager.h"
 #include "Screen.h"
-#include "Input.h"
 #include "Debug.h"
 #include "DxLib.h"
 
@@ -39,9 +38,10 @@ void SceneTitle::Initialize()
 	{
 		m_sprites[i] = new Sprite();
 		m_sprites[i]->gridSize = Vector2(1080, 1080);
-		for (int j = 0; j < static_cast<int>(Bullet::Type::Length); ++j)
+		for (int j = 0; j < InputSystem::MaxPadAmount; ++j)
 		{
-			m_sprites[i]->Register(TextureName[j], SpriteAnimation(CharacterImage[j]));
+			//弾のデータにある名前とファイルパスを参照させる
+			//m_sprites[i]->Register(TextureName[j], SpriteAnimation(CharacterImage[j]));
 			m_sprites[i]->Load();
 		}
 	}
@@ -72,14 +72,14 @@ SceneBase* SceneTitle::Update()
 	}
 	for (int i = 0; i < m_padAmount; ++i)
 	{
-		m_sprites[i]->Play(TextureName[m_select[i]]);
+		//m_sprites[i]->Play(TextureName[m_select[i]]);
 	}
 
 	//いずれかのキーが押されたらゲームシーンへ移動
 	switch (m_phase)
 	{
 	case SceneTitle::Phase::Home:
-		if (Input::GetInstance()->IsAnyKeyDown())
+		if (InputSystem::GetInstance()->IsAnyKeyDown())
 		{
 			SoundManager::Play("Resource/Sound/se_next.mp3");
 			m_rootNode->AddChild(new SpriteActor("Title", "Resource/Texture/title_select.png", Screen::Center));
@@ -105,8 +105,8 @@ SceneBase* SceneTitle::Update()
 			}
 
 			//範囲内に調整
-			if (m_select[i] < 0) m_select[i] = static_cast<int>(Bullet::Type::Length) - 1;
-			if (m_select[i] > static_cast<int>(Bullet::Type::Length) - 1) m_select[i] = 0;
+			/*if (m_select[i] < 0) m_select[i] = static_cast<int>(Bullet::Type::Length) - 1;
+			if (m_select[i] > static_cast<int>(Bullet::Type::Length) - 1) m_select[i] = 0;*/
 
 			//決定ボタンが押されたらゲーム開始
 			if (InputSystem::GetInstance()->IsDecision(actionMap))

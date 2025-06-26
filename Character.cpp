@@ -1,10 +1,6 @@
-#include "CharacterBase.h"
+#include "Character.h"
 #include "Camera.h"
 #include "Stage.h"
-#include "ReflectionBullet.h"
-#include "StraightBullet.h"
-#include "DiffusionBullet.h"
-#include "LaserBullet.h"
 #include "Model.h"
 #include "ModelAnimation.h"
 #include "ModelLoader.h"
@@ -17,20 +13,18 @@
 #include "Lerp.h"
 
 //コンストラクタ
-CharacterBase::CharacterBase(
+Character::Character(
 	const char* modelFilePath,
 	const char* bulletFilePath,
 	Camera* camera,
 	Stage* stage,
 	const Vector3& position,
-	Bullet::Type bulletType,
 	int playerIndex
 ) :
 	ModelActor("Player"),
 	BulletFilePath(bulletFilePath),
 	m_camera(camera),
 	m_stage(stage), 
-	m_bulletType(bulletType),
 	m_maxHealth(MaxHealth),
 	m_health(MaxHealth),
 	m_playerIndex(playerIndex),
@@ -50,7 +44,7 @@ CharacterBase::CharacterBase(
 	m_transform.scale = Scale;
 
 	//アニメーションの登録
-	m_model = new Model(modelFilePath);
+	m_model = new Model(ModelFilePath[playerIndex]);
 	for (int i = 0; i < static_cast<int>(Anime::Length); ++i)
 	{
 		//アニメーションのファイルパスを渡す
@@ -61,38 +55,11 @@ CharacterBase::CharacterBase(
 	m_collider = new CircleCollider(Radius, Vector3(0, 50, 0));
 
 	//弾
-	switch (bulletType)
-	{
-	case Bullet::Type::Reflection:
-		m_maxBulletAmount = ReflectionBullet::BulletAmount;
-		m_shotCoolTime = ReflectionBullet::ShotCoolTime;
-		m_bulletFiringRate = ReflectionBullet::BulletFiringRate;
-		break;
 
-	case Bullet::Type::Straight:
-		m_maxBulletAmount = StraightBullet::BulletAmount;
-		m_shotCoolTime = StraightBullet::ShotCoolTime;
-		m_bulletFiringRate = StraightBullet::BulletFiringRate;
-		break;
-
-	case Bullet::Type::Diffusion:
-		m_maxBulletAmount = DiffusionBullet::BulletAmount;
-		m_shotCoolTime = DiffusionBullet::ShotCoolTime;
-		m_bulletFiringRate = DiffusionBullet::BulletFiringRate;
-		break;
-
-	case Bullet::Type::Laser:
-		m_maxBulletAmount = LaserBullet::BulletAmount;
-		m_shotCoolTime = LaserBullet::ShotCoolTime;
-		m_bulletFiringRate = LaserBullet::BulletFiringRate;
-
-	default:
-		break;
-	}
 }
 
 //更新
-void CharacterBase::Update()
+void Character::Update()
 {
 	//本来の更新
 	ModelActor::Update();
@@ -236,7 +203,7 @@ void CharacterBase::Update()
 }
 
 //描画
-void CharacterBase::Draw()
+void Character::Draw()
 {
 	//本来の更新
 	ModelActor::Draw();
@@ -282,7 +249,7 @@ void CharacterBase::Draw()
 }
 
 //弾の発射処理
-void CharacterBase::BulletShot()
+void Character::BulletShot()
 {
 	//既に発射済み
 	if (m_isShot)
@@ -314,7 +281,7 @@ void CharacterBase::BulletShot()
 }
 
 //弾の生成
-bool CharacterBase::CreateBullet()
+bool Character::CreateBullet()
 {
 	//弾間の経過時間が発射レートを超えていれば弾を発射
 	if (m_bulletElapsedTime > m_bulletFiringRate)
@@ -323,33 +290,7 @@ bool CharacterBase::CreateBullet()
 		m_bulletElapsedTime = 0;
 
 		//正面から弾を発射する
-		switch (m_bulletType)
-		{
-		case Bullet::Type::Reflection:
-			AddChild(new ReflectionBullet(BulletFilePath, m_transform.position, GetShotForward(), m_stage));
-			break;
-
-		case Bullet::Type::Straight:
-			AddChild(new StraightBullet(BulletFilePath, m_transform.position, GetShotForward(), m_stage));
-			break;
-
-		case Bullet::Type::Diffusion:
-			//拡散弾の生成
-			for (int i = 0; i < DiffusionBullet::DiffusionBulletAmount; ++i)
-			{
-				float angle = (i - (DiffusionBullet::DiffusionBulletAmount - 1) / 2.0f) * DiffusionBullet::AngleRate;
-				Vector3 forward = Quaternion::AngleAxis(angle, Vector3(0, 1, 0)) * GetShotForward();
-				AddChild(new DiffusionBullet(BulletFilePath, m_transform.position, forward, m_stage));
-			}
-			break;
-
-		case Bullet::Type::Laser:
-			AddChild(new LaserBullet(BulletFilePath, m_transform.position, GetShotForward(), m_stage));
-			break;
-
-		default:
-			break;
-		}
+		//GetShotForward();
 
 		//効果音の再生
 		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");
@@ -360,7 +301,7 @@ bool CharacterBase::CreateBullet()
 }
 
 //被弾
-void CharacterBase::Damage(int damage)
+void Character::Damage(int damage)
 {
 	//無敵時間をセット
 	m_flashTime = FlashTime;

@@ -3,9 +3,9 @@
 #include <sstream>
 
 //CSVファイルから弾データを読み込む
-bool BulletData::LoadCSV(const std::string& filePath)
+bool BulletData::LoadCSV()
 {
-    std::ifstream file(filePath);
+    std::ifstream file(FilePath);
     if (!file.is_open()) return false;
 
     //ヘッダー行をスキップ
@@ -37,23 +37,7 @@ bool BulletData::LoadCSV(const std::string& filePath)
 		std::getline(ss, token, ','); data.mass = std::stof(token);
 
 		//データをリストに追加
-        m_idToIndex[data.id] = m_bulletList.size();
-        m_nameToIndex[data.name] = m_bulletList.size();
         m_bulletList.push_back(data);
     }
     return true;
-}
-
-//IDで弾データを取得
-const BulletStatus* BulletData::GetBulletData(int id) const
-{
-    auto it = m_idToIndex.find(id);
-    return it == m_idToIndex.end() ? nullptr : &m_bulletList[it->second];
-}
-
-//名前で弾データを取得
-const BulletStatus* BulletData::GetBulletData(const std::string& name) const
-{
-    auto it = m_nameToIndex.find(name);
-	return it == m_nameToIndex.end() ? nullptr : &m_bulletList[it->second];
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "ModelActor.h"
 #include "Bullet.h"
+#include "InputSystem.h"
 #include "Vector3.h"
 #include "Vector2.h"
  
@@ -8,11 +9,9 @@ class SpriteActor;
 class Camera;
 class Stage;
 
-class CharacterBase : public ModelActor
+class Character : public ModelActor
 {
 private:
-	static constexpr int MaxPlayerAmount = 4;
-
 	static constexpr int MaxHealth = 160;			//体力
 	static constexpr float Scale = 3.0f;			//自身のサイズ
 	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
@@ -35,7 +34,26 @@ private:
 		"Man/Walking.mv1"	//移動
 	};
 
-	const Vector2 HealthDrawPos[MaxPlayerAmount] =
+	//キャラクターモデルのファイルパス
+	const char* ModelFilePath[InputSystem::MaxPadAmount] =
+	{
+		"Man/Man.mv1",	//プレイヤー1
+		"Man/Man4.mv1",	//プレイヤー2
+		"Man/Man3.mv1",	//プレイヤー3
+		"Man/Man2.mv1",	//プレイヤー4
+
+	};
+
+	//弾のモデルファイルパス
+	const char* BulletModelFilePath[InputSystem::MaxPadAmount] =
+	{
+		"Resource/Model/bullet_blue.mv1",
+		"Resource/Model/bullet_green.mv1",
+		"Resource/Model/bullet_red.mv1",
+		"Resource/Model/bullet_pink.mv1",
+	};
+
+	const Vector2 HealthDrawPos[InputSystem::MaxPadAmount] =
 	{
 		Vector2(250, 140),
 		Vector2(250, 290),
@@ -54,7 +72,6 @@ protected:
 	Stage* m_stage;				
 	Vector2 m_shotRotate;		//射出方向の回転
 	Vector2 m_inputValue;		//入力値	
-	Bullet::Type m_bulletType;	//弾の種類
 
 	//自身に関する変数
 	int m_maxHealth;			//最大体力
@@ -80,13 +97,12 @@ protected:
 
 public:
 	//コンストラクタ
-	CharacterBase(
+	Character(
 		const char* modelFilepath,
 		const char* bulletFilePath,
 		Camera* camera,
 		Stage* stage,
 		const Vector3& position,
-		Bullet::Type bulletType,
 		int playerIndex
 	);
 
@@ -100,7 +116,7 @@ public:
 	}
 
 	//射出方向の取得
-	Vector3 GetShotForward()
+	const Vector3& GetShotForward()
 	{
 		float length = 80.0f;	//射出方向の長さ
 		Vector3 tmp = Vector3(m_shotRotate.x, 0, m_shotRotate.y);
@@ -113,7 +129,4 @@ public:
 		}
 		return tmp;
 	}
-
-	//衝突イベント
-	virtual void OnCollision(const ModelActor* other) {};
 };

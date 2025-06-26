@@ -46,8 +46,8 @@
     <Filter Include="ヘッダー ファイル\Bullet">
       <UniqueIdentifier>{4b86f185-b604-4ddb-8dff-be89ec876622}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Character">
-      <UniqueIdentifier>{5e666ec4-9e65-4fdc-a5eb-f37a6ab25bde}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Bullet">
+      <UniqueIdentifier>{5532fbf9-8191-4e02-8ba5-da421fae8c2f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -174,40 +174,22 @@
     <ClInclude Include="Stage.h">
       <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterBase.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="BlueBird.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="ReflectionBullet.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteAnimation.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
     <ClInclude Include="ModelAnimation.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="StraightBullet.h">
+    <ClInclude Include="Bullet.h">
       <Filter>ヘッダー ファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="GreenBird.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
+    <ClInclude Include="Character.h">
+      <Filter>ヘッダー ファイル\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Redbird.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="PinkBird.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="DiffusionBullet.h">
+    <ClInclude Include="BulletData.h">
       <Filter>ヘッダー ファイル\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="LaserBullet.h">
+    <ClInclude Include="BulletStatus.h">
       <Filter>ヘッダー ファイル\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
@@ -305,11 +287,14 @@
     <ClCompile Include="ModelAnimation.cpp">
       <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterBase.cpp">
+    <ClCompile Include="Character.cpp">
       <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
+      <Filter>ソース ファイル\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletData.cpp">
+      <Filter>ソース ファイル\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

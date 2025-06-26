@@ -4,30 +4,40 @@
 #include "DxLib.h"
 #include <string>
 #include <vector>
-#include <unordered_map>
 
 // 弾データ管理クラス
 class BulletData
 {
 private:
-    //弾データのリスト
-	std::vector<BulletStatus> m_bulletList;     
+	const char* FilePath = "Resource/Data/BulletDataTable.csv"; //弾データのCSVファイルパス
 
-	//IDと名前からインデックスを管理
-    std::unordered_map<int, size_t> m_idToIndex;
-    std::unordered_map<std::string, size_t> m_nameToIndex;
+    //弾データのリスト
+	std::vector<BulletStatus> m_bulletList;
 
 public:
+    //シングルトン
+	static BulletData& GetInstance()
+	{
+		static BulletData instance;
+		return instance;
+	}
+
     // CSVファイルから弾データを読み込む
-    bool LoadCSV(const std::string& filePath);
+    bool LoadCSV();
 
     // IDで弾データを取得
-    const BulletStatus* GetBulletData(int id) const;
+    BulletStatus* GetBulletData(int id)
+    {
+        return &m_bulletList[id];
+    }
 
-    // 名前で弾データを取得
-    const BulletStatus* GetBulletData(const std::string& name) const;
+    //全弾データの数を取得
+    const int GetBulletListSize() const
+    {
+        return static_cast<int>(m_bulletList.size());
+    }
 
-    // 全弾データ取得
+    //全弾データ取得
     const std::vector<BulletStatus>& GetAll() const
     {
         return m_bulletList;

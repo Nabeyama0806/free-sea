@@ -1,6 +1,6 @@
 #pragma once
 #include"SceneBase.h"
-#include"CharacterBase.h"
+#include"Character.h"
 #include "ModelLoader.h"
 #include "Vector3.h"
 #include <list>
@@ -57,7 +57,7 @@ private:
 	};
 
 	Node* m_rootNode;
-	CharacterBase* m_characters[MaxControllerNum];
+	Character* m_characters[MaxControllerNum];
 	Camera* m_mainCamera;
 	Stage* m_stage;
 	Sprite* m_sprite;	//キャラクターアイコンの表示用
