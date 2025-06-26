@@ -180,20 +180,11 @@
     <ClInclude Include="BlueBird.h">
       <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
-    <ClInclude Include="ReflectionBullet.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteAnimation.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
     </ClInclude>
     <ClInclude Include="ModelAnimation.h">
       <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="StraightBullet.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="GreenBird.h">
       <Filter>ヘッダー ファイル\Character</Filter>
@@ -204,11 +195,8 @@
     <ClInclude Include="PinkBird.h">
       <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
-    <ClInclude Include="DiffusionBullet.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="LaserBullet.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
+    <ClInclude Include="Bullet.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -309,7 +297,7 @@
       <Filter>ソース ファイル\Actor</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
