@@ -20,6 +20,7 @@ public:
 		m_score(score),
 		m_waitTransitionTime(WaitTransitionTime) {}
 
+	virtual void Preload() override {};
 	virtual void Initialize() override;
 	virtual void Finalize() override;
 	virtual SceneBase* Update() override;

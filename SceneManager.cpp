@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "SceneBase.h"
 #include "Fade.h"
+#include "DxLib.h"
 
 //デストラクタ
 SceneManager::~SceneManager()
@@ -29,7 +30,6 @@ SceneManager::~SceneManager()
 }
 
 //更新
-
 void SceneManager::Updeta()
 {
 	switch (m_phase)
@@ -57,13 +57,24 @@ void SceneManager::Updeta()
 		}
 
 		//フェードが終わったのでシーン遷移する
-		m_phase = Phase::Transition;
+		m_phase = Phase::Loading;
 		break;
 
+	case Phase::Loading:
+		//非同期ロードの開始
+		SetUseASyncLoadFlag(TRUE);
+		m_nextScene->Preload();
+
+		//非同期ロードが終わるまで待機
+		if (GetASyncLoadNum() != 0) break;
+
+		m_phase = Phase::Transition;
+		
 		//シーン遷移
 	case Phase::Transition:
-		//遷移先のシーンの初期化
-		m_nextScene->Initialize();
+
+		//非同期ロードを終了
+		SetUseASyncLoadFlag(FALSE);
 
 		//実行中のシーンがあれば破棄する
 		if (m_scene)
@@ -74,6 +85,7 @@ void SceneManager::Updeta()
 		}
 
 		//遷移先のシーンを実行中のシーンにする
+		m_nextScene->Initialize();
 		m_scene = m_nextScene;
 		m_nextScene = nullptr;
 
@@ -88,11 +100,14 @@ void SceneManager::Updeta()
 //描画
 void SceneManager::Draw()
 {
+	//非同期ロードが終わるまで待機
+	if (GetASyncLoadNum() != 0) return;
 
 	switch (m_phase)
 	{
 	case Phase::Run:
 	case Phase::FadeOut:
+
 		if (m_scene)
 		{
 			m_scene->Draw();

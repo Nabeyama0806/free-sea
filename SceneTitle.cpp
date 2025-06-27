@@ -9,6 +9,16 @@
 #include "Debug.h"
 #include "DxLib.h"
 
+//事前読み込み
+void SceneTitle::Preload()
+{
+	//モデルのプリロード
+	for (const char* modelPath : ModelPreload)
+	{
+		ModelLoader::GetInstance()->Load(modelPath);
+	}
+}
+
 //初期化
 void SceneTitle::Initialize()
 {

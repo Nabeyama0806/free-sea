@@ -78,13 +78,9 @@ public:
 		m_padAmount(0),
 		m_bgm(0)
 	{
-		//モデルのプリロード
-		for (const char* modelPath : ModelPreload)
-		{
-			ModelLoader::GetInstance()->Load(modelPath);
-		}
 	}
 
+	virtual void Preload() override;				//プリロード
 	virtual void Initialize() override;				//初期化
 	virtual void Finalize() override;				//終了
 	virtual SceneBase* Update() override;			//更新

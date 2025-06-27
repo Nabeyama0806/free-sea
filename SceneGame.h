@@ -86,6 +86,7 @@ public:
 	{
 	}
 
+	virtual void Preload() override {};		//事前読み込み
 	virtual void Initialize() override;		//初期化
 	virtual void Finalize() override;		//終了
 	virtual SceneBase* Update() override;	//更新

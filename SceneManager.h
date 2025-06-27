@@ -13,6 +13,7 @@ private:
 	{
 		Run,		//実行中
 		FadeOut,	//フェードアウト
+		Loading,	//ロード中
 		Transition,	//遷移
 	};
 private:
@@ -27,7 +28,7 @@ public:
 	SceneManager(SceneBase* initScene) :
 		m_scene(nullptr),
 		m_nextScene(initScene),
-		m_phase(Phase::Transition)  {}
+		m_phase(Phase::Loading)  {}
 
 	//デストラクタ
 	virtual ~SceneManager();
