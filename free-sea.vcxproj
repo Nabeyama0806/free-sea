@@ -21,22 +21,12 @@
   <ItemGroup>
     <ClInclude Include="ActorBase.h" />
     <ClInclude Include="Bullet.h" />
-<<<<<<< HEAD
-    <ClInclude Include="GreenBird.h" />
-    <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="ModelActorCollision.h" />
-    <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="CharacterBase.h" />
-    <ClInclude Include="PinkBird.h" />
-    <ClInclude Include="Redbird.h" />
-=======
     <ClInclude Include="BulletData.h" />
     <ClInclude Include="BulletStatus.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="ModelActorCollision.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Character.h" />
->>>>>>> origin/Bullet
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollider.h" />
