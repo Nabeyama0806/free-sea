@@ -23,8 +23,7 @@ Bullet::Bullet(
 	m_bulletStatus(nullptr)
 {
 	//弾のステータスを取得
-	BulletData data;
-	m_bulletStatus = data.GetBulletData(bulletIndex);
+	m_bulletStatus = BulletData::GetInstance()->GetBulletData(bulletIndex);
 
 	m_reflectAmount = m_bulletStatus->reflectAmount;
 	m_addForce = m_bulletStatus->addForce;
@@ -33,7 +32,7 @@ Bullet::Bullet(
 	m_size = m_bulletStatus->size;
 
 	//姿勢情報
-	m_transform.scale = m_size;
+	m_transform.scale = 0.02f;
 
 	//衝突判定
 	m_collider = new CircleCollider(m_size);

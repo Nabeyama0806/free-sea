@@ -1,10 +1,11 @@
 #pragma once
 #include "ModelActor.h"
 #include "Bullet.h"
+#include "BulletStatus.h" 
 #include "InputSystem.h"
 #include "Vector3.h"
 #include "Vector2.h"
- 
+
 class SpriteActor;
 class Camera;
 class Stage;
@@ -65,28 +66,27 @@ protected:
 	static constexpr Vector3 BulletOffset = Vector3(0, 50, 0);
 	static constexpr int HealthSlideHeight = 40;
 
-	const char* BulletFilePath;
-
 	SpriteActor* m_spriteActor;
+	BulletStatus* m_bulletStatus;	//弾のステータス
 	Camera* m_camera;
 	Stage* m_stage;				
 	Vector2 m_shotRotate;		//射出方向の回転
 	Vector2 m_inputValue;		//入力値	
 
 	//自身に関する変数
-	int m_maxHealth;			//最大体力
 	int m_health;				//体力
 	int m_playerIndex;			//自身のプレイヤー番号
 	float m_flashTime;			//残りの点滅時間
 	bool m_isGrounded;			//床との接触判定
 
 	//弾の生成に必要な変数
+	int m_bulletIndex;			//弾のインデックス
 	int m_bulletInstanceAmount;	//生成された弾の数
 	float m_shotElapsedTime;	//発射間隔の経過時間
 	float m_bulletElapsedTime;	//弾間の経過時間
-	int	m_maxBulletAmount;		//一回で発射される弾の数
+	int	m_bulletAmount;			//一回で発射される弾の数
 	float m_shotCoolTime;		//発射間隔
-	float m_bulletFiringRate;	//弾間の発射間隔
+	float m_shotRate;			//弾間の発射間隔
 	bool m_isShot;				//発射中
 
 	virtual void Update() override;	//更新
@@ -98,12 +98,11 @@ protected:
 public:
 	//コンストラクタ
 	Character(
-		const char* modelFilepath,
-		const char* bulletFilePath,
 		Camera* camera,
 		Stage* stage,
 		const Vector3& position,
-		int playerIndex
+		int playerIndex,
+		int bulletIndex
 	);
 
 	//被弾
@@ -116,7 +115,7 @@ public:
 	}
 
 	//射出方向の取得
-	const Vector3& GetShotForward()
+	const Vector3 GetShotForward()
 	{
 		float length = 80.0f;	//射出方向の長さ
 		Vector3 tmp = Vector3(m_shotRotate.x, 0, m_shotRotate.y);

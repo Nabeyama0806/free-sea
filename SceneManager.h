@@ -7,7 +7,6 @@ class SceneBase;
 class SceneManager
 {
 private:
-
 	//フェーズ
 	enum class Phase
 	{
@@ -16,23 +15,32 @@ private:
 		Loading,	//ロード中
 		Transition,	//遷移
 	};
-private:
 
+private:
 	SceneBase* m_scene;				//実行中のシーン
 	SceneBase* m_nextScene;			//遷移先のシーン
 	Phase m_phase;					//フェーズ
 
 public:
-
 	//コンストラクタ
-	SceneManager(SceneBase* initScene) :
+	SceneManager() :
 		m_scene(nullptr),
-		m_nextScene(initScene),
-		m_phase(Phase::Loading)  {}
+		m_nextScene(nullptr),
+		m_phase(Phase::Loading) {
+	}
 
-	//デストラクタ
-	virtual ~SceneManager();
+	//シングルトン
+	static SceneManager* GetInstance()
+	{
+		static SceneManager instance;
+		return &instance;
+	}
+
 
 	void Updeta();		//更新
-	void Draw();		//描画
+	void Draw();		//描画	
+	void Release();		//後処理
+
+	//シーン切り替え
+	void LoadScene(SceneBase* nextScene);
 };

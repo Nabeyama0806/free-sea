@@ -1,5 +1,6 @@
 #include "SceneResult.h"
 #include "SceneTitle.h"
+#include "SceneManager.h"
 #include "SpriteActor.h"
 #include "Screen.h"
 #include "Input.h"
@@ -23,8 +24,11 @@ void SceneResult::Finalize()
 }
 
 //更新
-SceneBase* SceneResult::Update()
+void SceneResult::Update()
 {
+	//ノードの更新
+	m_rootNode->TreeUpdate();
+
 	if (m_waitTransitionTime > 0)
 	{
 		m_waitTransitionTime -= Time::GetInstance()->GetDeltaTime();
@@ -33,13 +37,8 @@ SceneBase* SceneResult::Update()
 	//いずれかのキーが押されたらタイトル画面に遷移
 	if (m_waitTransitionTime <= 0 && Input::GetInstance()->IsAnyKeyDown())
 	{
-		return new SceneTitle();
+		SceneManager::GetInstance()->LoadScene(new SceneTitle());
 	}
-
-	//ノードの更新
-	m_rootNode->TreeUpdate();
-
-	return this;
 }
 
 //描画

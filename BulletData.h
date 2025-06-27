@@ -12,15 +12,16 @@ private:
 	const char* FilePath = "Resource/Data/BulletDataTable.csv"; //弾データのCSVファイルパス
 
     //弾データのリスト
-	std::vector<BulletStatus> m_bulletList;
+	std::vector<BulletStatus*> m_bulletList;
 
 public:
     //シングルトン
-	static BulletData& GetInstance()
-	{
-		static BulletData instance;
-		return instance;
-	}
+    static BulletData* GetInstance()
+    {
+        static BulletData instance;
+        return &instance;
+    }
+
 
     // CSVファイルから弾データを読み込む
     bool LoadCSV();
@@ -28,7 +29,7 @@ public:
     // IDで弾データを取得
     BulletStatus* GetBulletData(int id)
     {
-        return &m_bulletList[id];
+        return m_bulletList[id];
     }
 
     //全弾データの数を取得
@@ -38,7 +39,7 @@ public:
     }
 
     //全弾データ取得
-    const std::vector<BulletStatus>& GetAll() const
+    const std::vector<BulletStatus*>& GetAll() const
     {
         return m_bulletList;
     }

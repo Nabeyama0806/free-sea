@@ -1,5 +1,6 @@
 #include "SceneTitle.h"
 #include "SceneGame.h"
+#include "SceneManager.h"
 #include "Bullet.h"
 #include "SpriteActor.h"
 #include "SpriteAnimation.h"
@@ -51,7 +52,7 @@ void SceneTitle::Initialize()
 		for (int j = 0; j < InputSystem::MaxPadAmount; ++j)
 		{
 			//弾のデータにある名前とファイルパスを参照させる
-			//m_sprites[i]->Register(TextureName[j], SpriteAnimation(CharacterImage[j]));
+			m_sprites[i]->Register(TextureName[j], SpriteAnimation(BulletImage[j]));
 			m_sprites[i]->Load();
 		}
 	}
@@ -70,7 +71,7 @@ void SceneTitle::Finalize()
 }
 
 //更新
-SceneBase* SceneTitle::Update()
+void SceneTitle::Update()
 {
 	//ノードの更新
 	m_rootNode->TreeUpdate();
@@ -79,10 +80,7 @@ SceneBase* SceneTitle::Update()
 	for (int i = 0; i < m_padAmount; ++i)
 	{
 		m_sprites[i]->Update();
-	}
-	for (int i = 0; i < m_padAmount; ++i)
-	{
-		//m_sprites[i]->Play(TextureName[m_select[i]]);
+		m_sprites[i]->Play(TextureName[m_select[i]]);
 	}
 
 	//いずれかのキーが押されたらゲームシーンへ移動
@@ -115,27 +113,18 @@ SceneBase* SceneTitle::Update()
 			}
 
 			//範囲内に調整
-			/*if (m_select[i] < 0) m_select[i] = static_cast<int>(Bullet::Type::Length) - 1;
-			if (m_select[i] > static_cast<int>(Bullet::Type::Length) - 1) m_select[i] = 0;*/
+			if (m_select[i] < 0) m_select[i] = InputSystem::MaxPadAmount - 1;
+			if (m_select[i] > InputSystem::MaxPadAmount - 1) m_select[i] = 0;
 
 			//決定ボタンが押されたらゲーム開始
 			if (InputSystem::GetInstance()->IsDecision(actionMap))
 			{
 				SoundManager::SoundStop(m_bgm);
-				m_phase = Phase::GameStart;
+				SceneManager::GetInstance()->LoadScene(new SceneGame(m_select, m_padAmount));
 			}
 		}
 		break;
-
-	case SceneTitle::Phase::GameStart:
-		return new SceneGame(m_select);
-		break;
-
-	default:
-		break;
 	}
-
-	return this;
 }
 
 //描画

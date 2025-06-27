@@ -34,14 +34,21 @@ private:
 	};
 
 	//弾の種類
-	/*const char* CharacterImage[static_cast<int>(Bullet::Type::Length)] =
+	const char* TextureName[InputSystem::MaxPadAmount] =
+	{
+		"bullet_blue",
+		"bullet_green",
+		"bullet_red",
+		"bullet_pink",
+	};
+
+	const char* BulletImage[InputSystem::MaxPadAmount] =
 	{
 		"Resource/Texture/reflection.png",
 		"Resource/Texture/straight.png",
 		"Resource/Texture/diffusion.png",
 		"Resource/Texture/laser.png",
-	};*/
-
+	};
 
 	const Vector2 DrawPosOffset[InputSystem::MaxPadAmount] =
 	{
@@ -74,6 +81,6 @@ public:
 	virtual void Preload() override;				//プリロード
 	virtual void Initialize() override;				//初期化
 	virtual void Finalize() override;				//終了
-	virtual SceneBase* Update() override;			//更新
+	virtual void Update() override;					//更新
 	virtual void Draw() override;					//描画
 };

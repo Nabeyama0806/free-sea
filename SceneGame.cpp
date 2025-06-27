@@ -1,10 +1,12 @@
 #include "SceneGame.h"
 #include "SceneResult.h"
+#include "SceneManager.h"
 #include "SoundManager.h"
 #include "SpriteActor.h"
 #include "Sprite.h"
 #include "SpriteAnimation.h"
 #include "Bullet.h"
+#include "Character.h"
 #include "Input.h"
 #include "Node.h"
 #include "Time.h"
@@ -35,9 +37,6 @@ void SceneGame::Initialize()
 	skybox->ChangeScale(10000);
 	actorLayer->AddChild(skybox);
 
-	//背景
-	//actorLayer->AddChild(new SpriteActor("BackGround", "Resource/Texture/background.png", Screen::Center));
-
 	//ステージ
 	m_stage = new Stage();
 	MV1SetupCollInfo(m_stage->GetModelHandle(), m_stage->GetFrameIndex());
@@ -49,15 +48,15 @@ void SceneGame::Initialize()
 	m_rootNode->AddChild(uiLayer);
 
 	//生成するキャラの分岐
-	/*for (int i = 0; i < m_playerBullets.size(); ++i)
+	for (int i = 0; i < m_padAmount; ++i)
 	{
-		m_characters[i] = new BlueBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
+		m_characters[i] = new Character(m_mainCamera, m_stage, PlayerPosition[i], i, m_playerBullets[i]);
 		actorLayer->AddChild(m_characters[i]);
-	}*/
+	}
 
 	//キャラクターアイコンの読み込み
 	m_sprite = new Sprite();
-	for (int i = 0; i < GetJoypadNum(); ++i)
+	for (int i = 0; i < m_padAmount; ++i)
 	{
 		m_sprite->Register(CharacterIconName[i], SpriteAnimation(CharacterIconFilePath[i]));
 		m_sprite->Load();
@@ -82,17 +81,14 @@ void SceneGame::Finalize()
 }
 
 //更新
-SceneBase* SceneGame::Update()
+void SceneGame::Update()
 {
 	//キャラクターが残り1人ならリザルトへ遷移
-	if (IsLastCharacter()) return new SceneResult(0);
+	//if (IsLastCharacter()) SceneManager::GetInstance()->LoadScene(new SceneResult(0));
 
 	//ノードの更新
 	m_rootNode->TreeUpdate();
 	m_sprite->Update();
-
-	//ゲーム続行
-	return this;
 }
 
 //描画
@@ -102,7 +98,7 @@ void SceneGame::Draw()
 	m_rootNode->TreeDraw();
 
 	//キャラクターアイコンの描画
-	for (int i = 0; i < GetJoypadNum(); ++i)
+	for (int i = 0; i < m_padAmount; ++i)
 	{
 		m_transform.position = CharacterIconPosition[i];
 		m_sprite->Play(CharacterIconName[i]);

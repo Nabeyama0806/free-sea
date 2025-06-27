@@ -18,11 +18,12 @@ public:
 	SceneResult(int score) :
 		m_rootNode(nullptr),
 		m_score(score),
-		m_waitTransitionTime(WaitTransitionTime) {}
+		m_waitTransitionTime(WaitTransitionTime) {
+	}
 
 	virtual void Preload() override {};
 	virtual void Initialize() override;
 	virtual void Finalize() override;
-	virtual SceneBase* Update() override;
+	virtual void Update() override;
 	virtual void Draw() override;
 };

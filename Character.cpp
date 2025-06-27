@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "ModelAnimation.h"
 #include "ModelLoader.h"
+#include "BulletData.h"
 #include "SpriteActor.h"
 #include "CircleCollider.h"
 #include "SoundManager.h"
@@ -14,25 +15,24 @@
 
 //コンストラクタ
 Character::Character(
-	const char* modelFilePath,
-	const char* bulletFilePath,
 	Camera* camera,
 	Stage* stage,
 	const Vector3& position,
-	int playerIndex
+	int playerIndex,
+	int bulletIndex
 ) :
 	ModelActor("Player"),
-	BulletFilePath(bulletFilePath),
 	m_camera(camera),
 	m_stage(stage), 
-	m_maxHealth(MaxHealth),
 	m_health(MaxHealth),
+	m_bulletIndex(bulletIndex),
 	m_playerIndex(playerIndex),
 	m_spriteActor(nullptr),
+	m_bulletStatus(nullptr),
 	m_flashTime(0),
-	m_maxBulletAmount(0),
+	m_bulletAmount(0),
 	m_shotCoolTime(0),
-	m_bulletFiringRate(0),
+	m_shotRate(0),
 	m_bulletInstanceAmount(0),
 	m_bulletElapsedTime(0),
 	m_shotElapsedTime(0),
@@ -55,7 +55,11 @@ Character::Character(
 	m_collider = new CircleCollider(Radius, Vector3(0, 50, 0));
 
 	//弾
+	m_bulletStatus = BulletData::GetInstance()->GetBulletData(bulletIndex);
 
+	m_bulletAmount = m_bulletStatus->bulletAmount;
+	m_shotCoolTime = m_bulletStatus->shotCoolTime;
+	m_shotRate = m_bulletStatus->shotRate;
 }
 
 //更新
@@ -217,11 +221,11 @@ void Character::Draw()
 	);
 	
 	//体力表示
-	float offsetX = m_maxHealth / 2.0f;
+	float offsetX = MaxHealth / 2.0f;
 	DrawBoxAA(
 		HealthDrawPos[m_playerIndex].x - offsetX,
 		HealthDrawPos[m_playerIndex].y,
-		HealthDrawPos[m_playerIndex].x + m_maxHealth - offsetX,
+		HealthDrawPos[m_playerIndex].x + MaxHealth - offsetX,
 		HealthDrawPos[m_playerIndex].y + HealthSlideHeight,
 		GetColor(255, 0, 0),
 		true
@@ -261,7 +265,7 @@ void Character::BulletShot()
 		if (CreateBullet()) m_bulletInstanceAmount++;
 
 		//最大数まで生成したらフラグを折る
-		if (m_bulletInstanceAmount == m_maxBulletAmount)
+		if (m_bulletInstanceAmount == m_shotRate)
 		{
 			m_isShot = false;
 			m_bulletInstanceAmount = 0;
@@ -284,13 +288,18 @@ void Character::BulletShot()
 bool Character::CreateBullet()
 {
 	//弾間の経過時間が発射レートを超えていれば弾を発射
-	if (m_bulletElapsedTime > m_bulletFiringRate)
+	if (m_bulletElapsedTime > m_shotRate)
 	{
 		//経過時間のリセット
 		m_bulletElapsedTime = 0;
 
 		//正面から弾を発射する
-		//GetShotForward();
+		AddChild(new Bullet(
+			BulletModelFilePath[m_playerIndex],
+			m_transform.position + BulletOffset,
+			GetShotForward(),
+			m_stage,
+			m_bulletIndex));
 
 		//効果音の再生
 		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");

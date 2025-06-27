@@ -1,327 +1,258 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="ソース ファイル\Actor">
-      <UniqueIdentifier>{e786a0fe-13d9-4e4b-a14e-9b2bbe547f2c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Actor">
-      <UniqueIdentifier>{ec45992b-3245-42f4-85e9-97c9aeb35701}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Scene">
-      <UniqueIdentifier>{4380b6c4-02b9-4874-ae19-1c43fd33ecdc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Scene">
-      <UniqueIdentifier>{bd70f9f4-d736-41d3-96fe-3601349bf397}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Loader">
-      <UniqueIdentifier>{323b28b9-13e5-4f03-830b-7684429c04f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Loader">
-      <UniqueIdentifier>{29b193de-e50f-435e-97eb-6d216c55aa40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Utility">
-      <UniqueIdentifier>{24f679d2-983b-4dca-aeab-8929b4c98dd8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Utility">
-      <UniqueIdentifier>{e26d3438-4ea8-4e4c-9a20-c72e995b5136}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Collider">
-      <UniqueIdentifier>{acf606a1-2d9f-4798-84c2-b4f4f83b5488}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Collider">
-      <UniqueIdentifier>{50cdf53e-46e2-43d1-b265-8d68f5c55ebe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Bullet">
-      <UniqueIdentifier>{4b86f185-b604-4ddb-8dff-be89ec876622}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Bullet">
-      <UniqueIdentifier>{5532fbf9-8191-4e02-8ba5-da421fae8c2f}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GameMain.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorBase.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelActor.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteActor.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneTitle.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneResult.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneGame.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundLoader.h">
-      <Filter>ヘッダー ファイル\Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteLoader.h">
-      <Filter>ヘッダー ファイル\Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelLoader.h">
-      <Filter>ヘッダー ファイル\Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadData.h">
-      <Filter>ヘッダー ファイル\Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="LoaderBase.h">
-      <Filter>ヘッダー ファイル\Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectManager.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Fade.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="GameConfig.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Lerp.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Screen.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Debug.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelActorCollision.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxCollider.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="CircleCollider.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="InputSystem.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="CharacterBase.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="BlueBird.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-=======
->>>>>>> origin/Bullet
-    <ClInclude Include="SpriteAnimation.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelAnimation.h">
-      <Filter>ヘッダー ファイル\Utility</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="GreenBird.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Redbird.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="PinkBird.h">
-      <Filter>ヘッダー ファイル\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>ヘッダー ファイル</Filter>
-=======
-    <ClInclude Include="Bullet.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>ヘッダー ファイル\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletData.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletStatus.h">
-      <Filter>ヘッダー ファイル\Bullet</Filter>
->>>>>>> origin/Bullet
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="GameMain.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteActor.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelActor.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneTitle.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneResult.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneGame.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="LoaderBase.cpp">
-      <Filter>ソース ファイル\Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteLoader.cpp">
-      <Filter>ソース ファイル\Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundLoader.cpp">
-      <Filter>ソース ファイル\Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelLoader.cpp">
-      <Filter>ソース ファイル\Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectManager.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Fade.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Lerp.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelActorCollision.cpp">
-      <Filter>ソース ファイル\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>ソース ファイル\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="InputSystem.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelAnimation.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>ソース ファイル\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
-<<<<<<< HEAD
-      <Filter>ソース ファイル</Filter>
-=======
-      <Filter>ソース ファイル\Bullet</Filter>
+      <Filter>ソースファイル</Filter>
     </ClCompile>
     <ClCompile Include="BulletData.cpp">
-      <Filter>ソース ファイル\Bullet</Filter>
->>>>>>> origin/Bullet
+      <Filter>ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMain.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Lerp.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="LoaderBase.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelActor.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelActorCollision.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelAnimation.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGame.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneResult.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTitle.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundLoader.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteActor.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteLoader.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ActorBase.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletData.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletStatus.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameConfig.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMain.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Lerp.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadData.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="LoaderBase.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelActor.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelActorCollision.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAnimation.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGame.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneResult.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTitle.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundLoader.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteActor.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimation.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteLoader.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>ヘッダーファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ヘッダーファイル">
+      <UniqueIdentifier>{e8355b76-7a5e-4b4a-b046-14190a09d5d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル">
+      <UniqueIdentifier>{08a52249-36dd-4a19-82ac-c57be74e4ae3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include "Stage.h"
 #include <string>
 
-class BulletStatus;
+struct BulletStatus;
 
 class Bullet : public ModelActor
 {

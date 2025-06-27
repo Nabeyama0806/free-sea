@@ -1,13 +1,14 @@
 #include "GameMain.h"
 #include "SceneTitle.h"
+#include "SceneGame.h"
 #include "GameConfig.h"
 #include "Screen.h"
-#include "Input.h"
-#include "Time.h"
 #include "EffectManager.h"
 #include "SceneManager.h"
 #include "ModelActorCollision.h"
-#include "SceneGame.h"
+#include "BulletData.h"
+#include "Input.h"
+#include "Time.h"
 #include "Fade.h"
 #include "Debug.h"
 #include "DxLib.h"
@@ -18,12 +19,8 @@ GameMain::~GameMain()
 	//自作スクリーンの破棄
 	DeleteGraph(m_screen);
 
-	//シーンの破棄
-	delete m_sceneManager;
-	m_sceneManager = nullptr;
-
 	//デバッグコンソールの終了
-	Debug::Finalize(); 
+	Debug::Finalize();
 
 	// Effekseer 終了
 	Effkseer_End();
@@ -51,10 +48,13 @@ void GameMain::Run()
 	EffectManager::GetInstance()->Initialize();
 
 	//シーン起動
-	m_sceneManager = new SceneManager(new SceneTitle());
+	SceneManager::GetInstance()->LoadScene(new SceneTitle());
 
 	//スクリーンの作成
 	m_screen = MakeScreen(Screen::Width, Screen::Height);
+
+	//弾データの読み込み
+	BulletData::GetInstance()->LoadCSV();
 
 	//ゲームループ
 	while (ProcessMessage() == 0)
@@ -68,14 +68,17 @@ void GameMain::Run()
 		//ESCキーが押されたら終了
 		if (Input::GetInstance()->IsKeyDown(KEY_INPUT_ESCAPE))
 		{
-			break;
+			if (Input::GetInstance()->IsKeyDown(KEY_INPUT_ESCAPE))
+			{
+				break;
+			}
 		}
 
 		//デバッグコンソールの初期化
-		Debug::Initialize(); 
+		Debug::Initialize();
 
 		//シーンの更新
-		m_sceneManager->Updeta();
+		SceneManager::GetInstance()->Updeta();
 
 		//衝突判定
 		ModelActorCollision::GetInstance()->Update();
@@ -87,7 +90,7 @@ void GameMain::Run()
 		ClearDrawScreen();
 
 		//シーンの描画
-		m_sceneManager->Draw();
+		SceneManager::GetInstance()->Draw();
 
 		//エフェクトの更新
 		EffectManager::GetInstance()->Update();
@@ -101,9 +104,12 @@ void GameMain::Run()
 		//自作スクリーンを裏画面に描画
 		SetDrawScreen(DX_SCREEN_BACK);
 		ClearDrawScreen();
-		DrawGraph(0, 0, m_screen, false);		
+		DrawGraph(0, 0, m_screen, false);
 
 		//裏画面と表画面をひっくり返す
 		ScreenFlip();
 	}
+
+	//シーンの破棄
+	SceneManager::GetInstance()->Release();
 }

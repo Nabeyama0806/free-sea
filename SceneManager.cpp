@@ -3,8 +3,8 @@
 #include "Fade.h"
 #include "DxLib.h"
 
-//デストラクタ
-SceneManager::~SceneManager()
+//後処理
+void SceneManager::Release()
 {
 	//実行中のシーンと遷移先のシーンが同じなら、多重deleteしない
 	if (m_scene == m_nextScene)
@@ -37,7 +37,7 @@ void SceneManager::Updeta()
 		//実行中
 	case Phase::Run:
 		//実行中のシーンの更新
-		m_nextScene = m_scene->Update();
+		m_scene->Update();
 
 		//遷移先のシーンが実行中のシーンと異なる場合に遷移する
 		if (m_nextScene != m_scene)
@@ -49,12 +49,9 @@ void SceneManager::Updeta()
 		break;
 
 		//フェードアウト
-	case Phase::FadeOut :
+	case Phase::FadeOut:
 		//フェードアウトが終わるまで待機
-		if (Fade::GetInstance()->IsFade())
-		{
-			break;
-		}
+		if (Fade::GetInstance()->IsFade()) break;
 
 		//フェードが終わったのでシーン遷移する
 		m_phase = Phase::Loading;
@@ -69,7 +66,7 @@ void SceneManager::Updeta()
 		if (GetASyncLoadNum() != 0) break;
 
 		m_phase = Phase::Transition;
-		
+
 		//シーン遷移
 	case Phase::Transition:
 
@@ -85,9 +82,8 @@ void SceneManager::Updeta()
 		}
 
 		//遷移先のシーンを実行中のシーンにする
-		m_nextScene->Initialize();
 		m_scene = m_nextScene;
-		m_nextScene = nullptr;
+		m_scene->Initialize();
 
 		//フェードイン
 		Fade::GetInstance()->StartFadeIn(0.2f);
@@ -114,4 +110,10 @@ void SceneManager::Draw()
 		}
 		break;
 	}
+}
+
+//シーン切り替え
+void SceneManager::LoadScene(SceneBase* nextScene)
+{
+	m_nextScene = nextScene;
 }
