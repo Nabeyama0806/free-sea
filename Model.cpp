@@ -35,7 +35,7 @@ void Model::Load()
 void Model::Release()
 {
 	//モデルデータの削除
-	ModelLoader::GetInstance()->Delete(m_modelHandle);
+	ModelLoader::GetInstance()->Delete(m_modelFileName);
 
 	//アニメーションの削除
 	for (auto anime : m_animeList)
