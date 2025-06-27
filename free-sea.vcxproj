@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="ActorBase.h" />
     <ClInclude Include="Bullet.h" />
+<<<<<<< HEAD
     <ClInclude Include="GreenBird.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="ModelActorCollision.h" />
@@ -28,6 +29,14 @@
     <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="PinkBird.h" />
     <ClInclude Include="Redbird.h" />
+=======
+    <ClInclude Include="BulletData.h" />
+    <ClInclude Include="BulletStatus.h" />
+    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="ModelActorCollision.h" />
+    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Character.h" />
+>>>>>>> origin/Bullet
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollider.h" />
@@ -49,7 +58,6 @@
     <ClInclude Include="ModelAnimation.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="BlueBird.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SceneGame.h" />
@@ -71,9 +79,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletData.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="ModelActorCollision.cpp" />
-    <ClCompile Include="CharacterBase.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />

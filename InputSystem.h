@@ -5,6 +5,8 @@
 class InputSystem
 {
 public:
+	static constexpr int MaxPadAmount = 4;				//パッドの最大数
+
 	enum class ActionMap
 	{
 		Player1,	
@@ -24,38 +26,30 @@ public:
 	}
 
 public:
+	//何かのキーが押された瞬間
+	bool IsAnyKeyDown();
+
+	//何かのキーが押されている
+	bool IsAnyKeyPress();
+
 	//左スティックによる移動入力
 	Vector2 MoveValue(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
 	//右スティックによる回転入力
 	Vector2 RotationValue(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
-	// 上移動	
-	bool MoveUp(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
-
-	// 下移動
-	bool MoveDown(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
-
-	// 左移動
-	bool MoveLeft(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
-
-	// 右移動
-	bool MoveRight(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
-
-	// ボトルを投げる
+	//弾を撃つ
 	bool BulletShot(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
-	// 決定
+	//決定
 	bool IsDecision(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
-	// 決定を離す
+	//決定を離す
 	bool IsDecisionUp(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
-	// カメラの視点変更
-	bool IsCameraChange(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
-
-	// タイトルの選択
+	//左を選択
 	bool SelectLeft(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 
+	//右を選択
 	bool SelectRight(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
 };

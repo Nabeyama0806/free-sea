@@ -65,6 +65,12 @@ public:
 	//更新
 	void Update();
 
+	//何かのキーが押された瞬間
+	bool IsAnyKeyDown();
+
+	//何かのキーが押されている
+	bool IsAnyKeyPress();
+
 	//キーが押された瞬間
 	bool IsKeyDown(int key)
 	{
@@ -82,12 +88,6 @@ public:
 	{
 		return m_keyStatePost[key] && !m_keyState[key];
 	}
-
-	//何かのキーが押された瞬間
-	bool IsAnyKeyDown();
-
-	//何かのキーが押されている
-	bool IsAnyKeyPress();
 
 	//マウス位置を取得
 	Vector2 GetMousePoint()

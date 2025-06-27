@@ -5,10 +5,6 @@
 #include "Sprite.h"
 #include "SpriteAnimation.h"
 #include "Bullet.h"
-#include "BlueBird.h"
-#include "GreenBird.h"
-#include "RedBird.h"
-#include "PinkBird.h"
 #include "Input.h"
 #include "Node.h"
 #include "Time.h"
@@ -53,33 +49,11 @@ void SceneGame::Initialize()
 	m_rootNode->AddChild(uiLayer);
 
 	//生成するキャラの分岐
-	for (int i = 0; i < m_playerBullets.size(); ++i)
+	/*for (int i = 0; i < m_playerBullets.size(); ++i)
 	{
-		Bullet::Type bullet = static_cast<Bullet::Type>(m_playerBullets[i]);
-
-		switch (i)
-		{
-		case 0:	//プレイヤー1
-			m_characters[i] = new BlueBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
-			break;
-
-		case 1:	//プレイヤー2
-			m_characters[i] = new GreenBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
-			break;
-
-		case 2:	//プレイヤー3
-			m_characters[i] = new RedBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
-			break;
-
-		case 3: //プレイヤー4
-			m_characters[i] = new PinkBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
-			break;
-
-		default: //それ以外は何もしない
-			break;
-		}
+		m_characters[i] = new BlueBird(m_mainCamera, m_stage, PlayerPosition[i], bullet, i);
 		actorLayer->AddChild(m_characters[i]);
-	}
+	}*/
 
 	//キャラクターアイコンの読み込み
 	m_sprite = new Sprite();

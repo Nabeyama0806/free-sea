@@ -1,80 +1,88 @@
-#include "Bullet.h"
-#include "Stage.h"
-#include "characterBase.h"
+ï»¿#include "Bullet.h"
+#include "BulletData.h"
+#include "BulletStatus.h"
+#include "Character.h"
 #include "Effect.h"
 #include "SoundManager.h"
 #include "CircleCollider.h"
 #include "Time.h"
 #include "Lerp.h"
 
-//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-Bullet::Bullet(const char* filePath, const Vector3& position, const Vector3& forward, Stage* stage, const float size) :
-	ModelActor("Bullet", nullptr, position),
+//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+Bullet::Bullet(
+	const char* filePath,
+	const Vector3& position,
+	const Vector3& forward,
+	Stage* stage,
+	int bulletIndex
+) :
+	ModelActor("Bullet", filePath, position),
 	m_stage(stage),
 	m_forward(forward),
-	m_health(MaxHealth),
-	m_power(Power),
-	m_size(size),
-	m_addForce(AddForce),
-	m_eraseTime(EraseTime),
-	m_elapsedTime(0)
+	m_elapsedTime(0.0f),
+	m_bulletStatus(nullptr)
 {
-	//ƒ‚ƒfƒ‹
-	m_model = new Model(filePath);
+	//å¼¾ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å–å¾—
+	BulletData data;
+	m_bulletStatus = data.GetBulletData(bulletIndex);
 
-	//Õ“Ë”»’è
+	m_reflectAmount = m_bulletStatus->reflectAmount;
+	m_addForce = m_bulletStatus->addForce;
+	m_power = m_bulletStatus->power;
+	m_aliveTime = m_bulletStatus->aliveTime;
+	m_size = m_bulletStatus->size;
+
+	//å§¿å‹¢æƒ…å ±
+	m_transform.scale = m_size;
+
+	//è¡çªåˆ¤å®š
 	m_collider = new CircleCollider(m_size);
 
-	//p¨î•ñ
-	m_transform.scale = Size;	//ƒTƒCƒY‚ğİ’è
-
-	//ƒGƒtƒFƒNƒg
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 	m_effect = new Effect("Resource/Effect/bullet.efk", 10, 700);
-
-	//ƒGƒtƒFƒNƒg‚ÌÄ¶
 	m_effect->Play();
 }
 
-//XV
+//æ›´æ–°
 void Bullet::Update()
 {
-	//–{—ˆ‚ÌXV
+	//æœ¬æ¥ã®æ›´æ–°
 	ModelActor::Update();
 
-	//ˆÚ“®‘O‚ÌÀ•W
+	//ç§»å‹•å‰ã®åº§æ¨™
 	Vector3 prevPos = m_transform.position;
 
-	//¶‘¶ŠÔ‚ğ‰ß‚¬‚Ä‚¢‚½‚çíœ
+	//ç”Ÿå­˜æ™‚é–“ã‚’éãã¦ã„ãŸã‚‰å‰Šé™¤
 	m_elapsedTime += Time::GetInstance()->GetDeltaTime();
-	if (m_elapsedTime >= m_eraseTime) Destroy();
+	if (m_elapsedTime >= m_aliveTime) Destroy();
 
-	//ˆÚ“®‘O‚Ì°î•ñ‚ğæ“¾
+	//ç§»å‹•å‰ã®åºŠæƒ…å ±ã‚’å–å¾—
 	MV1_COLL_RESULT_POLY prevPoly = MV1CollCheck_Line(
 		m_stage->GetModelHandle(),
 		m_stage->GetFrameIndex(),
 		prevPos + Vector3(0, 100, 0),
 		prevPos - Vector3(0, 100, 0));
 
-	//©g‚Ì³–Ê‚ÉˆÚ“®
+	//è‡ªèº«ã®æ­£é¢ã«ç§»å‹•
 	m_transform.position += m_forward.Normalized() * m_addForce * Time::GetInstance()->GetDeltaTime();
 
-	//ˆÚ“®Œã‚Ì°î•ñ‚ğæ“¾
+	//ç§»å‹•å¾Œã®åºŠæƒ…å ±ã‚’å–å¾—
 	MV1_COLL_RESULT_POLY poly = MV1CollCheck_Line(
 		m_stage->GetModelHandle(),
 		m_stage->GetFrameIndex(),
 		m_transform.position + Vector3(0, 100, 0),
 		m_transform.position - Vector3(0, 100, 0));
 
-	//°‚ğ“¥‚İŠO‚µ‚Ä‚¢‚éH
+	//åºŠã‚’è¸ã¿å¤–ã—ã¦ã„ã‚‹ï¼Ÿ
 	if (!poly.HitFlag)
 	{
 		int index = 0;
 		while (index < 3)
 		{
-			//°ƒ|ƒŠƒSƒ“‚ÌOŠpŒ`‚Ì‚¤‚¿A‚Ç‚Ì•Ó‚ğŒ×‚¢‚Å‚¢‚é‚©‚ğ’²‚×‚é
+			//åºŠãƒãƒªã‚´ãƒ³ã®ä¸‰è§’å½¢ã®ã†ã¡ã€ã©ã®è¾ºã‚’è·¨ã„ã§ã„ã‚‹ã‹ã‚’èª¿ã¹ã‚‹
 			int toIndex = index + 1 != 3 ? index + 1 : 0;
 
-			//ü•ª“¯m‚ÌŒğ·”»’è
+			//ç·šåˆ†åŒå£«ã®äº¤å·®åˆ¤å®š
 			Vector2 a(prevPos.x, prevPos.z);
 			Vector2 b(m_transform.position.x, m_transform.position.z);
 			Vector2 c(prevPoly.Position[index].x, prevPoly.Position[index].z);
@@ -86,41 +94,36 @@ void Bullet::Update()
 
 			index++;
 
-			//ü•ª‚ª•½sH
+			//ç·šåˆ†ãŒå¹³è¡Œï¼Ÿ
 			if (Vector2::Cross(cd, ab) == 0) continue;
 
-			//ü•ª“¯m‚ÌŒğ·“_‚ğŒvZ
-			//t‚ª0`1‚ÌŠÔ‚Å‚ ‚ê‚Îü•ª“¯m‚ªŒğ·‚µ‚Ä‚¢‚é
+			//ç·šåˆ†åŒå£«ã®äº¤å·®ç‚¹ã‚’è¨ˆç®—
+			//tãŒ0ï½1ã®é–“ã§ã‚ã‚Œã°ç·šåˆ†åŒå£«ãŒäº¤å·®ã—ã¦ã„ã‚‹
 			float t = Vector2::Cross(-cd, ca) / Vector2::Cross(cd, ab);
 			if (t < 0 || 1 < t)
 			{
 				continue;
 			}
-			else
-			{
-				//‘Ì—Í‚ª–³‚¯‚ê‚Îíœ
-				if (m_health <= 0) Destroy();
-			}
 
-			//Œğ·À•W‚ğŒvZ
+			//äº¤å·®åº§æ¨™ã‚’è¨ˆç®—
 			Vector2 crossPos = Lerp::Exec(a, b, t);
 
-			//ˆÚ“®Œã‚ÌÀ•W‚©‚çŒğ·‚µ‚½•Ó‚ÌÅ‹ß“_‚ğŒvZ
+			//ç§»å‹•å¾Œã®åº§æ¨™ã‹ã‚‰äº¤å·®ã—ãŸè¾ºã®æœ€è¿‘ç‚¹ã‚’è¨ˆç®—
 			Vector2 cpcN = (c - crossPos).Normalize();
 			Vector2 x = crossPos + (cpcN * Vector2::Dot(cpcN, b - crossPos));
 
-			//‚’¼‚ÉÚG‚µ‚½‚È‚ç©g‚Ì³–ÊƒxƒNƒgƒ‹‚ğ”½“]
+			//å‚ç›´ã«æ¥è§¦ã—ãŸãªã‚‰è‡ªèº«ã®æ­£é¢ãƒ™ã‚¯ãƒˆãƒ«ã‚’åè»¢
 			if (static_cast<int>(crossPos.x) == static_cast<int>(crossPos.y))
 			{
 				m_forward = -m_forward;
 			}
 
-			//ÚG‚µ‚½–Ê‚ğZo‚µA”½“]‚³‚¹‚é
-			if(crossPos == x) m_forward *= -1;
+			//æ¥è§¦ã—ãŸé¢ã‚’ç®—å‡ºã—ã€åè»¢ã•ã›ã‚‹
+			if (crossPos == x) m_forward *= -1;
 			else if (crossPos.x == x.x) m_forward.x *= -1;
 			else m_forward.z *= -1;
 
-			// ’²®Œã‚ÌÀ•W‚Å‚à°‚Éæ‚ê‚È‚¢ê‡‚ÍˆÚ“®‚ğ‚È‚©‚Á‚½‚±‚Æ‚É‚·‚é
+			// èª¿æ•´å¾Œã®åº§æ¨™ã§ã‚‚åºŠã«ä¹—ã‚Œãªã„å ´åˆã¯ç§»å‹•ã‚’ãªã‹ã£ãŸã“ã¨ã«ã™ã‚‹
 			if (!MV1CollCheck_Line(
 				m_stage->GetModelHandle(),
 				m_stage->GetFrameIndex(),
@@ -130,28 +133,28 @@ void Bullet::Update()
 				m_transform.position = prevPos;
 			}
 
-			//”½Ë‰Â”\‰ñ”‚ÌŒ¸Z
-			m_health--;
+			//åå°„å¯èƒ½å›æ•°ã®æ¸›ç®—
+			m_reflectAmount--;
 
-			//‘Ì—Í‚ª–³‚¯‚ê‚Îíœ
-			if (m_health <= 0) Destroy();
+			//ä½“åŠ›ãŒç„¡ã‘ã‚Œã°å‰Šé™¤
+			if (m_reflectAmount <= 0) Destroy();
 		}
 	}
 }
 
-//Õ“ËƒCƒxƒ“ƒg
+//è¡çªã‚¤ãƒ™ãƒ³ãƒˆ
 void Bullet::OnCollision(const ModelActor* other)
 {
 	if (other->GetName() == "Player")
 	{
-		//©•ª‚Ìe‚È‚çƒ_ƒ[ƒW‚ğ—^‚¦‚È‚¢
+		//è‡ªåˆ†ã®è¦ªãªã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆãªã„
 		if (GetParent() == other) return;
 
-		//Œø‰Ê‰¹Ä¶
+		//åŠ¹æœéŸ³å†ç”Ÿ
 		SoundManager::Play("Resource/Sound/se_damage.mp3");
 
-		//‘¼ƒvƒŒƒCƒ„[‚ÆÕ“Ë‚µ‚½‚çƒ_ƒ[ƒW‚ğ—^‚¦‚é
-		dynamic_cast<CharacterBase*>(const_cast<ModelActor*>(other))->Damage(m_power);
+		//ä»–ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨è¡çªã—ãŸã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
+		dynamic_cast<Character*>(const_cast<ModelActor*>(other))->Damage(m_power);
 		Destroy();
 	}
 }

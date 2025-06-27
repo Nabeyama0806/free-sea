@@ -1,11 +1,10 @@
 #pragma once
 #include "SceneBase.h"
-#include "Node.h"
 #include "Transform.h"
-#include "Sprite.h"
-#include "SpriteAnimation.h"
-#include "Bullet.h"
+#include "Node.h"
+#include "InputSystem.h"
 #include "ModelLoader.h"
+#include "Sprite.h"
 #include <vector>
 
 class Node;
@@ -26,8 +25,6 @@ private:
 	Phase m_phase;
 
 private:
-	static constexpr int MaxPadAmount = 4;	//ÉpÉbÉhÇÃêî
-
 	const std::list<const char*> ModelPreload =
 	{
 		"Resource/Model/bullet_blue.mv1",
@@ -36,23 +33,17 @@ private:
 		"Resource/Model/bullet_pink.mv1",
 	};
 
-	const char* CharacterImage[static_cast<int>(Bullet::Type::Length)] =
+	//íeÇÃéÌóﬁ
+	/*const char* CharacterImage[static_cast<int>(Bullet::Type::Length)] =
 	{
 		"Resource/Texture/reflection.png",
 		"Resource/Texture/straight.png",
 		"Resource/Texture/diffusion.png",
 		"Resource/Texture/laser.png",
-	};
+	};*/
 
-	const char* TextureName[static_cast<int>(Bullet::Type::Length)] =
-	{
-		"BlurBird",
-		"GreenBird",
-		"RedBird",
-		"PinkBird",
-	};
 
-	const Vector2 DrawPosOffset[static_cast<int>(Bullet::Type::Length)] =
+	const Vector2 DrawPosOffset[InputSystem::MaxPadAmount] =
 	{
 		Vector2(-430.0f, -110.0f),
 		Vector2(630.0f, -110.0f),
@@ -64,7 +55,7 @@ private:
 
 	Node* m_rootNode;
 	Transform m_transform;
-	Sprite* m_sprites[static_cast<int>(Bullet::Type::Length)];
+	Sprite* m_sprites[InputSystem::MaxPadAmount];
 	int m_padAmount;
 	int m_bgm;
 

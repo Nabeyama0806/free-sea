@@ -5,11 +5,11 @@
 namespace Screen
 {
 	static constexpr int Width = 1920; //•
-	static constexpr int Heigth = 1080;//‚‚³
-	static constexpr Vector2 Size = Vector2(Width, Heigth);//•E‚‚³
+	static constexpr int Height = 1080;//‚‚³
+	static constexpr Vector2 Size = Vector2(Width, Height);//•E‚‚³
 
 	static constexpr int Top = 0;				//ã
-	static constexpr int Bottom = Heigth;		//‰º
+	static constexpr int Bottom = Height;		//‰º
 	static constexpr int Left = 0;				//¶
 	static constexpr int Right = Width;			//‰E
 	static constexpr Vector2 Center = Size / 2;	//’†‰›
