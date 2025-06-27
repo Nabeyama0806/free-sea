@@ -1,13 +1,17 @@
 #include "SceneResult.h"
-#include "Input.h"
-#include "Screen.h"
 #include "SceneTitle.h"
+#include "SpriteActor.h"
+#include "Screen.h"
+#include "Input.h"
 #include "Time.h"
 
 //‰Šú‰»
 void SceneResult::Initialize()
 {
 	m_rootNode = new Node();
+
+	//”wŒi
+	m_rootNode->AddChild(new SpriteActor("Result", "Resource/Texture/result.png", Screen::Center));
 }
 
 //I—¹ˆ—
