@@ -265,7 +265,7 @@ void Character::BulletShot()
 		if (CreateBullet()) m_bulletInstanceAmount++;
 
 		//Å‘å”‚Ü‚Å¶¬‚µ‚½‚çƒtƒ‰ƒO‚ğÜ‚é
-		if (m_bulletInstanceAmount == m_shotRate)
+		if (m_bulletInstanceAmount == m_bulletAmount)
 		{
 			m_isShot = false;
 			m_bulletInstanceAmount = 0;
@@ -294,12 +294,20 @@ bool Character::CreateBullet()
 		m_bulletElapsedTime = 0;
 
 		//³–Ê‚©‚ç’e‚ğ”­Ë‚·‚é
-		AddChild(new Bullet(
-			BulletModelFilePath[m_playerIndex],
-			m_transform.position + BulletOffset,
-			GetShotForward(),
-			m_stage,
-			m_bulletIndex));
+		for (int i = 0; i < m_bulletStatus->diffusionAmount; ++i)
+		{
+			//ŠgUŠp“x‚ğl—¶‚µ‚Ä’e‚Ì”­Ë•ûŒü‚ğŒvZ
+			float angle = m_bulletStatus->diffusionAngle * (i - (m_bulletStatus->diffusionAmount - 1) / 2.0f);
+			Vector3 forward = Quaternion::AngleAxis(angle, Vector3(0, 1, 0)) * GetShotForward();
+
+			//’e‚Ì¶¬
+			AddChild(new Bullet(
+				BulletModelFilePath[m_playerIndex],
+				m_transform.position + BulletOffset,
+				forward,
+				m_stage,
+				m_bulletIndex));
+		}
 
 		//Œø‰Ê‰¹‚ÌÄ¶
 		SoundManager::Play("Resource/Sound/se_bubble_shot.mp3");
