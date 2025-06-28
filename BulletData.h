@@ -22,7 +22,6 @@ public:
         return &instance;
     }
 
-
     // CSVファイルから弾データを読み込む
     bool LoadCSV();
 

@@ -32,7 +32,7 @@ Bullet::Bullet(
 	m_size = m_bulletStatus->size;
 
 	//姿勢情報
-	m_transform.scale = 0.02f;
+	m_transform.scale = m_size;
 
 	//衝突判定
 	m_collider = new CircleCollider(m_size);

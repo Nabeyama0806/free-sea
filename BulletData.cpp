@@ -8,9 +8,9 @@ bool BulletData::LoadCSV()
     std::ifstream file("Resource/Data/BulletDataTable.csv");
     if (!file.is_open()) return false;
 
-    // ヘッダー行＋もう1行スキップ
+    //最初の行をスキップ
     std::string line;
-    std::getline(file, line); // 1行目(カラム名)スキップ
+    std::getline(file, line); // 1行目(要素名)スキップ
     std::getline(file, line); // 2行目(変数名)スキップ
 
     while (std::getline(file, line)) 
