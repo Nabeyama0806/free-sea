@@ -18,7 +18,6 @@ private:
 	{
 		Home,		//始まり
 		Select,		//キャラ選択
-		GameStart,	//ゲーム開始
 
 		Length
 	};

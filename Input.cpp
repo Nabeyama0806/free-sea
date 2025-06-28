@@ -1,5 +1,7 @@
 #include "Input.h"
 #include "InputSystem.h"
+#include "Time.h"
+#include "SoundManager.h"
 #include "DxLib.h"
 #include <cstring>
 
@@ -65,6 +67,28 @@ void Input::Update()
 		lx = state.ThumbLX;
 		ly = state.ThumbLY;
 		m_padLeftStick[i] = Vector2(lx, ly);
+	}
+
+	// パッドの接続確認
+	m_padConnectedTime += Time::GetInstance()->GetDeltaTime();
+	if (m_padConnectedTime > PadConnectedTime)
+	{
+		//接続確認時間のリセット
+		m_padConnectedTime = 0.0f;
+
+		// パッドの接続数を更新
+		int num = GetJoypadNum();
+
+		//接続数が変わっていない場合は何もしない
+		if (m_padAmount == num) return;
+
+		//接続の増減に応じて効果音を再生
+		m_padAmount = m_padAmount > num ?
+			SoundManager::Play("Resource/Sound/se_pad_connect.mp3") :
+			SoundManager::Play("Resource/Sound/se_pad_cutting.mp3")	;
+		
+		//パッドの接続数を更新
+		m_padAmount = num;
 	}
 }
 

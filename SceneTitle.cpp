@@ -1,7 +1,7 @@
 #include "SceneTitle.h"
 #include "SceneGame.h"
 #include "SceneManager.h"
-#include "Bullet.h"
+#include "BulletData.h"
 #include "SpriteActor.h"
 #include "SpriteAnimation.h"
 #include "SoundManager.h"
@@ -35,21 +35,19 @@ void SceneTitle::Initialize()
 	//タイトルロゴ
 	m_rootNode->AddChild(new SpriteActor("TitleLogo", "Resource/Texture/title_logo.png", Screen::Center));
 
-	//接続されているパッド数を取得
-	m_padAmount = GetJoypadNum();
 
 	//接続されているパッドの数だけ配列の要素数を追加
-	for (int i = 0; i < m_padAmount; ++i)
+	for (int i = 0; i < InputSystem::GetInstance()->GetPadAmount(); ++i)
 	{
 		m_select.push_back(0);
 	}
 
 	//画像の読み込み
-	for (int i = 0; i < m_padAmount; ++i)
+	for (int i = 0; i < InputSystem::MaxPadAmount; ++i)
 	{
 		m_sprites[i] = new Sprite();
 		m_sprites[i]->gridSize = Vector2(1080, 1080);
-		for (int j = 0; j < InputSystem::MaxPadAmount; ++j)
+		for (int j = 0; j < BulletData::GetInstance()->GetBulletListSize(); ++j)
 		{
 			//弾のデータにある名前とファイルパスを参照させる
 			m_sprites[i]->Register(TextureName[j], SpriteAnimation(BulletImage[j]));
@@ -76,12 +74,8 @@ void SceneTitle::Update()
 	//ノードの更新
 	m_rootNode->TreeUpdate();
 
-	//画像の表示
-	for (int i = 0; i < m_padAmount; ++i)
-	{
-		m_sprites[i]->Update();
-		m_sprites[i]->Play(TextureName[m_select[i]]);
-	}
+	//パッドの接続数を更新
+	m_padAmount = InputSystem::GetInstance()->GetPadAmount();
 
 	//いずれかのキーが押されたらゲームシーンへ移動
 	switch (m_phase)
@@ -99,6 +93,12 @@ void SceneTitle::Update()
 		//各プレイヤーの弾選択
 		for (int i = 0; i < m_padAmount; ++i)
 		{
+			//パッドの接続数が増えていれば追加
+			if (i > m_select.size()) m_select.push_back(0);
+
+			//パッドの接続数が減っていれば削除
+			if (m_select.size() > m_padAmount) m_select.pop_back();
+
 			InputSystem::ActionMap actionMap = static_cast<InputSystem::ActionMap>(i);
 			if (InputSystem::GetInstance()->SelectLeft(actionMap))
 			{
@@ -113,8 +113,8 @@ void SceneTitle::Update()
 			}
 
 			//範囲内に調整
-			if (m_select[i] < 0) m_select[i] = InputSystem::MaxPadAmount - 1;
-			if (m_select[i] > InputSystem::MaxPadAmount - 1) m_select[i] = 0;
+			if (m_select[i] < 0) m_select[i] = BulletData::GetInstance()->GetBulletListSize() - 1;
+			if (m_select[i] > BulletData::GetInstance()->GetBulletListSize() - 1) m_select[i] = 0;
 
 			//決定ボタンが押されたらゲーム開始
 			if (InputSystem::GetInstance()->IsDecision(actionMap))
@@ -124,6 +124,16 @@ void SceneTitle::Update()
 			}
 		}
 		break;
+	}
+
+	//ホーム画面では表示しない
+	if (m_phase == SceneTitle::Phase::Home) return;
+
+	//画像の更新
+	for (int i = 0; i < m_padAmount; ++i)
+	{
+		m_sprites[i]->Update();
+		m_sprites[i]->Play(TextureName[m_select[i]]);
 	}
 }
 
@@ -135,6 +145,8 @@ void SceneTitle::Draw()
 
 	//ホーム画面では描画しない	
 	if (m_phase == SceneTitle::Phase::Home) return; 
+
+	//画像の描画
 	for (int i = 0; i < m_padAmount; ++i)
 	{
 		//画像の描画

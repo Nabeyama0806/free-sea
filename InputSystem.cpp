@@ -1,6 +1,12 @@
 #include "InputSystem.h"
 #include "Input.h"
 
+//パッドの数を取得
+int InputSystem::GetPadAmount() const
+{
+	return Input::GetInstance()->GetPadAmount();
+}
+
 //何かのキーが押された瞬間
 bool InputSystem::IsAnyKeyDown()
 {

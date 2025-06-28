@@ -24,6 +24,7 @@ private:
 	int m_mouseButtonPost;		//前フレームのマウスボタン入力状態
 
 	// パッド
+	static constexpr float PadConnectedTime = 1.5f;			//パッドの接続確認時間
 	static constexpr float PadStickDeadZone = 32767 * 0.2f;	// スティックのデッドゾーン
 
 	int m_padButton[static_cast<int>(InputSystem::ActionMap::Length)];
@@ -38,6 +39,9 @@ private:
 	int m_padLeftTrigger[static_cast<int>(InputSystem::ActionMap::Length)];	// 左トリガーの状態
 	int m_padLeftTriggerPost[static_cast<int>(InputSystem::ActionMap::Length)];
 
+	int m_padAmount;			//接続されているパッドの数
+	float m_padConnectedTime;	// パッドの接続確認の経過時間
+
 	//コンストラクタ
 	Input() :
 		m_keyState{ 0 },
@@ -50,7 +54,9 @@ private:
 		m_padRightTrigger{ 0 },
 		m_padRightTriggerPost{ 0 },
 		m_padLeftTrigger{ 0 },
-		m_padLeftTriggerPost{ 0 }
+		m_padLeftTriggerPost{ 0 },
+		m_padAmount(0),
+		m_padConnectedTime(0.0f)
 	{
 	}	
 
@@ -174,6 +180,12 @@ public:
 		}
 
 		return m_padRightStick[static_cast<int>(actionMap)];
+	}
+
+	//パッドの接続状態を取得
+	int GetPadAmount()
+	{
+		return m_padAmount;
 	}
 
 	bool IsPadRightTriggerDown(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All)

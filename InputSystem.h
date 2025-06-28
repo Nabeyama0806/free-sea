@@ -33,10 +33,7 @@ public:
 	bool IsAnyKeyPress();
 
 	//接続されているパッドの数を取得
-	int GetPadAmount() const
-	{
-		return GetJoypadNum();
-	}
+	int GetPadAmount() const;
 
 	//左スティックによる移動入力
 	Vector2 MoveValue(InputSystem::ActionMap actionMap = InputSystem::ActionMap::All);
