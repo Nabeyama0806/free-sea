@@ -32,11 +32,6 @@ void SceneGame::Initialize()
 	Node* actorLayer = new Node();
 	m_rootNode->AddChild(actorLayer);
 
-	//スカイボックス
-	ModelActor* skybox = new ModelActor("Skybox", "Resource/Model/Skybox.mv1");
-	skybox->ChangeScale(10000);
-	actorLayer->AddChild(skybox);
-
 	//ステージ
 	m_stage = new Stage();
 	MV1SetupCollInfo(m_stage->GetModelHandle(), m_stage->GetFrameIndex());
