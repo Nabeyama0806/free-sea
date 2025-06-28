@@ -1,7 +1,10 @@
 #pragma once
+#include "Transform.h"
+#include "Screen.h"
 
 //クラスの前方宣言
 class SceneBase;
+class Sprite;
 
 //シーン遷移クラス
 class SceneManager
@@ -16,18 +19,20 @@ private:
 		Transition,	//遷移
 	};
 
+	Phase m_phase;
+
 private:
+	static constexpr float LoadingTime = 1.0f;	//ロード時間
+
 	SceneBase* m_scene;				//実行中のシーン
 	SceneBase* m_nextScene;			//遷移先のシーン
-	Phase m_phase;					//フェーズ
+	Sprite*	m_sprite;				//スプライト
+	Transform m_transform;
+	int m_elapsedTime;	
 
 public:
 	//コンストラクタ
-	SceneManager() :
-		m_scene(nullptr),
-		m_nextScene(nullptr),
-		m_phase(Phase::Loading) {
-	}
+	SceneManager();
 
 	//シングルトン
 	static SceneManager* GetInstance()
@@ -37,7 +42,7 @@ public:
 	}
 
 
-	void Updeta();		//更新
+	void Update();		//更新
 	void Draw();		//描画	
 	void Release();		//後処理
 

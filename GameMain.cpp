@@ -78,7 +78,7 @@ void GameMain::Run()
 		Debug::Initialize();
 
 		//シーンの更新
-		SceneManager::GetInstance()->Updeta();
+		SceneManager::GetInstance()->Update();
 
 		//衝突判定
 		ModelActorCollision::GetInstance()->Update();

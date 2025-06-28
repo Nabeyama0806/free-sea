@@ -5,6 +5,7 @@ class GameMain
 {
 private:
 	int m_screen;	//自作スクリーン
+
 public:
 	//コンストラクタ(実行時に自動的に呼び出される関数)
 	GameMain() :

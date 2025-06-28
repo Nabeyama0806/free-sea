@@ -1,7 +1,26 @@
 #include "SceneManager.h"
 #include "SceneBase.h"
+#include "Sprite.h"
 #include "Fade.h"
+#include "Time.h"
 #include "DxLib.h"
+
+//コンストラクタ
+SceneManager::SceneManager() :
+	m_scene(nullptr),
+	m_nextScene(nullptr),
+	m_sprite(nullptr),
+	m_elapsedTime(0),
+	m_phase(Phase::Loading)
+{
+	//姿勢情報
+	m_transform.position = Screen::Center;
+
+	//スプライトの読み込み
+	m_sprite = new Sprite();
+	m_sprite->Register("Resource/Texture/loading.png");
+	m_sprite->Load();
+}
 
 //後処理
 void SceneManager::Release()
@@ -30,7 +49,7 @@ void SceneManager::Release()
 }
 
 //更新
-void SceneManager::Updeta()
+void SceneManager::Update()
 {
 	switch (m_phase)
 	{
@@ -61,17 +80,20 @@ void SceneManager::Updeta()
 		//非同期ロードの開始
 		SetUseASyncLoadFlag(TRUE);
 		m_nextScene->Preload();
+		m_sprite->Update();
 
-		//非同期ロードが終わるまで待機
+		//ロード時間が経過したらフェーズを変更
+		m_elapsedTime += Time::GetInstance()->GetDeltaTime();
+		if (m_elapsedTime < LoadingTime) break;
 		if (GetASyncLoadNum() != 0) break;
 
+		//非同期ロードを終了してからシーン遷移
+		m_elapsedTime = 0;
+		SetUseASyncLoadFlag(FALSE);
 		m_phase = Phase::Transition;
 
 		//シーン遷移
 	case Phase::Transition:
-
-		//非同期ロードを終了
-		SetUseASyncLoadFlag(FALSE);
 
 		//実行中のシーンがあれば破棄する
 		if (m_scene)
@@ -96,18 +118,15 @@ void SceneManager::Updeta()
 //描画
 void SceneManager::Draw()
 {
-	//非同期ロードが終わるまで待機
-	if (GetASyncLoadNum() != 0) return;
-
 	switch (m_phase)
 	{
 	case Phase::Run:
 	case Phase::FadeOut:
+		if (m_scene) m_scene->Draw();
+		break;
 
-		if (m_scene)
-		{
-			m_scene->Draw();
-		}
+	case Phase::Loading:
+		m_sprite->Draw(m_transform); //ロード中のスプライトを描画
 		break;
 	}
 }
