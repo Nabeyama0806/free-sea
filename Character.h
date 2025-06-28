@@ -45,7 +45,7 @@ private:
 
 	};
 
-	//弾のモデルファイルパス
+	//プレイヤー毎に表示する弾モデルのファイルパス
 	const char* BulletModelFilePath[InputSystem::MaxPadAmount] =
 	{
 		"Resource/Model/bullet_blue.mv1",
