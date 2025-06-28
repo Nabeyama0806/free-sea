@@ -12,12 +12,12 @@ private:
 public:
 	//コンストラクタ
 	Stage() :
-		ModelActor("StageMesh", "Environment/Panel_Mesh.mv1"),
+		ModelActor("StageMesh", "Resource/Model/ground_mesh.mv1"),
 		m_model(nullptr),
 		m_modelHandle(0)
 	{
 		//見た目のモデルを読み込む
-		AddChild(new ModelActor("Stage", "Environment/Panel.mv1"));
+		AddChild(new ModelActor("Stage", "Resource/Model/ground.mv1"));
 	}
 
 	int GetFrameIndex()
