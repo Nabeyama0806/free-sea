@@ -2,6 +2,7 @@
 #include "SceneBase.h"
 
 class Node;
+class Character;
 
 class SceneResult : public SceneBase
 {
@@ -9,16 +10,17 @@ private:
 	static constexpr float WaitTransitionTime = 1.5f;
 
 	Node* m_rootNode;
-	int m_score;
+	Character* m_character;
 
 	float m_waitTransitionTime;
 
 public:
 	//コンストラクタ
-	SceneResult(int score) :
+	SceneResult(Character* character) :
+		m_character(character),
 		m_rootNode(nullptr),
-		m_score(score),
-		m_waitTransitionTime(WaitTransitionTime) {
+		m_waitTransitionTime(WaitTransitionTime) 
+	{
 	}
 
 	virtual void Preload() override {};

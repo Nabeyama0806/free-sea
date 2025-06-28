@@ -5,6 +5,8 @@
 #include "SpriteActor.h"
 #include "Sprite.h"
 #include "SpriteAnimation.h"
+#include "SpriteLoader.h"
+#include "ModelLoader.h"
 #include "Bullet.h"
 #include "Character.h"
 #include "Input.h"
@@ -14,6 +16,22 @@
 #include "Camera.h"
 #include "Stage.h"
 #include "DxLib.h"
+
+//事前読み込み
+void SceneGame::Preload()
+{
+	//画像のプリロード
+	for (const char* modelPath : CharacterIconFilePath)
+	{
+		SpriteLoader::GetInstance()->Load(modelPath);
+	}
+
+	//モデルのプリロード
+	for (const char* modelPath : ModelPreload)
+	{
+		ModelLoader::GetInstance()->Load(modelPath);
+	}
+}
 
 //初期化
 void SceneGame::Initialize()
@@ -79,7 +97,7 @@ void SceneGame::Finalize()
 void SceneGame::Update()
 {
 	//キャラクターが残り1人ならリザルトへ遷移
-	//if (IsLastCharacter()) SceneManager::GetInstance()->LoadScene(new SceneResult(0));
+	IsLastCharacter();
 
 	//ノードの更新
 	m_rootNode->TreeUpdate();
@@ -102,22 +120,27 @@ void SceneGame::Draw()
 }
 
 //最後のキャラクターかどうかを判定
-bool SceneGame::IsLastCharacter() const 
+void SceneGame::IsLastCharacter() const 
 {
 	//キャラクターの生存数をカウント
+	Character* lastCharacter = nullptr;
 	int aliveCount = 0;
 	for (const auto& character : m_characters) 
 	{ 
 		//キャラクターが存在しない場合はスキップ
 		if (!character) continue;
 
-		//2人以上生存
-		if (aliveCount >= 2) return false; 
-
 		//最後の生存キャラクター候補を保存
-		if (character->IsAlive()) aliveCount++;
-	}
+		if (character->IsAlive())
+		{
+			lastCharacter = character;
+			aliveCount++;
+		}
 
-	//最後のキャラクター
-	return aliveCount == 1;
+		//2人以上生存
+		if (aliveCount >= 2) return;
+	}
+	
+	//生存キャラクターが1人ならリザルトへ遷移
+	if (aliveCount == 1) SceneManager:: GetInstance()->LoadScene(new SceneResult(lastCharacter));
 }

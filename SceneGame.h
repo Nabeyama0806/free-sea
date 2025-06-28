@@ -1,7 +1,6 @@
 #pragma once
 #include"SceneBase.h"
 #include"Character.h"
-#include "ModelLoader.h"
 #include "InputSystem.h"
 #include "Vector3.h"
 #include <list>
@@ -20,6 +19,16 @@ class SceneGame : public SceneBase
 {	
 private:
 	static constexpr float ResultTransitionTime = 2.0f;		//プレイヤーが死んでからリザルト画面に遷移するまでの時間
+
+	//モデルの事前読み込み
+	const std::list<const char*> ModelPreload =
+	{
+		"Man/Man.mv1",
+		"Man/Man4.mv1",
+		"Man/Man3.mv1",
+		"Man/Man2.mv1",
+	};
+
 
 	//キャラクターアイコンのファイルパス
 	const char* CharacterIconFilePath[InputSystem::MaxPadAmount] =
@@ -71,7 +80,7 @@ private:
 	int m_bgm;
 
 	//最後のプレイヤーか判定
-	bool IsLastCharacter() const;
+	void IsLastCharacter() const;
 
 public:
 	//コンストラクタ
@@ -88,7 +97,7 @@ public:
 	{
 	}
 
-	virtual void Preload() override {};		//事前読み込み
+	virtual void Preload() override;		//事前読み込み
 	virtual void Initialize() override;		//初期化
 	virtual void Finalize() override;		//終了
 	virtual void Update() override;			//更新
