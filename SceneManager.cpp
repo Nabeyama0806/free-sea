@@ -2,7 +2,6 @@
 #include "SceneBase.h"
 #include "Sprite.h"
 #include "Fade.h"
-#include "Time.h"
 #include "DxLib.h"
 
 //コンストラクタ
@@ -10,7 +9,6 @@ SceneManager::SceneManager() :
 	m_scene(nullptr),
 	m_nextScene(nullptr),
 	m_sprite(nullptr),
-	m_elapsedTime(0),
 	m_phase(Phase::Loading)
 {
 	//姿勢情報
@@ -82,15 +80,13 @@ void SceneManager::Update()
 		m_nextScene->Preload();
 		m_sprite->Update();
 
-		//ロード時間が経過したらフェーズを変更
-		m_elapsedTime += Time::GetInstance()->GetDeltaTime();
-		if (m_elapsedTime < LoadingTime) break;
-		if (GetASyncLoadNum() != 0) break;
-
 		//非同期ロードを終了してからシーン遷移
-		m_elapsedTime = 0;
-		SetUseASyncLoadFlag(FALSE);
-		m_phase = Phase::Transition;
+		if (GetASyncLoadNum() == 0)
+		{
+			SetUseASyncLoadFlag(FALSE);
+			m_phase = Phase::Transition;
+		}
+		break;
 
 		//シーン遷移
 	case Phase::Transition:

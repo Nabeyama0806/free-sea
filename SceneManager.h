@@ -22,13 +22,10 @@ private:
 	Phase m_phase;
 
 private:
-	static constexpr float LoadingTime = 1.0f;	//ロード時間
-
 	SceneBase* m_scene;				//実行中のシーン
 	SceneBase* m_nextScene;			//遷移先のシーン
 	Sprite*	m_sprite;				//スプライト
 	Transform m_transform;
-	int m_elapsedTime;	
 
 public:
 	//コンストラクタ
