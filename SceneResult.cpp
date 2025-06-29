@@ -1,6 +1,7 @@
 #include "SceneResult.h"
 #include "SceneTitle.h"
 #include "SceneManager.h"
+#include "SoundManager.h"
 #include "SpriteActor.h"
 #include "Screen.h"
 #include "Input.h"
@@ -13,6 +14,9 @@ void SceneResult::Initialize()
 
 	//”wŒi
 	m_rootNode->AddChild(new SpriteActor("Result", "Resource/Texture/result.png", Screen::Center));
+
+	//Œø‰Ê‰¹‚ÌÄ¶
+	SoundManager::Play("Resource/Sound/se_winner.mp3");
 }
 
 //I—¹ˆ—
