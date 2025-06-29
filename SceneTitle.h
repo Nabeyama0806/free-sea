@@ -41,12 +41,13 @@ private:
 		"bullet_pink",
 	};
 
-	const char* BulletImage[InputSystem::MaxPadAmount] =
+	const char* BulletImage[5] =
 	{
 		"Resource/Texture/reflection.png",
 		"Resource/Texture/straight.png",
 		"Resource/Texture/diffusion.png",
 		"Resource/Texture/laser.png",
+		"Resource/Texture/title_logo.png",
 	};
 
 	const Vector2 DrawPosOffset[InputSystem::MaxPadAmount] =

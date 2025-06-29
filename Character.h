@@ -117,7 +117,6 @@ public:
 	//Ëo•ûŒü‚Ìæ“¾
 	const Vector3 GetShotForward()
 	{
-		float length = 80.0f;	//Ëo•ûŒü‚Ì’·‚³
 		Vector3 tmp = Vector3(m_shotRotate.x, 0, m_shotRotate.y);
 		if (!tmp.IsZero()) m_shotRotate.Normalize();
 		else

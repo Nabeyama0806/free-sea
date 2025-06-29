@@ -114,7 +114,7 @@ void Character::Update()
 	{
 		//ˆÚ“®
 		move.Normalize();
-		m_transform.position += move * Speed;
+		m_transform.position += move * Speed * m_bulletStatus->mass;
 
 		//‰ñ“]
 		m_transform.rotation = Quaternion::Slerp(
