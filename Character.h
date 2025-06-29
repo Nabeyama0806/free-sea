@@ -114,6 +114,12 @@ public:
 		return m_health > 0;
 	}
 
+	//プレイヤー番号の取得
+	int GetPlayerIndex()
+	{
+		return m_playerIndex;
+	}
+
 	//射出方向の取得
 	const Vector3 GetShotForward()
 	{
@@ -121,9 +127,9 @@ public:
 		if (!tmp.IsZero()) m_shotRotate.Normalize();
 		else
 		{
-			Vector3 forward = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
-			m_shotRotate = forward;
-			tmp = forward;
+			tmp = !m_inputValue.IsZero() ? Vector3(m_inputValue.x, 0, m_inputValue.y) :
+			tmp = (m_transform.rotation * Vector3(0, 0, -1)).Normalized();
+			m_shotRotate = tmp;
 		}
 		return tmp;
 	}

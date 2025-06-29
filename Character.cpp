@@ -215,8 +215,8 @@ void Character::Draw()
 	//射出方向の描画
 	float length = 80.0f;
 	DrawLine3D(
-		m_transform.position,
-		m_transform.position + Vector3(m_shotRotate.x * length, 0, m_shotRotate.y * length),
+		m_transform.position + BulletOffset,
+		m_transform.position + Vector3(m_shotRotate.x * length, 0, m_shotRotate.y * length) + BulletOffset,
 		GetColor(255, 0, 0)
 	);
 	
@@ -231,10 +231,10 @@ void Character::Draw()
 		true
 	);
 
-	//無敵時間中は表示/非表示を繰り返して点滅させる
+	//被弾中は表示/非表示を繰り返して点滅させる
 	if (m_flashTime > 0)
 	{
-		//無敵時間中の小数点第一位が奇数なら非表示
+		//被弾中の小数点第一位が奇数なら非表示
 		if (static_cast<int>(m_flashTime * 10) % 2)
 		{
 			return;
@@ -320,7 +320,7 @@ bool Character::CreateBullet()
 //被弾
 void Character::Damage(int damage)
 {
-	//無敵時間をセット
+	//点滅時間をセット
 	m_flashTime = FlashTime;
 
 	//体力を減らす
