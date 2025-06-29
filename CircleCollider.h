@@ -9,7 +9,7 @@ public:
 	float m_radius;	//半径
 
 	//コンストラクタ
-	CircleCollider(float radius, const Vector3& offset = Vector3()) :
+	CircleCollider(float radius = 1, const Vector3& offset = Vector3()) :
 		Collider(offset),
 		m_radius(radius)
 	{
@@ -36,7 +36,7 @@ public:
 	//描画
 	virtual void Draw(const Transform& transform) const override
 	{
-		DrawSphere3D(transform.position + m_offset, m_radius, 6, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
+		DrawSphere3D(transform.position + m_offset, transform.scale * m_radius, 8, GetColor(255, 255, 0), GetColor(255, 255, 255), FALSE);
 	}
 #endif
 };

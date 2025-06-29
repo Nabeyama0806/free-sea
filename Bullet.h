@@ -8,8 +8,6 @@ struct BulletStatus;
 class Bullet : public ModelActor
 {
 private:
-	static constexpr float Size = 0.1f; //’e‚Ì‘å‚«‚³
-
 	Stage* m_stage;	
 	Vector3 m_forward;	
 	float m_elapsedTime;

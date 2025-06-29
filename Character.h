@@ -16,7 +16,7 @@ private:
 	static constexpr int MaxHealth = 160;			//体力
 	static constexpr float Scale = 3.0f;			//自身のサイズ
 	static constexpr float Speed = 1.2f * Scale;	//自身のサイズに合せた移動速度
-	static constexpr float Radius = 20.0f;			//衝突判定の半径
+	static constexpr float Radius = 13.0f;			//衝突判定の半径
 	static constexpr float FlashTime = 0.5f;		//点滅時間
 
 	//アニメーションパターン
@@ -111,7 +111,7 @@ public:
 	//生存確認
 	bool IsAlive() const
 	{
-		return m_health >= 0;
+		return m_health > 0;
 	}
 
 	//射出方向の取得

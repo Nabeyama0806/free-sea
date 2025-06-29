@@ -37,7 +37,7 @@ private:
 		"Resource/Texture/status_icon_green.png",
 		"Resource/Texture/status_icon_red.png",
 		"Resource/Texture/status_icon_pink.png",
-	};
+	}; 
 
 	//キャラクターアイコンの名前
 	const char* CharacterIconName[InputSystem::MaxPadAmount] =

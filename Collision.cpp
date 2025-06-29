@@ -47,13 +47,18 @@ bool Collision::Check(
 	Vector3 center1 = transform1.position;
 	Vector3 center2 = transform2.position;
 
+	//スケールを考慮した半径
+	float radius1 = circle1->m_radius * transform1.scale;
+	float radius2 = circle2->m_radius * transform2.scale;
+
 	//中心間距離の2乗
 	float distSq = (center1 - center2).SqrMagnitude();
 
 	//半径の合計の2乗
-	float radiusSum = circle1->m_radius + circle2->m_radius;
+	float radiusSum = radius1 + radius2;
 	float radiusSumSq = radiusSum * radiusSum;
 
 	//距離が半径の合計以下なら衝突している
 	return distSq <= radiusSumSq;
+
 }

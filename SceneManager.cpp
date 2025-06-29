@@ -78,13 +78,17 @@ void SceneManager::Update()
 		//非同期ロードの開始
 		SetUseASyncLoadFlag(TRUE);
 		m_nextScene->Preload();
-		m_sprite->Update();
 
 		//非同期ロードを終了してからシーン遷移
 		if (GetASyncLoadNum() == 0)
 		{
 			SetUseASyncLoadFlag(FALSE);
 			m_phase = Phase::Transition;
+		}
+		else
+		{
+			//ロード中のスプライトを更新
+			m_sprite->Update();
 		}
 		break;
 
