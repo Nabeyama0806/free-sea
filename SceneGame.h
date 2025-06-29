@@ -84,8 +84,7 @@ private:
 
 public:
 	//コンストラクタ
-	SceneGame(std::vector<int>& playerBullets, int padAmount) :
-		m_padAmount(padAmount),
+	SceneGame(std::vector<int>& playerBullets) :
 		m_rootNode(nullptr),
 		m_stage(nullptr),
 		m_mainCamera(nullptr),
@@ -93,6 +92,7 @@ public:
 		m_characters{nullptr},
 		m_resultTransitionTime(ResultTransitionTime),
 		m_playerBullets(playerBullets),
+		m_padAmount(0),
 		m_bgm(0)
 	{
 	}

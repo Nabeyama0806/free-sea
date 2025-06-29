@@ -35,7 +35,6 @@ void SceneTitle::Initialize()
 	//タイトルロゴ
 	m_rootNode->AddChild(new SpriteActor("TitleLogo", "Resource/Texture/title_logo.png", Screen::Center));
 
-
 	//接続されているパッドの数だけ配列の要素数を追加
 	for (int i = 0; i < InputSystem::GetInstance()->GetPadAmount(); ++i)
 	{
@@ -94,10 +93,7 @@ void SceneTitle::Update()
 		for (int i = 0; i < m_padAmount; ++i)
 		{
 			//パッドの接続数が増えていれば追加
-			if (i > m_select.size()) m_select.push_back(0);
-
-			//パッドの接続数が減っていれば削除
-			if (m_select.size() > m_padAmount) m_select.pop_back();
+			if (i >= m_select.size()) m_select.push_back(0);
 
 			InputSystem::ActionMap actionMap = static_cast<InputSystem::ActionMap>(i);
 			if (InputSystem::GetInstance()->SelectLeft(actionMap))
@@ -120,7 +116,7 @@ void SceneTitle::Update()
 			if (InputSystem::GetInstance()->IsDecision(actionMap))
 			{
 				SoundManager::SoundStop(m_bgm);
-				SceneManager::GetInstance()->LoadScene(new SceneGame(m_select, m_padAmount));
+				SceneManager::GetInstance()->LoadScene(new SceneGame(m_select));
 			}
 		}
 		break;

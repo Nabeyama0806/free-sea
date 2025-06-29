@@ -60,6 +60,9 @@ void SceneGame::Initialize()
 	Node* uiLayer = new Node();
 	m_rootNode->AddChild(uiLayer);
 
+	//接続されているパッドの数を取得
+	m_padAmount = InputSystem::GetInstance()->GetPadAmount();
+
 	//生成するキャラの分岐
 	for (int i = 0; i < m_padAmount; ++i)
 	{
