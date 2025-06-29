@@ -126,7 +126,7 @@ void SceneGame::Draw()
 void SceneGame::IsLastCharacter() const 
 {
 	//キャラクターの生存数をカウント
-	Character* lastCharacter = nullptr;
+	int playerIndex = 0;
 	int aliveCount = 0;
 	for (const auto& character : m_characters) 
 	{ 
@@ -136,7 +136,7 @@ void SceneGame::IsLastCharacter() const
 		//最後の生存キャラクター候補を保存
 		if (character->IsAlive())
 		{
-			lastCharacter = character;
+			playerIndex = character->GetPlayerIndex();
 			aliveCount++;
 		}
 
@@ -145,5 +145,5 @@ void SceneGame::IsLastCharacter() const
 	}
 	
 	//生存キャラクターが1人ならリザルトへ遷移
-	if (aliveCount == 1) SceneManager:: GetInstance()->LoadScene(new SceneResult(lastCharacter));
+	if (aliveCount == 1) SceneManager:: GetInstance()->LoadScene(new SceneResult(playerIndex));
 }
