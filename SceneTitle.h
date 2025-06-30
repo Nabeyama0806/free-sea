@@ -47,7 +47,7 @@ private:
 		"Resource/Texture/straight.png",
 		"Resource/Texture/diffusion.png",
 		"Resource/Texture/laser.png",
-		"Resource/Texture/title_logo.png",
+		"Resource/Texture/Fanshape.png",
 	};
 
 	const Vector2 DrawPosOffset[InputSystem::MaxPadAmount] =
